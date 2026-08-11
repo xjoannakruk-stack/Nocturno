@@ -64,7 +64,7 @@
 
 <section id="employees" class="page"><div class="toolbar"><div class="title" style="margin:0"><h1>Pracownicy</h1><p>Kontrola personelu</p></div><button class="btn gold" id="newEmployee">+ DODAJ PRACOWNIKA</button></div><div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Status</th><th>Aktywny</th></tr></thead><tbody id="employeesBody"></tbody></table></div></section>
 
-<section id="management" class="page"><div class="title"><h1>Zarządzanie</h1><p>Panel właściciela Nocturno</p></div><div class="grid g3"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny miesiąca</div><div id="mHours" class="value goldtext">00:00:00</div></div></div><div class="card" style="margin-top:16px"><b>Reset miesięcznego rankingu</b><p style="color:var(--muted)">Reset nie kasuje historii. Zamykamy okres i rozpoczynamy nowy.</p><button id="resetMonth" class="btn danger">ZAMKNIJ BIEŻĄCY OKRES</button></div></section>
+<section id="management" class="page"><div class="title"><h1>Zarządzanie</h1><p>Panel właściciela Nocturno</p></div><div class="grid g3"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny bieżącego okresu</div><div id="mHours" class="value goldtext">00:00:00</div></div></div><div class="card" style="margin-top:16px"><b>Reset godzin / rankingu</b><p style="color:var(--muted)">Reset nie kasuje historii. Ustawia nowy moment startowy liczenia godzin — możesz zrobić go ręcznie w dowolnym momencie.</p><button id="resetMonth" class="btn danger">RESETUJ GODZINY</button></div></section>
 </main></div>
 </section>
 
@@ -103,12 +103,27 @@ async function boot(u){
  if(profile.role==="manager")$("managerNav").classList.remove("hidden");
  await refresh();if(profile.role==="manager"){await loadEmployees();await loadManagement()}
 }
+async function getCurrentPeriod(){
+  const r=await db.from("work_periods").select("id,started_at").eq("status","open").order("started_at",{ascending:false}).limit(1).maybeSingle();
+  if(r.error){console.error("work_periods:",r.error);return null}
+  return r.data||null;
+}
+function secsInPeriod(s, periodStart){
+  const start=Math.max(new Date(s.started_at).getTime(),new Date(periodStart).getTime());
+  const end=s.ended_at?new Date(s.ended_at).getTime():Date.now();
+  return Math.max(0,(end-start)/1000);
+}
 async function refresh(){
  let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;
- renderTimer();let now=new Date(),day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString(),month=new Date(now.getFullYear(),now.getMonth(),1).toISOString();
+ renderTimer();
+ let now=new Date(),day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString();
  let a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",day)).data||[];
  $("today").textContent=fmt(a.reduce((n,s)=>n+secs(s),0));$("sessionsToday").textContent=a.length;
- let m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",month)).data||[];$("month").textContent=fmt(m.reduce((n,s)=>n+secs(s),0));
+ let period=await getCurrentPeriod();
+ if(period){
+   let m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",period.started_at)).data||[];
+   $("month").textContent=fmt(m.reduce((n,s)=>n+secsInPeriod(s,period.started_at),0));
+ }else $("month").textContent="00:00:00";
 }
 function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("status").textContent="ON";$("start").classList.add("hidden");$("stop").classList.remove("hidden");let run=()=>{$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);};run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("status").textContent="OFF";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
 $("start").onclick=async()=>{let r=await db.from("work_sessions").insert({employee_id:user.id,started_at:new Date().toISOString()}).select().single();if(r.error){toast(r.error.message);return}active=r.data;renderTimer();await refresh();toast("Rozpoczęto pracę")};
@@ -116,12 +131,71 @@ $("stop").onclick=async()=>{if(!active)return;let r=await db.from("work_sessions
 
 async function loadHistory(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null).order("started_at",{ascending:false}).limit(200);$("historyBody").innerHTML=(r.data||[]).map(s=>`<tr><td>${date(s.started_at)}</td><td>${time(s.started_at)}</td><td>${time(s.ended_at)}</td><td class="green">${fmt(secs(s))}</td></tr>`).join("")}
 async function loadStats(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null),a=r.data||[],total=a.reduce((n,s)=>n+secs(s),0);$("statTotal").textContent=fmt(total);$("statSessions").textContent=a.length;$("statAvg").textContent=fmt(a.length?total/a.length:0)}
-async function loadRanking(){let e=(await db.from("profiles").select("id,full_name,position").eq("active",true)).data||[],month=new Date();month=new Date(month.getFullYear(),month.getMonth(),1).toISOString();let s=(await db.from("work_sessions").select("*").gte("started_at",month)).data||[],tot={};e.forEach(x=>tot[x.id]=0);s.forEach(x=>{if(x.employee_id in tot)tot[x.employee_id]+=secs(x)});e.sort((a,b)=>tot[b.id]-tot[a.id]);$("rankingBody").innerHTML=e.map((x,i)=>`<tr><td class="goldtext">${i+1}</td><td>${x.full_name}</td><td>${x.position||"-"}</td><td class="green">${fmt(tot[x.id])}</td></tr>`).join("")}
+async function loadRanking(){
+ let e=(await db.from("profiles").select("id,full_name,position").eq("active",true)).data||[];
+ let period=await getCurrentPeriod();
+ let s=period?(await db.from("work_sessions").select("*").gte("started_at",period.started_at)).data||[]:[];
+ let tot={};e.forEach(x=>tot[x.id]=0);
+ if(period)s.forEach(x=>{if(x.employee_id in tot)tot[x.employee_id]+=secsInPeriod(x,period.started_at)});
+ e.sort((a,b)=>tot[b.id]-tot[a.id]);
+ $("rankingBody").innerHTML=e.map((x,i)=>`<tr><td class="goldtext">${i+1}</td><td>${x.full_name}</td><td>${x.position||"-"}</td><td class="green">${fmt(tot[x.id])}</td></tr>`).join("")
+}
 async function loadEmployees(){let e=(await db.from("profiles").select("*").order("created_at",{ascending:false})).data||[];let ids=e.map(x=>x.id),s=(await db.from("work_sessions").select("employee_id").is("ended_at",null)).data||[];let on=new Set(s.map(x=>x.employee_id));$("employeesBody").innerHTML=e.map(x=>`<tr><td><b>${x.full_name}</b></td><td>${x.position||"-"}</td><td>${on.has(x.id)?'<span class="badge on">PRACUJE</span>':'<span class="badge off">OFF</span>'}</td><td>${x.active?"TAK":"NIE"}</td></tr>`).join("")}
-async function loadManagement(){let e=(await db.from("profiles").select("id").eq("active",true)).data||[],s=(await db.from("work_sessions").select("*")).data||[],now=new Date(),ms=new Date(now.getFullYear(),now.getMonth(),1);let m=s.filter(x=>new Date(x.started_at)>=ms),total=m.reduce((n,x)=>n+secs(x),0),on=new Set(s.filter(x=>!x.ended_at).map(x=>x.employee_id));$("mEmployees").textContent=e.length;$("mActive").textContent=on.size;$("mHours").textContent=fmt(total)}
+async function loadManagement(){
+ let e=(await db.from("profiles").select("id").eq("active",true)).data||[];
+ let s=(await db.from("work_sessions").select("*")).data||[];
+ let period=await getCurrentPeriod();
+ let m=period?s.filter(x=>new Date(x.started_at)>=new Date(period.started_at)):[];
+ let total=period?m.reduce((n,x)=>n+secsInPeriod(x,period.started_at),0):0;
+ let on=new Set(s.filter(x=>!x.ended_at).map(x=>x.employee_id));
+ $("mEmployees").textContent=e.length;
+ $("mActive").textContent=on.size;
+ $("mHours").textContent=fmt(total);
+}
 $("newEmployee").onclick=()=>$("modal").classList.add("show");$("closeModal").onclick=()=>$("modal").classList.remove("show");
-$("createEmployee").onclick=async()=>{let payload={full_name:$("empName").value.trim(),email:$("empEmail").value.trim(),password:$("empPassword").value,position:$("empPosition").value};if(!payload.full_name||!payload.email||payload.password.length<8){toast("Uzupełnij dane. Hasło: min. 8 znaków.");return}let {data,error}=await db.functions.invoke("create-employee",{body:payload});if(error){toast(error.message);return}toast("Konto utworzone");$("modal").classList.remove("show");$("empName").value=$("empEmail").value=$("empPassword").value="";await loadEmployees()};
-$("resetMonth").onclick=async()=>{if(!confirm("Zamknąć bieżący okres? Historia sesji pozostanie w bazie."))return;let r=await db.from("monthly_periods").update({status:"closed",end_date:new Date().toISOString().slice(0,10)}).eq("status","open");if(r.error){toast(r.error.message);return}toast("Okres zamknięty")};
+$("createEmployee").onclick=async()=>{
+ let payload={
+   full_name:$("empName").value.trim(),
+   email:$("empEmail").value.trim().toLowerCase(),
+   password:$("empPassword").value,
+   position:$("empPosition").value,
+   role:"employee"
+ };
+ if(!payload.full_name||!payload.email||payload.password.length<8){
+   toast("Uzupełnij dane. Hasło: minimum 8 znaków.");
+   return;
+ }
+ let {data,error}=await db.functions.invoke("create-employee",{body:payload});
+ if(error){
+   console.error("create-employee error:",error);
+   let msg=error.message||"Nie udało się utworzyć konta.";
+   if(/failed to send|fetch|network/i.test(msg)) msg="Nie działa Edge Function „create-employee”. Musi być wdrożona w Supabase.";
+   toast(msg);
+   return;
+ }
+ toast("Konto utworzone");
+ $("modal").classList.remove("show");
+ $("empName").value="";
+ $("empEmail").value="";
+ $("empPassword").value="";
+ await loadEmployees();
+};
+$("resetMonth").onclick=async()=>{
+ if(!confirm("ZRESETOWAĆ GODZINY? Historia zostanie zachowana, a od teraz ranking i godziny będą liczone od zera."))return;
+ const now=new Date().toISOString();
+ const current=await db.from("work_periods").select("id,started_at").eq("status","open").order("started_at",{ascending:false}).limit(1).maybeSingle();
+ if(current.error){toast("Nie można odczytać okresu: "+current.error.message);return}
+ if(current.data){
+   const close=await db.from("work_periods").update({status:"closed",ended_at:now}).eq("id",current.data.id);
+   if(close.error){toast("Nie można zamknąć okresu: "+close.error.message);return}
+ }
+ const open=await db.from("work_periods").insert({started_at:now,status:"open"}).select().single();
+ if(open.error){toast("Nie można rozpocząć nowego okresu: "+open.error.message);return}
+ toast("Godziny zostały zresetowane");
+ await refresh();
+ await loadRanking();
+ await loadManagement();
+};
 
 (async()=>{let r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
 </script>
