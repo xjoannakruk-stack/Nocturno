@@ -6,12 +6,12 @@
 <title>NOCTURNO — Staff</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#050806;--panel:#0b120d;--panel2:#101a13;--green:#35c978;--gold:#d8b76b;--text:#f3f5f3;--muted:#87938b;--red:#df6666;--line:#1c3023}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 10%,#12331e 0,transparent 30%),radial-gradient(circle at 90% 90%,#302611 0,transparent 25%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#0b120df0;border:1px solid #314635;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--gold);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#39d17d,#16894b);color:#fff}.gold{background:linear-gradient(135deg,#f1d994,#b9974e);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
-.app{min-height:100vh}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#050906ee;backdrop-filter:blur(15px);position:sticky;top:0;z-index:10}.brand{font:27px Georgia;color:var(--gold);letter-spacing:4px}.who{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#14562f;font-weight:800}.logout{background:transparent;border:1px solid #26372b;color:#aab4ad;border-radius:9px;padding:8px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 72px)}.side{padding:20px 13px;border-right:1px solid var(--line);background:#050a06aa}.nav{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#9aa59e;padding:12px;border-radius:10px;cursor:pointer;margin-bottom:6px}.nav.active,.nav:hover{color:#fff;background:#15301f;border-color:#244c31}.content{padding:30px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.title{margin-bottom:22px}.title h1{font:32px Georgia;color:var(--gold);margin:0}.title p{color:var(--muted);margin:7px 0}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.card{background:#0b120de8;border:1px solid var(--line);border-radius:18px;padding:20px}.label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}.value{font-size:28px;font-weight:850;margin-top:9px}.green{color:var(--green)}.goldtext{color:var(--gold)}.timer{text-align:center;padding:48px 20px;margin-top:16px}.state{color:var(--muted);font-size:11px;letter-spacing:2px}.clock{font:clamp(55px,8vw,92px) monospace;margin:22px 0}.actions{display:flex;justify-content:center;gap:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid #17231a}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.badge{font-size:10px;padding:5px 8px;border-radius:20px}.on{background:#123c26;color:#5bea99}.off{background:#202620;color:#9ba59f}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#0b120d;border:1px solid #304533;border-radius:20px;padding:26px}.toast{position:fixed;right:20px;bottom:20px;background:#102018;border:1px solid #2a5136;padding:13px 16px;border-radius:11px;transform:translateY(100px);opacity:0;transition:.25s;z-index:40}.toast.show{transform:none;opacity:1}
+:root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
+.app{min-height:100vh}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#050906ee;backdrop-filter:blur(15px);position:sticky;top:0;z-index:10}.brand{font:27px Georgia;color:var(--gold);letter-spacing:4px}.who{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#14562f;font-weight:800}.logout{background:transparent;border:1px solid #26372b;color:#aab4ad;border-radius:9px;padding:8px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 72px)}.side{padding:20px 13px;border-right:1px solid var(--line);background:#050a06aa}.nav{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#9aa59e;padding:12px;border-radius:10px;cursor:pointer;margin-bottom:6px}.nav.active,.nav:hover{color:#fff;background:#103b27;border-color:#23623f}.content{padding:30px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.title{margin-bottom:22px}.title h1{font:32px Georgia;color:var(--gold);margin:0}.title p{color:var(--muted);margin:7px 0}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.card{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:20px}.label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}.value{font-size:28px;font-weight:850;margin-top:9px}.green{color:var(--green)}.goldtext{color:var(--gold)}.timer{text-align:center;padding:48px 20px;margin-top:16px}.state{color:var(--muted);font-size:11px;letter-spacing:2px}.clock{font:clamp(55px,8vw,92px) monospace;margin:22px 0}.actions{display:flex;justify-content:center;gap:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid #17231a}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.badge{font-size:10px;padding:5px 8px;border-radius:20px}.on{background:#123c26;color:#5bea99}.off{background:#202620;color:#9ba59f}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#07110a;border:1px solid #245238;border-radius:20px;padding:26px}.toast{position:fixed;right:20px;bottom:20px;background:#102018;border:1px solid #2a5136;padding:13px 16px;border-radius:11px;transform:translateY(100px);opacity:0;transition:.25s;z-index:40}.toast.show{transform:none;opacity:1}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{min-width:max-content;width:auto;margin:0 4px}.g4,.g3{grid-template-columns:1fr 1fr}.content{padding:18px}}@media(max-width:600px){.g4,.g3{grid-template-columns:1fr}.top{padding:0 12px}.who .name{display:none}.content{padding:14px}.loginbox{padding:25px}.logo{font-size:43px}}
-</style>
+.smallbtn{padding:8px 10px;font-size:11px}.muted{color:var(--muted)}.money{color:var(--gold);font-weight:800}.modalbox.wide{width:min(760px,100%)}.actions-row{display:flex;gap:8px;flex-wrap:wrap}.periodbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}.periodselect{min-width:280px}.kpi-note{font-size:11px;color:var(--muted);margin-top:6px}.dangertext{color:#ff8f8f}.search{max-width:320px}.table-actions{white-space:nowrap}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px}.payrate{font-size:12px;color:var(--muted)}.audit{font-size:12px}.locked{opacity:.65}</style>
 </head>
 <body>
 <section id="login" class="login">
@@ -42,6 +42,7 @@
     <div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div>
     <button class="nav" data-page="employees">Pracownicy</button>
     <button class="nav" data-page="management">Zarządzanie</button>
+    <button class="nav" data-page="audit">Dziennik zmian</button>
   </div>
 </aside>
 <main class="content">
@@ -49,9 +50,9 @@
 <div class="title"><h1 id="welcome"></h1><p>Twój czas pracy w Nocturno</p></div>
 <div class="grid g4">
 <div class="card"><div class="label">Dzisiaj</div><div id="today" class="value green">00:00:00</div></div>
-<div class="card"><div class="label">Ten miesiąc</div><div id="month" class="value goldtext">00:00:00</div></div>
+<div class="card"><div class="label">Aktualny okres</div><div id="month" class="value goldtext">00:00:00</div><div id="periodLabel" class="kpi-note">Brak okresu</div></div>
 <div class="card"><div class="label">Sesje dzisiaj</div><div id="sessionsToday" class="value">0</div></div>
-<div class="card"><div class="label">Status</div><div id="status" class="value">OFF</div></div>
+<div class="card"><div class="label">Szacunkowe zarobki okresu</div><div id="myPay" class="value money">$0</div><div class="kpi-note">1 ukończone 15 min = pełna stawka</div></div>
 </div>
 <div class="card timer"><div id="state" class="state">NIE PRACUJESZ</div><div id="clock" class="clock">00:00:00</div><div class="actions"><button id="start" class="btn primary">ROZPOCZNIJ PRACĘ</button><button id="stop" class="btn danger hidden">ZAKOŃCZ PRACĘ</button></div></div>
 </section>
@@ -60,144 +61,123 @@
 
 <section id="stats" class="page"><div class="title"><h1>Statystyki</h1><p>Podsumowanie czasu</p></div><div class="grid g3"><div class="card"><div class="label">Łącznie</div><div id="statTotal" class="value green">00:00:00</div></div><div class="card"><div class="label">Sesje</div><div id="statSessions" class="value">0</div></div><div class="card"><div class="label">Średnia sesja</div><div id="statAvg" class="value goldtext">00:00:00</div></div></div></section>
 
-<section id="ranking" class="page"><div class="title"><h1>Ranking</h1><p>Bieżący miesiąc</p></div><div class="card tablewrap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Czas</th></tr></thead><tbody id="rankingBody"></tbody></table></div></section>
+<section id="ranking" class="page"><div class="title"><h1>Ranking</h1><p>Aktualny ręczny okres</p></div><div class="periodbar"><select id="rankingPeriod" class="field select periodselect"></select></div><div class="card tablewrap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Czas</th><th>Stawka / 15 min</th><th>Zarobki</th></tr></thead><tbody id="rankingBody"></tbody></table></div></section>
 
-<section id="employees" class="page"><div class="toolbar"><div class="title" style="margin:0"><h1>Pracownicy</h1><p>Kontrola personelu</p></div><button class="btn gold" id="newEmployee">+ DODAJ PRACOWNIKA</button></div><div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Status</th><th>Aktywny</th></tr></thead><tbody id="employeesBody"></tbody></table></div></section>
+<section id="employees" class="page"><div class="toolbar"><div class="title" style="margin:0"><h1>Pracownicy</h1><p>Kontrola personelu</p></div><div class="actions-row"><input id="employeeSearch" class="field search" placeholder="Szukaj pracownika..."><button class="btn gold" id="newEmployee">+ DODAJ PRACOWNIKA</button></div></div><div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Stawka / 15 min</th><th>Status</th><th>Aktywny</th><th>Akcje</th></tr></thead><tbody id="employeesBody"></tbody></table></div></section>
 
-<section id="management" class="page"><div class="title"><h1>Zarządzanie</h1><p>Panel właściciela Nocturno</p></div><div class="grid g3"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny bieżącego okresu</div><div id="mHours" class="value goldtext">00:00:00</div></div></div><div class="card" style="margin-top:16px"><b>Reset godzin / rankingu</b><p style="color:var(--muted)">Reset nie kasuje historii. Ustawia nowy moment startowy liczenia godzin — możesz zrobić go ręcznie w dowolnym momencie.</p><button id="resetMonth" class="btn danger">RESETUJ GODZINY</button></div></section>
+<section id="management" class="page"><div class="title"><h1>Zarządzanie</h1><p>Panel właściciela Nocturno</p></div><div class="grid g4"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny okresu</div><div id="mHours" class="value goldtext">00:00:00</div></div><div class="card"><div class="label">Koszt pracy okresu</div><div id="mPay" class="value money">$0</div></div></div><div class="card" style="margin-top:16px"><b>Ręczne okresy</b><p style="color:var(--muted)">Reset nie kasuje historii. Zamyka aktualny okres dokładnie w momencie kliknięcia i rozpoczyna nowy. Możesz resetować kiedy chcesz.</p><button id="resetMonth" class="btn danger">RESETUJ GODZINY</button></div><div class="card" style="margin-top:16px"><b>Okresy</b><div class="tablewrap"><table><thead><tr><th>Status</th><th>Start</th><th>Koniec</th><th>Godziny</th><th>Zarobki</th></tr></thead><tbody id="periodsBody"></tbody></table></div></div></section>
+<section id="audit" class="page"><div class="title"><h1>Dziennik zmian</h1><p>Kto i co zmienił w panelu</p></div><div class="card tablewrap"><table><thead><tr><th>Data</th><th>Manager</th><th>Akcja</th><th>Szczegóły</th></tr></thead><tbody id="auditBody"></tbody></table></div></section>
 </main></div>
 </section>
 
-<div id="modal" class="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Nowy pracownik</h2><button id="closeModal" class="logout">×</button></div>
+<div id="modal" class="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="employeeModalTitle">Nowy pracownik</h2><button id="closeModal" class="logout">×</button></div>
 <div class="field"><label>Imię i nazwisko</label><input id="empName"></div>
-<div class="field"><label>Email</label><input id="empEmail" type="email"></div>
-<div class="field"><label>Hasło tymczasowe</label><input id="empPassword" type="password"></div>
-<div class="field"><label>Stanowisko</label><select id="empPosition"><option>Początkujący kelner</option><option>Kelner</option><option>Sommelier</option><option>Kucharz</option><option>Szef kuchni</option><option>Kierownik</option><option>Manager</option><option>Zastępca szefa</option><option>Szef</option></select></div>
-<button id="createEmployee" class="btn gold full">UTWÓRZ KONTO</button></div></div>
+<div class="field" id="empEmailField"><label>Email</label><input id="empEmail" type="email"></div>
+<div class="field" id="empPasswordField"><label>Hasło tymczasowe</label><input id="empPassword" type="password"></div>
+<div class="field"><label>Stanowisko</label><select id="empPosition"></select></div>
+<div class="field"><label>Rola systemowa</label><select id="empRole"><option value="employee">Pracownik</option><option value="manager">Manager / Właściciel (Szef)</option></select></div>
+<button id="saveEmployee" class="btn gold full">ZAPISZ</button></div></div>
+<div id="correctionModal" class="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Korekta czasu</h2><button id="closeCorrection" class="logout">×</button></div><div id="correctionPerson" class="muted" style="margin-bottom:12px"></div>
+<div class="field"><label>Rozpoczęcie</label><input id="corrStart" type="datetime-local"></div><div class="field"><label>Zakończenie</label><input id="corrEnd" type="datetime-local"></div><div class="field"><label>Powód korekty</label><input id="corrReason" placeholder="np. zapomniane odbicie"></div><button id="saveCorrection" class="btn gold full">ZAPISZ KOREKTĘ</button></div></div>
+<div id="historyModal" class="modal"><div class="modalbox wide"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="historyTitle">Historia pracownika</h2><button id="closeHistory" class="logout">×</button></div><div class="tablewrap"><table><thead><tr><th>Data</th><th>Start</th><th>Koniec</th><th>Czas</th><th>Zarobki</th><th>Akcja</th></tr></thead><tbody id="employeeHistoryBody"></tbody></table></div></div></div>
 <div id="toast" class="toast"></div>
 
 <script>
 const SUPABASE_URL="https://eutloybyywmnvnoostuu.supabase.co";
 const SUPABASE_KEY="sb_publishable_k5q-jhRf951gQMWVytVYVw_sgeumyaM";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let user=null, profile=null, active=null, tick=null;
 
+// STAWKI: kwota za KAŻDE UKOŃCZONE 15 MINUT.
+// Stawki za ukończone bloki 15 minut. Szef = właściciel.
+const POSITIONS={
+  "Szef":950,
+  "Zastępca szefa":940,
+  "Manager":920,
+  "Kierownik":900,
+  "Szef kuchni":850,
+  "Kucharz":800,
+  "Sommelier":750,
+  "Kelner":600,
+  "Początkujący kelner":500
+};
+const POSITION_NAMES=Object.keys(POSITIONS);
+const PAY_BLOCK=15*60;
 const $=id=>document.getElementById(id);
+let user=null,profile=null,active=null,tick=null,editingEmployeeId=null,correctionSessionId=null,historyEmployeeId=null;
+let periods=[];
 const fmt=s=>{s=Math.max(0,Math.floor(s));return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,"0")).join(":")};
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
 const date=x=>new Date(x).toLocaleDateString("pl-PL");
+const dateTime=x=>new Date(x).toLocaleString("pl-PL");
 const time=x=>new Date(x).toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
-function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2800)}
-function secs(s){return (new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000}
+const localInput=x=>{const d=new Date(x);const p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
+const secs=s=>(new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000;
+const periodSecs=(s,p)=>{const a=Math.max(new Date(s.started_at).getTime(),new Date(p.started_at).getTime());const b=Math.min(s.ended_at?new Date(s.ended_at).getTime():Date.now(),p.ended_at?new Date(p.ended_at).getTime():Date.now());return Math.max(0,(b-a)/1000)};
+const rateFor=position=>POSITIONS[position]??0;
+const payFor=(seconds,position)=>Math.floor(Math.max(0,seconds)/PAY_BLOCK)*rateFor(position);
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function esc(s){return String(s??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]))}
+function fillPositions(){ $("empPosition").innerHTML=POSITION_NAMES.map(p=>`<option value="${esc(p)}">${esc(p)} — ${money(POSITIONS[p])}/15 min</option>`).join(""); }
+function roleLabel(r){return r==="manager"?"Manager / Właściciel":"Pracownik"}
+async function logAction(action,details){try{await db.from("audit_log").insert({actor_id:user.id,action,details});}catch(e){console.warn("audit_log",e)}}
 
-$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent="";let {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}await boot(data.user)};
+$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent="";const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}await boot(data.user)};
 $("logout").onclick=async()=>{if(tick)clearInterval(tick);await db.auth.signOut();location.reload()};
-document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");({history:loadHistory,stats:loadStats,ranking:loadRanking,employees:loadEmployees,management:loadManagement})[b.dataset.page]?.()});
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");({history:loadHistory,stats:loadStats,ranking:loadRanking,employees:loadEmployees,management:loadManagement,audit:loadAudit})[b.dataset.page]?.()});
 
 async function boot(u){
- user=u;
- let r=await db.from("profiles").select("*").eq("id",u.id).single();
+ user=u;fillPositions();
+ const r=await db.from("profiles").select("*").eq("id",u.id).single();
  if(r.error||!r.data){await db.auth.signOut();alert("Brak profilu w tabeli profiles.");return}
  profile=r.data;if(!profile.active){await db.auth.signOut();alert("Konto nieaktywne.");return}
  $("login").classList.add("hidden");$("app").classList.remove("hidden");
- $("whoName").textContent=profile.full_name;$("whoRole").textContent=profile.role==="manager"?"Manager / Właściciel":(profile.position||"Pracownik");$("avatar").textContent=profile.full_name[0].toUpperCase();$("welcome").textContent="Witaj, "+profile.full_name;
+ $("whoName").textContent=profile.full_name;$("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");$("avatar").textContent=profile.full_name[0].toUpperCase();$("welcome").textContent="Witaj, "+profile.full_name;
  if(profile.role==="manager")$("managerNav").classList.remove("hidden");
- await refresh();if(profile.role==="manager"){await loadEmployees();await loadManagement()}
+ await loadPeriods();await refresh();if(profile.role==="manager"){await loadEmployees();await loadManagement();}
 }
-async function getCurrentPeriod(){
-  const r=await db.from("work_periods").select("id,started_at").eq("status","open").order("started_at",{ascending:false}).limit(1).maybeSingle();
-  if(r.error){console.error("work_periods:",r.error);return null}
-  return r.data||null;
-}
-function secsInPeriod(s, periodStart){
-  const start=Math.max(new Date(s.started_at).getTime(),new Date(periodStart).getTime());
-  const end=s.ended_at?new Date(s.ended_at).getTime():Date.now();
-  return Math.max(0,(end-start)/1000);
-}
+async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[];renderPeriodSelects();}
+function renderPeriodSelects(){const sel=$("rankingPeriod");if(!sel)return;const open=periods.find(p=>p.status==="open");sel.innerHTML=periods.map(p=>`<option value="${p.id}" ${open&&p.id===open.id?"selected":""}>${p.status==="open"?"🟢 AKTUALNY":"⚪ ZAMKNIĘTY"} · ${dateTime(p.started_at)}${p.ended_at?" → "+dateTime(p.ended_at):" → teraz"}</option>`).join("");sel.onchange=()=>loadRanking(Number(sel.value));}
+function getPeriodById(id){return periods.find(p=>Number(p.id)===Number(id))}
+async function getCurrentPeriod(){return periods.find(p=>p.status==="open")||null}
 async function refresh(){
- let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;
- renderTimer();
- let now=new Date(),day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString();
- let a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",day)).data||[];
+ const r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;renderTimer();
+ const now=new Date(),day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString();const a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",day)).data||[];
  $("today").textContent=fmt(a.reduce((n,s)=>n+secs(s),0));$("sessionsToday").textContent=a.length;
- let period=await getCurrentPeriod();
- if(period){
-   let m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",period.started_at)).data||[];
-   $("month").textContent=fmt(m.reduce((n,s)=>n+secsInPeriod(s,period.started_at),0));
- }else $("month").textContent="00:00:00";
+ const p=await getCurrentPeriod();if(p){const m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",p.started_at)).data||[];const total=m.reduce((n,s)=>n+periodSecs(s,p),0);$("month").textContent=fmt(total);$("periodLabel").textContent="Od "+dateTime(p.started_at);$("myPay").textContent=money(payFor(total,profile.position));}else{$("month").textContent="00:00:00";$("periodLabel").textContent="Brak okresu";$("myPay").textContent="$0";}
 }
-function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("status").textContent="ON";$("start").classList.add("hidden");$("stop").classList.remove("hidden");let run=()=>{$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);};run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("status").textContent="OFF";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
-$("start").onclick=async()=>{let r=await db.from("work_sessions").insert({employee_id:user.id,started_at:new Date().toISOString()}).select().single();if(r.error){toast(r.error.message);return}active=r.data;renderTimer();await refresh();toast("Rozpoczęto pracę")};
-$("stop").onclick=async()=>{if(!active)return;let r=await db.from("work_sessions").update({ended_at:new Date().toISOString()}).eq("id",active.id).eq("employee_id",user.id);if(r.error){toast(r.error.message);return}active=null;renderTimer();await refresh();toast("Zakończono pracę")};
+function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("start").classList.add("hidden");$("stop").classList.remove("hidden");const run=()=>$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
+$("start").onclick=async()=>{const existing=await db.from("work_sessions").select("id").eq("employee_id",user.id).is("ended_at",null).limit(1);if(existing.data?.length){toast("Masz już aktywną zmianę.");return}const r=await db.from("work_sessions").insert({employee_id:user.id,started_at:new Date().toISOString()}).select().single();if(r.error){toast(r.error.message);return}active=r.data;renderTimer();await refresh();toast("Rozpoczęto pracę")};
+$("stop").onclick=async()=>{if(!active)return;const r=await db.from("work_sessions").update({ended_at:new Date().toISOString()}).eq("id",active.id).eq("employee_id",user.id);if(r.error){toast(r.error.message);return}active=null;renderTimer();await refresh();toast("Zakończono pracę")};
 
-async function loadHistory(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null).order("started_at",{ascending:false}).limit(200);$("historyBody").innerHTML=(r.data||[]).map(s=>`<tr><td>${date(s.started_at)}</td><td>${time(s.started_at)}</td><td>${time(s.ended_at)}</td><td class="green">${fmt(secs(s))}</td></tr>`).join("")}
-async function loadStats(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null),a=r.data||[],total=a.reduce((n,s)=>n+secs(s),0);$("statTotal").textContent=fmt(total);$("statSessions").textContent=a.length;$("statAvg").textContent=fmt(a.length?total/a.length:0)}
-async function loadRanking(){
- let e=(await db.from("profiles").select("id,full_name,position").eq("active",true)).data||[];
- let period=await getCurrentPeriod();
- let s=period?(await db.from("work_sessions").select("*").gte("started_at",period.started_at)).data||[]:[];
- let tot={};e.forEach(x=>tot[x.id]=0);
- if(period)s.forEach(x=>{if(x.employee_id in tot)tot[x.employee_id]+=secsInPeriod(x,period.started_at)});
- e.sort((a,b)=>tot[b.id]-tot[a.id]);
- $("rankingBody").innerHTML=e.map((x,i)=>`<tr><td class="goldtext">${i+1}</td><td>${x.full_name}</td><td>${x.position||"-"}</td><td class="green">${fmt(tot[x.id])}</td></tr>`).join("")
+async function loadHistory(){const r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null).order("started_at",{ascending:false}).limit(300);$("historyBody").innerHTML=(r.data||[]).map(s=>`<tr><td>${date(s.started_at)}</td><td>${time(s.started_at)}</td><td>${time(s.ended_at)}</td><td class="green">${fmt(secs(s))}</td><td class="money">${money(payFor(secs(s),profile.position))}</td></tr>`).join("")}
+async function loadStats(){const r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null),a=r.data||[],total=a.reduce((n,s)=>n+secs(s),0);$("statTotal").textContent=fmt(total);$("statSessions").textContent=a.length;$("statAvg").textContent=fmt(a.length?total/a.length:0)}
+async function loadRanking(periodId){
+ const p=getPeriodById(periodId)||await getCurrentPeriod();if(!p)return;
+ const e=(await db.from("profiles").select("id,full_name,position,active").eq("active",true)).data||[];const s=(await db.from("work_sessions").select("*")).data||[];const tot={};e.forEach(x=>tot[x.id]=0);s.forEach(x=>{if(x.employee_id in tot)tot[x.employee_id]+=periodSecs(x,p)});e.sort((a,b)=>tot[b.id]-tot[a.id]);
+ $("rankingBody").innerHTML=e.map((x,i)=>`<tr><td class="goldtext">${i+1}</td><td><b>${esc(x.full_name)}</b></td><td>${esc(x.position||"-")}</td><td class="green">${fmt(tot[x.id])}</td><td>${money(rateFor(x.position))}</td><td class="money">${money(payFor(tot[x.id],x.position))}</td></tr>`).join("");
 }
-async function loadEmployees(){let e=(await db.from("profiles").select("*").order("created_at",{ascending:false})).data||[];let ids=e.map(x=>x.id),s=(await db.from("work_sessions").select("employee_id").is("ended_at",null)).data||[];let on=new Set(s.map(x=>x.employee_id));$("employeesBody").innerHTML=e.map(x=>`<tr><td><b>${x.full_name}</b></td><td>${x.position||"-"}</td><td>${on.has(x.id)?'<span class="badge on">PRACUJE</span>':'<span class="badge off">OFF</span>'}</td><td>${x.active?"TAK":"NIE"}</td></tr>`).join("")}
-async function loadManagement(){
- let e=(await db.from("profiles").select("id").eq("active",true)).data||[];
- let s=(await db.from("work_sessions").select("*")).data||[];
- let period=await getCurrentPeriod();
- let m=period?s.filter(x=>new Date(x.started_at)>=new Date(period.started_at)):[];
- let total=period?m.reduce((n,x)=>n+secsInPeriod(x,period.started_at),0):0;
- let on=new Set(s.filter(x=>!x.ended_at).map(x=>x.employee_id));
- $("mEmployees").textContent=e.length;
- $("mActive").textContent=on.size;
- $("mHours").textContent=fmt(total);
+async function loadEmployees(){
+ const e=(await db.from("profiles").select("*").order("created_at",{ascending:false})).data||[];const s=(await db.from("work_sessions").select("employee_id").is("ended_at",null)).data||[];const on=new Set(s.map(x=>x.employee_id));const q=($("employeeSearch").value||"").toLowerCase();
+ $("employeesBody").innerHTML=e.filter(x=>!q||String(x.full_name).toLowerCase().includes(q)||String(x.position||"").toLowerCase().includes(q)).map(x=>`<tr class="${x.active?"":"locked"}"><td><b>${esc(x.full_name)}</b><div class="payrate">${roleLabel(x.role)}</div></td><td>${esc(x.position||"-")}</td><td class="money">${money(rateFor(x.position))}</td><td>${on.has(x.id)?'<span class="badge on"><span class="online-dot"></span>PRACUJE</span>':'<span class="badge off">OFF</span>'}</td><td>${x.active?"TAK":"NIE"}</td><td class="table-actions"><button class="btn smallbtn" onclick="editEmployee('${x.id}')">✏️ Edytuj</button> <button class="btn smallbtn" onclick="showEmployeeHistory('${x.id}')">📋 Historia</button> <button class="btn smallbtn" onclick="toggleEmployee('${x.id}',${!x.active})">${x.active?"Dezaktywuj":"Aktywuj"}</button></td></tr>`).join("");
 }
-$("newEmployee").onclick=()=>$("modal").classList.add("show");$("closeModal").onclick=()=>$("modal").classList.remove("show");
-$("createEmployee").onclick=async()=>{
- let payload={
-   full_name:$("empName").value.trim(),
-   email:$("empEmail").value.trim().toLowerCase(),
-   password:$("empPassword").value,
-   position:$("empPosition").value,
-   role:"employee"
- };
- if(!payload.full_name||!payload.email||payload.password.length<8){
-   toast("Uzupełnij dane. Hasło: minimum 8 znaków.");
-   return;
- }
- let {data,error}=await db.functions.invoke("create-employee",{body:payload});
- if(error){
-   console.error("create-employee error:",error);
-   let msg=error.message||"Nie udało się utworzyć konta.";
-   if(/failed to send|fetch|network/i.test(msg)) msg="Nie działa Edge Function „create-employee”. Musi być wdrożona w Supabase.";
-   toast(msg);
-   return;
- }
- toast("Konto utworzone");
- $("modal").classList.remove("show");
- $("empName").value="";
- $("empEmail").value="";
- $("empPassword").value="";
- await loadEmployees();
-};
-$("resetMonth").onclick=async()=>{
- if(!confirm("ZRESETOWAĆ GODZINY? Historia zostanie zachowana, a od teraz ranking i godziny będą liczone od zera."))return;
- const now=new Date().toISOString();
- const current=await db.from("work_periods").select("id,started_at").eq("status","open").order("started_at",{ascending:false}).limit(1).maybeSingle();
- if(current.error){toast("Nie można odczytać okresu: "+current.error.message);return}
- if(current.data){
-   const close=await db.from("work_periods").update({status:"closed",ended_at:now}).eq("id",current.data.id);
-   if(close.error){toast("Nie można zamknąć okresu: "+close.error.message);return}
- }
- const open=await db.from("work_periods").insert({started_at:now,status:"open"}).select().single();
- if(open.error){toast("Nie można rozpocząć nowego okresu: "+open.error.message);return}
- toast("Godziny zostały zresetowane");
- await refresh();
- await loadRanking();
- await loadManagement();
-};
+$("employeeSearch").oninput=loadEmployees;
+async function editEmployee(id){const r=await db.from("profiles").select("*").eq("id",id).single();if(r.error){toast(r.error.message);return}const x=r.data;editingEmployeeId=id;$("employeeModalTitle").textContent="Edytuj pracownika";$("empName").value=x.full_name||"";$("empEmailField").classList.add("hidden");$("empPasswordField").classList.add("hidden");$("empPosition").value=POSITION_NAMES.includes(x.position)?x.position:"Początkujący kelner";$("empRole").value=x.role||"employee";$("modal").classList.add("show")}
+async function toggleEmployee(id,active){if(!confirm(active?"Aktywować pracownika?":"Dezaktywować pracownika?"))return;const r=await db.from("profiles").update({active}).eq("id",id);if(r.error){toast(r.error.message);return}await logAction(active?"Aktywacja pracownika":"Dezaktywacja pracownika",`profile_id=${id}`);toast(active?"Pracownik aktywowany":"Pracownik zdezaktywowany");await loadEmployees()}
+$("newEmployee").onclick=()=>{editingEmployeeId=null;$("employeeModalTitle").textContent="Nowy pracownik";$("empName").value="";$("empEmail").value="";$("empPassword").value="";$("empEmailField").classList.remove("hidden");$("empPasswordField").classList.remove("hidden");$("empPosition").value="Początkujący kelner";$("empRole").value="employee";$("modal").classList.add("show")};
+$("closeModal").onclick=()=>$("modal").classList.remove("show");
+$("saveEmployee").onclick=async()=>{const name=$("empName").value.trim();const position=$("empPosition").value;const role=$("empRole").value;if(!name){toast("Podaj imię i nazwisko.");return}if(editingEmployeeId){const r=await db.from("profiles").update({full_name:name,position,role}).eq("id",editingEmployeeId);if(r.error){toast(r.error.message);return}await logAction("Edycja pracownika",`${name} → ${position}, ${roleLabel(role)}`);toast("Zapisano zmiany")}else{const email=$("empEmail").value.trim().toLowerCase(),password=$("empPassword").value;if(!email||password.length<8){toast("Email jest wymagany, a hasło musi mieć minimum 8 znaków.");return}const {error}=await db.functions.invoke("create-employee",{body:{full_name:name,email,password,position,role}});if(error){console.error(error);toast(error.message||"Nie udało się utworzyć konta.");return}toast("Konto utworzone");await logAction("Dodanie pracownika",`${name} → ${position}`)}$("modal").classList.remove("show");await loadEmployees();await loadRanking()};
 
-(async()=>{let r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
+async function showEmployeeHistory(id){const r=await db.from("profiles").select("full_name,position").eq("id",id).single();if(r.error){toast(r.error.message);return}historyEmployeeId=id;$("historyTitle").textContent=`Historia: ${r.data.full_name}`;const s=(await db.from("work_sessions").select("*").eq("employee_id",id).not("ended_at","is",null).order("started_at",{ascending:false}).limit(300)).data||[];$("employeeHistoryBody").innerHTML=s.map(x=>`<tr><td>${date(x.started_at)}</td><td>${time(x.started_at)}</td><td>${time(x.ended_at)}</td><td>${fmt(secs(x))}</td><td class="money">${money(payFor(secs(x),r.data.position))}</td><td><button class="btn smallbtn" onclick="openCorrection('${x.id}','${id}')">✏️ Korekta</button></td></tr>`).join("");$("historyModal").classList.add("show")}
+$("closeHistory").onclick=()=>$("historyModal").classList.remove("show");
+async function openCorrection(sessionId,employeeId){const s=(await db.from("work_sessions").select("*").eq("id",sessionId).single()).data;if(!s){toast("Nie znaleziono sesji.");return}correctionSessionId=sessionId;historyEmployeeId=employeeId;$("corrStart").value=localInput(s.started_at);$("corrEnd").value=localInput(s.ended_at);$("corrReason").value="";$("correctionPerson").textContent="Korekta zapisze nowy czas tej sesji.";$("correctionModal").classList.add("show")}
+$("closeCorrection").onclick=()=>$("correctionModal").classList.remove("show");
+$("saveCorrection").onclick=async()=>{const st=new Date($("corrStart").value),en=new Date($("corrEnd").value),reason=$("corrReason").value.trim();if(!reason){toast("Podaj powód korekty.");return}if(!st.getTime()||!en.getTime()||en<=st){toast("Nieprawidłowe godziny.");return}const r=await db.from("work_sessions").update({started_at:st.toISOString(),ended_at:en.toISOString()}).eq("id",correctionSessionId);if(r.error){toast(r.error.message);return}await logAction("Korekta czasu",`session_id=${correctionSessionId}; ${reason}`);$("correctionModal").classList.remove("show");toast("Korekta zapisana");await showEmployeeHistory(historyEmployeeId);await loadManagement();await loadRanking()};
+
+async function loadManagement(){const e=(await db.from("profiles").select("id").eq("active",true)).data||[];const s=(await db.from("work_sessions").select("*")).data||[];const p=await getCurrentPeriod();const m=p?s.filter(x=>periodSecs(x,p)>0):[];const total=p?m.reduce((n,x)=>n+periodSecs(x,p),0):0;let pay=0;for(const x of m){const pr=(await db.from("profiles").select("position").eq("id",x.employee_id).maybeSingle()).data;pay+=payFor(periodSecs(x,p),pr?.position)}const on=new Set(s.filter(x=>!x.ended_at).map(x=>x.employee_id));$("mEmployees").textContent=e.length;$("mActive").textContent=on.size;$("mHours").textContent=fmt(total);$("mPay").textContent=money(pay);$("periodsBody").innerHTML=periods.map(p=>`<tr><td>${p.status==="open"?"🟢 OTWARTY":"⚪ ZAMKNIĘTY"}</td><td>${dateTime(p.started_at)}</td><td>${p.ended_at?dateTime(p.ended_at):"—"}</td><td>${p===periods[0]?fmt(total):"—"}</td><td>${p===periods[0]?money(pay):"—"}</td></tr>`).join("")}
+$("resetMonth").onclick=async()=>{if(!confirm("ZRESETOWAĆ GODZINY? Historia zostanie zachowana. Nowy okres zacznie się dokładnie teraz."))return;const now=new Date().toISOString();const current=await getCurrentPeriod();if(current){const close=await db.from("work_periods").update({status:"closed",ended_at:now}).eq("id",current.id);if(close.error){toast("Nie można zamknąć okresu: "+close.error.message);return}}const open=await db.from("work_periods").insert({started_at:now,status:"open"}).select().single();if(open.error){toast("Nie można rozpocząć okresu: "+open.error.message);return}await logAction("Reset okresu","Nowy okres od "+dateTime(now));toast("Godziny zostały zresetowane");await loadPeriods();await refresh();await loadRanking();await loadManagement()};
+async function loadAudit(){const r=await db.from("audit_log").select("*").order("created_at",{ascending:false}).limit(300);const rows=r.data||[];$("auditBody").innerHTML=rows.map(x=>`<tr><td>${dateTime(x.created_at)}</td><td>${esc(x.actor_id)}</td><td>${esc(x.action)}</td><td class="audit">${esc(x.details||"")}</td></tr>`).join("")}
+
+(async()=>{const r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
 </script>
 </body>
 </html>
