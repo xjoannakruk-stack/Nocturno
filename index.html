@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOCTURNO — Staff</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#050806;--panel:#0b120d;--panel2:#101a13;--green:#35c978;--gold:#d8b76b;--text:#f3f5f3;--muted:#87938b;--red:#df6666;--line:#1c3023}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 10%,#12331e 0,transparent 30%),radial-gradient(circle at 90% 90%,#302611 0,transparent 25%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#0b120df0;border:1px solid #314635;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--gold);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#39d17d,#16894b);color:#fff}.gold{background:linear-gradient(135deg,#f1d994,#b9974e);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
+.app{min-height:100vh}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#050906ee;backdrop-filter:blur(15px);position:sticky;top:0;z-index:10}.brand{font:27px Georgia;color:var(--gold);letter-spacing:4px}.who{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#14562f;font-weight:800}.logout{background:transparent;border:1px solid #26372b;color:#aab4ad;border-radius:9px;padding:8px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 72px)}.side{padding:20px 13px;border-right:1px solid var(--line);background:#050a06aa}.nav{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#9aa59e;padding:12px;border-radius:10px;cursor:pointer;margin-bottom:6px}.nav.active,.nav:hover{color:#fff;background:#15301f;border-color:#244c31}.content{padding:30px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.title{margin-bottom:22px}.title h1{font:32px Georgia;color:var(--gold);margin:0}.title p{color:var(--muted);margin:7px 0}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.card{background:#0b120de8;border:1px solid var(--line);border-radius:18px;padding:20px}.label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}.value{font-size:28px;font-weight:850;margin-top:9px}.green{color:var(--green)}.goldtext{color:var(--gold)}.timer{text-align:center;padding:48px 20px;margin-top:16px}.state{color:var(--muted);font-size:11px;letter-spacing:2px}.clock{font:clamp(55px,8vw,92px) monospace;margin:22px 0}.actions{display:flex;justify-content:center;gap:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid #17231a}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.badge{font-size:10px;padding:5px 8px;border-radius:20px}.on{background:#123c26;color:#5bea99}.off{background:#202620;color:#9ba59f}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#0b120d;border:1px solid #304533;border-radius:20px;padding:26px}.toast{position:fixed;right:20px;bottom:20px;background:#102018;border:1px solid #2a5136;padding:13px 16px;border-radius:11px;transform:translateY(100px);opacity:0;transition:.25s;z-index:40}.toast.show{transform:none;opacity:1}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{min-width:max-content;width:auto;margin:0 4px}.g4,.g3{grid-template-columns:1fr 1fr}.content{padding:18px}}@media(max-width:600px){.g4,.g3{grid-template-columns:1fr}.top{padding:0 12px}.who .name{display:none}.content{padding:14px}.loginbox{padding:25px}.logo{font-size:43px}}
+</style>
+</head>
+<body>
+<section id="login" class="login">
+  <div class="loginbox">
+    <div class="logo">NOCTURNO</div>
+    <div class="sub">Restaurante · Staff Management</div>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div>
+      <div class="field"><label>Hasło</label><input id="password" type="password" required autocomplete="current-password"></div>
+      <button class="btn primary full">ZALOGUJ SIĘ</button>
+      <div id="loginError" class="error"></div>
+    </form>
+  </div>
+</section>
+
+<section id="app" class="app hidden">
+<header class="top">
+  <div class="brand">NOCTURNO</div>
+  <div class="who"><div class="name"><b id="whoName"></b><small id="whoRole" style="display:block;color:var(--muted)"></small></div><div id="avatar" class="avatar">N</div><button class="logout" id="logout">Wyloguj</button></div>
+</header>
+<div class="layout">
+<aside class="side">
+  <button class="nav active" data-page="dashboard">Dashboard</button>
+  <button class="nav" data-page="history">Historia</button>
+  <button class="nav" data-page="stats">Statystyki</button>
+  <button class="nav" data-page="ranking">Ranking</button>
+  <div id="managerNav" class="hidden">
+    <div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div>
+    <button class="nav" data-page="employees">Pracownicy</button>
+    <button class="nav" data-page="management">Zarządzanie</button>
+  </div>
+</aside>
+<main class="content">
+<section id="dashboard" class="page active">
+<div class="title"><h1 id="welcome"></h1><p>Twój czas pracy w Nocturno</p></div>
+<div class="grid g4">
+<div class="card"><div class="label">Dzisiaj</div><div id="today" class="value green">00:00:00</div></div>
+<div class="card"><div class="label">Ten miesiąc</div><div id="month" class="value goldtext">00:00:00</div></div>
+<div class="card"><div class="label">Sesje dzisiaj</div><div id="sessionsToday" class="value">0</div></div>
+<div class="card"><div class="label">Status</div><div id="status" class="value">OFF</div></div>
+</div>
+<div class="card timer"><div id="state" class="state">NIE PRACUJESZ</div><div id="clock" class="clock">00:00:00</div><div class="actions"><button id="start" class="btn primary">ROZPOCZNIJ PRACĘ</button><button id="stop" class="btn danger hidden">ZAKOŃCZ PRACĘ</button></div></div>
+</section>
+
+<section id="history" class="page"><div class="title"><h1>Historia</h1><p>Zakończone sesje pracy</p></div><div class="card tablewrap"><table><thead><tr><th>Data</th><th>Start</th><th>Koniec</th><th>Czas</th></tr></thead><tbody id="historyBody"></tbody></table></div></section>
+
+<section id="stats" class="page"><div class="title"><h1>Statystyki</h1><p>Podsumowanie czasu</p></div><div class="grid g3"><div class="card"><div class="label">Łącznie</div><div id="statTotal" class="value green">00:00:00</div></div><div class="card"><div class="label">Sesje</div><div id="statSessions" class="value">0</div></div><div class="card"><div class="label">Średnia sesja</div><div id="statAvg" class="value goldtext">00:00:00</div></div></div></section>
+
+<section id="ranking" class="page"><div class="title"><h1>Ranking</h1><p>Bieżący miesiąc</p></div><div class="card tablewrap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Czas</th></tr></thead><tbody id="rankingBody"></tbody></table></div></section>
+
+<section id="employees" class="page"><div class="toolbar"><div class="title" style="margin:0"><h1>Pracownicy</h1><p>Kontrola personelu</p></div><button class="btn gold" id="newEmployee">+ DODAJ PRACOWNIKA</button></div><div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Status</th><th>Aktywny</th></tr></thead><tbody id="employeesBody"></tbody></table></div></section>
+
+<section id="management" class="page"><div class="title"><h1>Zarządzanie</h1><p>Panel właściciela Nocturno</p></div><div class="grid g3"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny miesiąca</div><div id="mHours" class="value goldtext">00:00:00</div></div></div><div class="card" style="margin-top:16px"><b>Reset miesięcznego rankingu</b><p style="color:var(--muted)">Reset nie kasuje historii. Zamykamy okres i rozpoczynamy nowy.</p><button id="resetMonth" class="btn danger">ZAMKNIJ BIEŻĄCY OKRES</button></div></section>
+</main></div>
+</section>
+
+<div id="modal" class="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Nowy pracownik</h2><button id="closeModal" class="logout">×</button></div>
+<div class="field"><label>Imię i nazwisko</label><input id="empName"></div>
+<div class="field"><label>Email</label><input id="empEmail" type="email"></div>
+<div class="field"><label>Hasło tymczasowe</label><input id="empPassword" type="password"></div>
+<div class="field"><label>Stanowisko</label><select id="empPosition"><option>Kelner / Kelnerka</option><option>Barman / Barmanka</option><option>Kucharz / Kucharka</option><option>Host / Hostessa</option><option>Manager</option><option>Inne</option></select></div>
+<button id="createEmployee" class="btn gold full">UTWÓRZ KONTO</button></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const SUPABASE_URL="https://eutloybyywmnvnoostuu.supabase.co";
+const SUPABASE_KEY="sb_publishable_k5q-jhRf951gQMWVytVYVw_sgeumyaM";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let user=null, profile=null, active=null, tick=null;
+
+const $=id=>document.getElementById(id);
+const fmt=s=>{s=Math.max(0,Math.floor(s));return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,"0")).join(":")};
+const date=x=>new Date(x).toLocaleDateString("pl-PL");
+const time=x=>new Date(x).toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2800)}
+function secs(s){return (new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000}
+
+$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent="";let {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}await boot(data.user)};
+$("logout").onclick=async()=>{if(tick)clearInterval(tick);await db.auth.signOut();location.reload()};
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");({history:loadHistory,stats:loadStats,ranking:loadRanking,employees:loadEmployees,management:loadManagement})[b.dataset.page]?.()});
+
+async function boot(u){
+ user=u;
+ let r=await db.from("profiles").select("*").eq("id",u.id).single();
+ if(r.error||!r.data){await db.auth.signOut();alert("Brak profilu w tabeli profiles.");return}
+ profile=r.data;if(!profile.active){await db.auth.signOut();alert("Konto nieaktywne.");return}
+ $("login").classList.add("hidden");$("app").classList.remove("hidden");
+ $("whoName").textContent=profile.full_name;$("whoRole").textContent=profile.role==="manager"?"Manager / Właściciel":(profile.position||"Pracownik");$("avatar").textContent=profile.full_name[0].toUpperCase();$("welcome").textContent="Witaj, "+profile.full_name;
+ if(profile.role==="manager")$("managerNav").classList.remove("hidden");
+ await refresh();if(profile.role==="manager"){await loadEmployees();await loadManagement()}
+}
+async function refresh(){
+ let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;
+ renderTimer();let now=new Date(),day=new Date(now.getFullYear(),now.getMonth(),now.getDate()).toISOString(),month=new Date(now.getFullYear(),now.getMonth(),1).toISOString();
+ let a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",day)).data||[];
+ $("today").textContent=fmt(a.reduce((n,s)=>n+secs(s),0));$("sessionsToday").textContent=a.length;
+ let m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",month)).data||[];$("month").textContent=fmt(m.reduce((n,s)=>n+secs(s),0));
+}
+function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("status").textContent="ON";$("start").classList.add("hidden");$("stop").classList.remove("hidden");let run=()=>{$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);};run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("status").textContent="OFF";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
+$("start").onclick=async()=>{let r=await db.from("work_sessions").insert({employee_id:user.id,started_at:new Date().toISOString()}).select().single();if(r.error){toast(r.error.message);return}active=r.data;renderTimer();await refresh();toast("Rozpoczęto pracę")};
+$("stop").onclick=async()=>{if(!active)return;let r=await db.from("work_sessions").update({ended_at:new Date().toISOString()}).eq("id",active.id).eq("employee_id",user.id);if(r.error){toast(r.error.message);return}active=null;renderTimer();await refresh();toast("Zakończono pracę")};
+
+async function loadHistory(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null).order("started_at",{ascending:false}).limit(200);$("historyBody").innerHTML=(r.data||[]).map(s=>`<tr><td>${date(s.started_at)}</td><td>${time(s.started_at)}</td><td>${time(s.ended_at)}</td><td class="green">${fmt(secs(s))}</td></tr>`).join("")}
+async function loadStats(){let r=await db.from("work_sessions").select("*").eq("employee_id",user.id).not("ended_at","is",null),a=r.data||[],total=a.reduce((n,s)=>n+secs(s),0);$("statTotal").textContent=fmt(total);$("statSessions").textContent=a.length;$("statAvg").textContent=fmt(a.length?total/a.length:0)}
+async function loadRanking(){let e=(await db.from("profiles").select("id,full_name,position").eq("active",true)).data||[],month=new Date();month=new Date(month.getFullYear(),month.getMonth(),1).toISOString();let s=(await db.from("work_sessions").select("*").gte("started_at",month)).data||[],tot={};e.forEach(x=>tot[x.id]=0);s.forEach(x=>{if(x.employee_id in tot)tot[x.employee_id]+=secs(x)});e.sort((a,b)=>tot[b.id]-tot[a.id]);$("rankingBody").innerHTML=e.map((x,i)=>`<tr><td class="goldtext">${i+1}</td><td>${x.full_name}</td><td>${x.position||"-"}</td><td class="green">${fmt(tot[x.id])}</td></tr>`).join("")}
+async function loadEmployees(){let e=(await db.from("profiles").select("*").order("created_at",{ascending:false})).data||[];let ids=e.map(x=>x.id),s=(await db.from("work_sessions").select("employee_id").is("ended_at",null)).data||[];let on=new Set(s.map(x=>x.employee_id));$("employeesBody").innerHTML=e.map(x=>`<tr><td><b>${x.full_name}</b></td><td>${x.position||"-"}</td><td>${on.has(x.id)?'<span class="badge on">PRACUJE</span>':'<span class="badge off">OFF</span>'}</td><td>${x.active?"TAK":"NIE"}</td></tr>`).join("")}
+async function loadManagement(){let e=(await db.from("profiles").select("id").eq("active",true)).data||[],s=(await db.from("work_sessions").select("*")).data||[],now=new Date(),ms=new Date(now.getFullYear(),now.getMonth(),1);let m=s.filter(x=>new Date(x.started_at)>=ms),total=m.reduce((n,x)=>n+secs(x),0),on=new Set(s.filter(x=>!x.ended_at).map(x=>x.employee_id));$("mEmployees").textContent=e.length;$("mActive").textContent=on.size;$("mHours").textContent=fmt(total)}
+$("newEmployee").onclick=()=>$("modal").classList.add("show");$("closeModal").onclick=()=>$("modal").classList.remove("show");
+$("createEmployee").onclick=async()=>{let payload={full_name:$("empName").value.trim(),email:$("empEmail").value.trim(),password:$("empPassword").value,position:$("empPosition").value};if(!payload.full_name||!payload.email||payload.password.length<8){toast("Uzupełnij dane. Hasło: min. 8 znaków.");return}let {data,error}=await db.functions.invoke("create-employee",{body:payload});if(error){toast(error.message);return}toast("Konto utworzone");$("modal").classList.remove("show");$("empName").value=$("empEmail").value=$("empPassword").value="";await loadEmployees()};
+$("resetMonth").onclick=async()=>{if(!confirm("Zamknąć bieżący okres? Historia sesji pozostanie w bazie."))return;let r=await db.from("monthly_periods").update({status:"closed",end_date:new Date().toISOString().slice(0,10)}).eq("status","open");if(r.error){toast(r.error.message);return}toast("Okres zamknięty")};
+
+(async()=>{let r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
+</script>
+</body>
+</html>
