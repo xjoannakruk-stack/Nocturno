@@ -64,8 +64,8 @@
 <section id="app" class="app hidden app-locked" aria-hidden="true">
 <header class="top"><div class="brand"><img src="assets/nocturno-logo.png" alt="Nocturno"><span>NOCTURNO</span></div><div class="who"><div class="name"><b id="whoName"></b><small id="whoRole" style="display:block;color:var(--muted)"></small></div><div id="avatar" class="avatar">N</div><button id="logout" class="logout">Wyloguj</button></div></header>
 <div class="layout"><aside class="side">
-<button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="staffmenu">🍽️ Menu</button><button class="nav" data-page="receipts">Paragony</button><button class="nav" data-page="ranking">Ranking</button><button class="nav" data-page="history">Godziny</button><button class="nav" data-page="stats">Statystyki</button><button class="nav" data-page="settings">Ustawienia</button>
-<div id="managerNav" class="hidden"><div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div><button class="nav" data-page="employees">Pracownicy</button><button class="nav" data-page="applications">Złożone CV</button><button class="nav" data-page="management">Administrator</button><button class="nav" data-page="hoursranking">🏆 Ranking godzin</button><button class="nav" data-page="shiftlog">Dziennik zmiany</button><button class="nav" data-page="audit">Audyt systemowy</button></div>
+<button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="staffmenu">🍽️ Menu</button><button class="nav" data-page="receipts">Paragony</button><button class="nav" data-page="history">Godziny</button><button class="nav" data-page="stats">Statystyki</button><button class="nav" data-page="settings">Ustawienia</button>
+<div id="managerNav" class="hidden"><div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div><button class="nav" data-page="employees">Pracownicy</button><button class="nav" data-page="applications">Złożone CV</button><button class="nav" data-page="management">Administrator</button><button class="nav" data-page="shiftlog">Dziennik zmiany</button><button class="nav" data-page="audit">Audyt systemowy</button></div>
 </aside><main class="content">
 <section id="dashboard" class="page active"><div class="title"><h1 id="welcome"></h1><p>Twój czas pracy i sprzedaż w Nocturno</p></div>
 <div class="grid g4"><div class="card"><div class="label">Dzisiaj — paragony</div><div id="todaySales" class="value green">$0</div><div id="todayReceipts" class="kpi-note">0 paragonów</div></div><div class="card"><div class="label">Ten tydzień</div><div id="weekSales" class="value goldtext">$0</div><div id="weekRank" class="kpi-note">Ranking: —</div></div><div class="card"><div class="label">Dzisiaj — godziny</div><div id="today" class="value">00:00:00</div><div id="sessionsToday" class="kpi-note">0 sesji</div></div><div class="card"><div class="label">Zarobki okresu</div><div id="myPay" class="value money">$0</div><div id="periodLabel" class="kpi-note">Brak okresu</div></div></div>
@@ -89,6 +89,8 @@
 <section id="management" class="page"><div class="title"><h1>Administrator</h1><p>Pełny podgląd godzin, paragonów i tygodniowych premii.</p></div><div class="grid g4"><div class="card"><div class="label">Pracownicy</div><div id="mEmployees" class="value">0</div></div><div class="card"><div class="label">Aktualnie pracuje</div><div id="mActive" class="value green">0</div></div><div class="card"><div class="label">Godziny okresu</div><div id="mHours" class="value goldtext">00:00:00</div></div><div class="card"><div class="label">Utarg restauracji — dziś</div><div id="mTodaySales" class="value money">$0</div><div id="mTodayReceipts" class="kpi-note">0 paragonów</div></div></div>
 <div class="card" style="margin-top:16px"><div class="toolbar"><div><b>Ranking tygodniowy dla premii</b><div class="statnote">Wartości poniżej są liczone od poniedziałku 00:00 do poniedziałku 00:00.</div></div><select id="managerWeek" class="field periodselect"></select></div><div class="tablewrap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Paragony</th><th>Suma</th><th>Śr. paragon</th><th>Godziny</th><th>Koszt pracy</th></tr></thead><tbody id="managerRankingBody"></tbody></table></div></div>
 <div class="card" style="margin-top:16px"><b>Ręczne okresy godzinowe</b><p style="color:var(--muted)">Reset nie kasuje historii. Zamyka aktualny okres i zaczyna nowy.</p><button id="resetMonth" class="btn danger">RESETUJ GODZINY</button><div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Status</th><th>Start</th><th>Koniec</th></tr></thead><tbody id="periodsBody"></tbody></table></div></div>
+<div class="card" style="margin-top:16px"><div class="toolbar"><div><b>🏆 Ranking sprzedaży — paragony</b><div class="statnote">Ranking pracowników według sumy paragonów w wybranym tygodniu. TOP 3 możesz wykorzystać do premii.</div></div><span class="badge on">SPRZEDAŻ</span></div><div class="grid g3"><div class="card"><div class="label">🥇 1 miejsce</div><div id="mSalesTop1" class="value money">$0</div><div id="mSalesTop1Name" class="kpi-note">—</div></div><div class="card"><div class="label">🥈 2 miejsce</div><div id="mSalesTop2" class="value money">$0</div><div id="mSalesTop2Name" class="kpi-note">—</div></div><div class="card"><div class="label">🥉 3 miejsce</div><div id="mSalesTop3" class="value money">$0</div><div id="mSalesTop3Name" class="kpi-note">—</div></div></div><div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Paragony</th><th>Suma tygodnia</th><th>Śr. paragon</th></tr></thead><tbody id="mSalesRankingBody"></tbody></table></div></div>
+<div class="card" style="margin-top:16px"><div class="toolbar"><div><b>⏱️ Ranking godzin pracowników</b><div class="statnote">Ranking według czasu pracy w wybranym tygodniu. Obejmuje sesje zakończone oraz aktywne.</div></div><span class="badge on">CZAS PRACY</span></div><div class="grid g3"><div class="card"><div class="label">🥇 1 miejsce</div><div id="mHoursTop1" class="value goldtext">00:00:00</div><div id="mHoursTop1Name" class="kpi-note">—</div></div><div class="card"><div class="label">🥈 2 miejsce</div><div id="mHoursTop2" class="value goldtext">00:00:00</div><div id="mHoursTop2Name" class="kpi-note">—</div></div><div class="card"><div class="label">🥉 3 miejsce</div><div id="mHoursTop3" class="value goldtext">00:00:00</div><div id="mHoursTop3Name" class="kpi-note">—</div></div></div><div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Godziny</th><th>Sesje</th><th>Śr. sesja</th></tr></thead><tbody id="mHoursRankingBody"></tbody></table></div></div>
 <div class="card" style="margin-top:16px"><b>Podgląd utargu — ostatnie 14 dni</b><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Dzień</th><th>Paragony</th><th>Utarg</th></tr></thead><tbody id="dailySalesBody"></tbody></table></div></div><div class="card" style="margin-top:16px"><b>Ostatnie paragony</b><div class="tablewrap"><table><thead><tr><th>Data</th><th>Pracownik</th><th>Kwota</th><th>Zdjęcie</th></tr></thead><tbody id="managerReceiptsBody"></tbody></table></div></div></section>
 
 <section id="applications" class="page"><div class="title"><h1>Złożone CV</h1><p>Nowe zgłoszenia rekrutacyjne wraz ze zdjęciami i danymi kontaktowymi.</p></div><div class="card tablewrap"><table><thead><tr><th>Data</th><th>Kandydat</th><th>Discord</th><th>Stanowisko</th><th>Dyspozycyjność</th><th>Status</th><th>Zdjęcie</th><th>Akcja</th></tr></thead><tbody id="applicationsBody"></tbody></table></div></section>
@@ -178,11 +180,10 @@ async function boot(u){
   if(isManagerRole(profile.role)){$("managerNav").classList.remove("hidden");$("managerNav").style.display="block";}else{$("managerNav").classList.add("hidden");$("managerNav").style.display="none";}
   fillWeekSelect("employeeWeek");
   fillWeekSelect("rankingWeek");
-  if(isManagerRole(profile.role)){fillWeekSelect("managerWeek");fillWeekSelect("hoursRankingWeek");await loadHoursRanking();}
+  if(isManagerRole(profile.role)){fillWeekSelect("managerWeek")} 
   await loadPeriods();
   await refresh();
   await loadMyReceipts();
-  await loadRanking();
   if(isManagerRole(profile.role)){await loadEmployees();await loadManagement();await loadApplications();}
   return true
 }async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
@@ -253,9 +254,49 @@ async function loadHoursRanking(){
   ["hoursTop1","hoursTop2","hoursTop3"].forEach((id,i)=>$(id).textContent=rows[i]?fmt(rows[i].seconds):"00:00:00");
   $("hoursRankingBody").innerHTML=rows.map((r,i)=>`<tr class="${i<3?"top3":""}"><td>${i<3?["🥇","🥈","🥉"][i]:i+1}</td><td><b>${esc(r.full_name)}</b></td><td>${esc(r.position||"-")}</td><td><b>${fmt(r.seconds)}</b></td><td>${r.sessions}</td><td>${fmt(r.sessions?Math.floor(r.seconds/r.sessions):0)}</td></tr>`).join("")||'<tr><td colspan="6">Brak zarejestrowanych godzin w tym tygodniu.</td></tr>';
 }
-$("hoursRankingWeek").onchange=loadHoursRanking;
 
-async function loadManagement(){const e=(await db.from("profiles").select("id,full_name,position,active")).data||[];const sessions=(await db.from("work_sessions").select("*")).data||[];const p=getCurrentPeriod();const current=sessions.filter(x=>p&&periodSecs(x,p)>0);$("mEmployees").textContent=e.length;$("mActive").textContent=sessions.filter(x=>!x.ended_at).length;$("mHours").textContent=fmt(current.reduce((n,x)=>n+periodSecs(x,p),0));const wk=$("managerWeek").value||weekStartKey(plKey());const receipts=await fetchReceiptsForWeek(wk);$("mSales").textContent=money(receipts.reduce((n,x)=>n+Number(x.amount),0));const emap=Object.fromEntries(e.map(x=>[x.id,{...x,total:0,count:0,hours:0,pay:0}]));receipts.forEach(r=>{if(emap[r.employee_id]){emap[r.employee_id].total+=Number(r.amount);emap[r.employee_id].count++}});sessions.forEach(s=>{const row=emap[s.employee_id];if(row&&p){row.hours+=periodSecs(s,p);row.pay+=payFor(periodSecs(s,p),row.position)}});const rows=Object.values(emap).sort((a,b)=>b.total-a.total||a.full_name.localeCompare(b.full_name));$("managerRankingBody").innerHTML=rows.map((r,i)=>`<tr class="${i<3?"top3":""}"><td>${i<3?["🥇","🥈","🥉"][i]:i+1}</td><td><b>${esc(r.full_name)}</b></td><td>${r.count}</td><td class="money">${money(r.total)}</td><td>${money(r.count?r.total/r.count:0)}</td><td>${fmt(r.hours)}</td><td class="money">${money(r.pay)}</td></tr>`).join("");$("periodsBody").innerHTML=periods.map(x=>`<tr><td>${x.status==="open"?"🟢 OTWARTY":"⚪ ZAMKNIĘTY"}</td><td>${dateTime(x.started_at)}</td><td>${x.ended_at?dateTime(x.ended_at):"—"}</td></tr>`).join("");const mgrProfiles=Object.fromEntries(e.map(x=>[x.id,x.full_name]));const latest=(await db.from("receipts").select("*").order("created_at",{ascending:false}).limit(100)).data||[];$("managerReceiptsBody").innerHTML=latest.map(r=>`<tr><td>${dateTime(r.created_at)}</td><td>${esc(mgrProfiles[r.employee_id]||r.employee_id)}</td><td class="money">${money(r.amount)}</td><td id="mimg-${r.id}">${r.image_path?"Ładowanie…":"—"}</td></tr>`).join("");for(const r of latest)if(r.image_path){const u=await signedUrl(r.image_path);if(u)$("mimg-"+r.id).innerHTML=`<a href="${u}" target="_blank"><img class="thumb" src="${u}" alt="Paragon"></a>`}}
+async function loadManagement(){
+  const e=(await db.from("profiles").select("id,full_name,position,active,role")).data||[];
+  const sessions=(await db.from("work_sessions").select("*")).data||[];
+  const p=getCurrentPeriod();
+  const current=sessions.filter(x=>p&&periodSecs(x,p)>0);
+  $("mEmployees").textContent=e.length;
+  $("mActive").textContent=sessions.filter(x=>!x.ended_at).length;
+  $("mHours").textContent=fmt(current.reduce((n,x)=>n+periodSecs(x,p),0));
+  const wk=$("managerWeek").value||weekStartKey(plKey());
+  const receipts=await fetchReceiptsForWeek(wk);
+  const totalSales=receipts.reduce((n,x)=>n+Number(x.amount),0);
+  $("mSales").textContent=money(totalSales);
+
+  const emap=Object.fromEntries(e.map(x=>[x.id,{...x,total:0,count:0,hours:0,pay:0}]));
+  receipts.forEach(r=>{if(emap[r.employee_id]){emap[r.employee_id].total+=Number(r.amount);emap[r.employee_id].count++}});
+  sessions.forEach(s=>{const row=emap[s.employee_id];if(row&&p){row.hours+=periodSecs(s,p);row.pay+=payFor(periodSecs(s,p),row.position)}});
+  const rows=Object.values(emap).sort((a,b)=>b.total-a.total||a.full_name.localeCompare(b.full_name));
+
+  ["mSalesTop1","mSalesTop2","mSalesTop3"].forEach((id,i)=>$(id).textContent=rows[i]?money(rows[i].total):"$0");
+  ["mSalesTop1Name","mSalesTop2Name","mSalesTop3Name"].forEach((id,i)=>$(id).textContent=rows[i]?rows[i].full_name:"—");
+  $("mSalesRankingBody").innerHTML=rows.map((r,i)=>`<tr class="${i<3?"top3":""}"><td>${i<3?["🥇","🥈","🥉"][i]:i+1}</td><td><b>${esc(r.full_name)}</b></td><td>${esc(r.position||"-")}</td><td>${r.count}</td><td class="money">${money(r.total)}</td><td>${money(r.count?r.total/r.count:0)}</td></tr>`).join("")||'<tr><td colspan="6">Brak danych sprzedażowych w tym tygodniu.</td></tr>';
+
+  const start=utcForPlMidnight(wk),end=utcForPlMidnight(addDaysKey(wk,7));
+  const hmap=Object.fromEntries(e.map(x=>[x.id,{...x,seconds:0,sessions:0}]));
+  for(const s of sessions){
+    const row=hmap[s.employee_id]; if(!row) continue;
+    const st=Math.max(new Date(s.started_at).getTime(),start.getTime());
+    const en=Math.min(s.ended_at?new Date(s.ended_at).getTime():Date.now(),end.getTime());
+    if(en>st){row.seconds+=Math.floor((en-st)/1000);row.sessions++;}
+  }
+  const hrows=Object.values(hmap).filter(r=>r.seconds>0).sort((a,b)=>b.seconds-a.seconds||a.full_name.localeCompare(b.full_name));
+  ["mHoursTop1","mHoursTop2","mHoursTop3"].forEach((id,i)=>$(id).textContent=hrows[i]?fmt(hrows[i].seconds):"00:00:00");
+  ["mHoursTop1Name","mHoursTop2Name","mHoursTop3Name"].forEach((id,i)=>$(id).textContent=hrows[i]?hrows[i].full_name:"—");
+  $("mHoursRankingBody").innerHTML=hrows.map((r,i)=>`<tr class="${i<3?"top3":""}"><td>${i<3?["🥇","🥈","🥉"][i]:i+1}</td><td><b>${esc(r.full_name)}</b></td><td>${esc(r.position||"-")}</td><td><b>${fmt(r.seconds)}</b></td><td>${r.sessions}</td><td>${fmt(r.sessions?Math.floor(r.seconds/r.sessions):0)}</td></tr>`).join("")||'<tr><td colspan="6">Brak zarejestrowanych godzin w tym tygodniu.</td></tr>';
+
+  $("periodsBody").innerHTML=periods.map(x=>`<tr><td>${x.status==="open"?"🟢 OTWARTY":"⚪ ZAMKNIĘTY"}</td><td>${dateTime(x.started_at)}</td><td>${x.ended_at?dateTime(x.ended_at):"—"}</td></tr>`).join("");
+  const mgrProfiles=Object.fromEntries(e.map(x=>[x.id,x.full_name]));
+  const latest=(await db.from("receipts").select("*").order("created_at",{ascending:false}).limit(100)).data||[];
+  $("managerReceiptsBody").innerHTML=latest.map(r=>`<tr><td>${dateTime(r.created_at)}</td><td>${esc(mgrProfiles[r.employee_id]||r.employee_id)}</td><td class="money">${money(r.amount)}</td><td id="mimg-${r.id}">${r.image_path?"Ładowanie…":"—"}</td></tr>`).join("");
+  for(const r of latest)if(r.image_path){const u=await signedUrl(r.image_path);if(u){const el=$("mimg-"+r.id);if(el)el.innerHTML=`<a href="${u}" target="_blank"><img class="thumb" src="${u}" alt="Paragon"></a>`}}
+}
+
 $("managerWeek").onchange=loadManagement;
 $("resetMonth").onclick=async()=>{if(!confirm("ZRESETOWAĆ GODZINY? Historia zostanie zachowana."))return;const now=new Date().toISOString(),current=getCurrentPeriod();if(current){const close=await db.from("work_periods").update({status:"closed",ended_at:now}).eq("id",current.id);if(close.error){toast("Nie można zamknąć okresu: "+close.error.message);return}}const open=await db.from("work_periods").insert({started_at:now,status:"open"}).select().single();if(open.error){toast("Nie można rozpocząć okresu: "+open.error.message);return}await logAction("Reset okresu","Nowy okres od "+dateTime(now));await loadPeriods();await loadManagement();await refresh();toast("Godziny zostały zresetowane")};
 async function loadAudit(){const r=await db.from("audit_log").select("*").order("created_at",{ascending:false}).limit(300);$("auditBody").innerHTML=(r.data||[]).map(x=>`<tr><td>${dateTime(x.created_at)}</td><td>${esc(x.actor_id)}</td><td>${esc(x.action)}</td><td class="audit">${esc(x.details||"")}</td></tr>`).join("")}
