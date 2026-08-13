@@ -237,48 +237,48 @@ $("changePassword").onclick=async()=>{const a=$("newPassword").value,b=$("newPas
 
 const CLIENT_MENU={
   "Przystawki":[
-    {name:"Carpaccio de Ternera",price:230},
-    {name:"Gazpacho",price:230},
-    {name:"Pan con tomate",price:230},
-    {name:"Steak Tartare",price:270},
-    {name:"Tabla de Quesos",price:230}
+    {name:"Carpaccio de Ternera",desc:"Tradycyjne Carpaccio wołowe",price:230},
+    {name:"Gazpacho",desc:"Tradycyjne Gazpacho",price:230},
+    {name:"Pan con tomate",desc:"Tradycyjny kataloński chleb z pomidorem",price:230},
+    {name:"Steak Tartare",desc:"Tatar z polędwicy wołowej - Angus",price:270},
+    {name:"Tabla de Quesos",desc:"Specjalnie wyselekcjonowana deska serów wraz z winogronami",price:230}
   ],
   "Dania główne":[
-    {name:"Arroz de Setas",price:260},
-    {name:"Filet Mignon",price:320},
-    {name:"Burger Wagyu",price:290},
-    {name:"Pasta con Tofu y Setas",price:260},
-    {name:"Confit de Pato",price:290},
-    {name:"Rosbef Wagyu Gold",price:340},
-    {name:"Enzomillo",price:320},
-    {name:"Tomahawk a la Parrilla",price:340}
+    {name:"Arroz de Setas",desc:"Risotto z leśnymi grzybami",price:260},
+    {name:"Filet Mignon",desc:"Filet Mignon z opiekanymi ziemniakami",price:320},
+    {name:"Burger Wagyu",desc:"Burger z wołowiny Wagyu",price:290},
+    {name:"Pasta con Tofu y Setas",desc:"Makaron wegetariański z grzybami i tofu",price:260},
+    {name:"Confit de Pato",desc:"Konfitowana kaczka z puree ziemniaczanym",price:290},
+    {name:"Rosbef Wagyu Gold",desc:"Rostbef Wagyu Gold z frytkami stekowymi",price:340},
+    {name:"Enzomillo",desc:"Polędwica wołowa w sosie z czerwonego wina",price:320},
+    {name:"Tomahawk a la Parrilla",desc:"Tomahawk z grilla podany z ziemniakami",price:340}
   ],
   "Napoje bezalkoholowe":[
-    {name:"Agua del Glaciar",price:150},
-    {name:"Limonada de Frambuesa",price:150},
-    {name:"Limonada de Limón",price:150},
-    {name:"Nocturno Blanco 0%",price:150},
-    {name:"Té Helado de Frutos del Bosque",price:150}
+    {name:"Agua del Glaciar",desc:"Woda z Arktycznego lodowca - Svalbardi",price:150},
+    {name:"Limonada de Frambuesa",desc:"Świeża lemoniada malinowa",price:150},
+    {name:"Limonada de Limón",desc:"Świeża lemoniada cytrynowa",price:150},
+    {name:"Nocturno Blanco 0%",desc:"Wino białe bezalkoholowe",price:150},
+    {name:"Té Helado de Frutos del Bosque",desc:"Mrożona Herbata z owoców leśnych",price:150}
   ],
   "Alkohole":[
-    {name:"Black Velvet de Rick",price:180},
-    {name:"Código Rojo",price:180},
-    {name:"El Secreto de Rosa",price:180},
-    {name:"Enzo After Dark",price:180},
-    {name:"Nocturna",price:180},
-    {name:"Nocturno Blanco",price:150},
-    {name:"Nocturno Rubí",price:150},
-    {name:"Oro Nocturno",price:150},
-    {name:"Patricio Está Llamando",price:180},
-    {name:"Rosa Nocturna",price:150},
-    {name:"Tinto de Verano",price:180},
-    {name:"Tio Willy",price:180},
-    {name:"Whisky con Hielo",price:180}
+    {name:"Black Velvet de Rick",desc:"Drink na bazie whiskey ze świeżymi jagodami",price:180},
+    {name:"Código Rojo",desc:"Mocny drink na bazie wódki i whiskey w proporcjach 1:1 z dodatkiem cytryny",price:180},
+    {name:"El Secreto de Rosa",desc:"Drink na bazie whiskey z nutką kwaśnej wiśni",price:180},
+    {name:"Enzo After Dark",desc:"Drink na bazie whiskey z pomarańczą i nutką cynamonu",price:180},
+    {name:"Nocturna",desc:"Drink na bazie whiskey z marakują i nutką wanilii",price:180},
+    {name:"Nocturno Blanco",desc:"Wino białe",price:150},
+    {name:"Nocturno Rubí",desc:"Wino czerwone",price:150},
+    {name:"Oro Nocturno",desc:"Cava - odpowiednik szampana",price:150},
+    {name:"Patricio Está Llamando",desc:"Drink na bazie wódki, likieru wiśniowego z dodatkiem cząstek cytryny",price:180},
+    {name:"Rosa Nocturna",desc:"Wino różowe",price:150},
+    {name:"Tinto de Verano",desc:"Drink na bazie czerwonego wina, wody gazowanej i cytryny",price:180},
+    {name:"Tio Willy",desc:"Drink na bazie whiskey i cząstek cytryny",price:180},
+    {name:"Whisky con Hielo",desc:"Whiskey z lodem",price:180}
   ],
   "Desery":[
-    {name:"Crema Catalana",price:160},
-    {name:"Fondant de Chocolate",price:160},
-    {name:"Mousse de Chocolate Blanco",price:160}
+    {name:"Crema Catalana",desc:"Tradycyjny kataloński deser, przygotowywany na bazie mleka, cytryny i wanilii z karmelizowanym cukrem",price:160},
+    {name:"Fondant de Chocolate",desc:"Fondant czekoladowy z płynnym nadzieniem",price:160},
+    {name:"Mousse de Chocolate Blanco",desc:"Mus z białej czekolady z malinami",price:160}
   ]
 };
 function renderMenuInto(id){
