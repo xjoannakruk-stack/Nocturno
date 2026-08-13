@@ -13,7 +13,7 @@
 .discord-btn{display:inline-flex!important;align-items:center;gap:7px;border-color:#315a43!important;color:#bfe7cf!important}.discord-icon{width:18px;height:18px;display:block}
 .hero{padding:80px 24px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;max-width:1280px;margin:auto}.hero h1{font:clamp(52px,8vw,94px) Georgia;margin:0;color:#f1ede2;letter-spacing:5px}.hero h1 span{color:var(--green)}.hero-kicker{color:var(--gold);text-transform:uppercase;letter-spacing:5px;font-size:13px}.hero p{color:#aeb8b0;font-size:18px;line-height:1.7;max-width:700px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.hero-logo{display:grid;place-items:center}.hero-logo img{width:min(440px,82vw);filter:drop-shadow(0 22px 50px #000)}
 .public-wrap{max-width:1280px;margin:auto;padding:42px 24px 90px}.public-section{scroll-margin-top:90px;margin-top:28px}.public-section .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}.public-section h2{font:36px Georgia;color:var(--gold);margin:0}.public-section p.lead{color:var(--muted);margin:7px 0 0;line-height:1.6}
-.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.menu-card{background:linear-gradient(160deg,#08120b,#061009);border:1px solid #1f3d2b;border-radius:16px;padding:18px;display:flex;justify-content:space-between;gap:18px;align-items:start}.menu-card .menu-name{font:21px Georgia;color:#e8e3d7}.menu-card .menu-desc{color:#8f9d94;font-size:12px;line-height:1.5;margin-top:5px}.menu-price{color:var(--gold);font-weight:900;white-space:nowrap}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.menu-category{margin-top:26px}.menu-category-head{display:flex;align-items:center;gap:14px;margin:0 0 12px}.menu-category-head h3{font:28px Georgia;color:var(--gold);margin:0}.menu-category-head:after{content:"";height:1px;background:linear-gradient(90deg,var(--green2),transparent);flex:1}.menu-empty{padding:18px;border:1px dashed #2b4635;border-radius:14px;color:var(--muted);background:#07100a}.menu-card{background:linear-gradient(160deg,#08120b,#061009);border:1px solid #1f3d2b;border-radius:16px;padding:18px;display:flex;justify-content:space-between;gap:18px;align-items:start}.menu-card .menu-name{font:21px Georgia;color:#e8e3d7}.menu-card .menu-desc{color:#8f9d94;font-size:12px;line-height:1.5;margin-top:5px}.menu-price{color:var(--gold);font-weight:900;white-space:nowrap}
 .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature-card{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:24px}.feature-card .icon{font-size:30px;margin-bottom:8px}.feature-card h3{margin:0 0 8px;font:23px Georgia;color:#efe9dc}.feature-card p{margin:0;color:#99a49d;line-height:1.6}
 .recruit-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start}.recruit-poster{width:100%;border-radius:18px;border:1px solid #2c4c38;display:block}
 .public-form{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-grid .fullrow{grid-column:1/-1}.cv-success{padding:14px;border-radius:12px;background:#0f2e1d;border:1px solid #245a3b;color:#9de6b6}
@@ -34,7 +34,7 @@
 </nav></header>
 <div id="top" class="hero"><div><div class="hero-kicker">Vinewood · Parrilla Premium · Vino · Pasión</div><h1>DOŁĄCZ DO<br><span>NOCTURNO</span></h1><p>Steki z charakterem, hiszpańska kuchnia, elegancki nocny klimat i miejsce stworzone zarówno na wyjątkową kolację, jak i większe okazje.</p><div class="hero-actions"><a class="btn gold" href="#menu" style="text-decoration:none">ZOBACZ MENU</a><a class="btn primary" href="#vip" style="text-decoration:none">WYNAJMIJ NOCTURNO</a><a class="discord-btn btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener">💬 DOŁĄCZ NA DISCORD</a></div></div><div class="hero-logo"><img src="assets/bull-head.png" alt="Byk Nocturno"></div></div>
 <div class="public-wrap">
-<section id="menu" class="public-section"><div class="section-head"><div><h2>Menu Nocturno</h2><p class="lead">Wybrane pozycje naszego menu. Ceny podane w dolarach RP.</p></div></div><div id="clientMenuGrid" class="menu-grid"></div></section>
+<section id="menu" class="public-section"><div class="section-head"><div><h2>Menu Nocturno</h2><p class="lead">Menu podzielone według kategorii. Ceny podane w dolarach RP.</p></div></div><div id="clientMenuCategories"></div></section>
 <section id="vip" class="public-section"><div class="vip-banner"><div><strong>Sala VIP &amp; wynajem całego Nocturno</strong><span>Rezerwacje na urodziny, spotkania biznesowe, kolacje rodzinne, eventy i wyjątkowe okazje. Możliwość wynajęcia wybranej sali VIP albo całej restauracji.</span></div><a class="btn gold" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener" style="text-decoration:none">ZAPYTAJ NA DISCORD</a></div><div class="feature-grid" style="margin-top:16px"><div class="feature-card"><div class="icon">🥂</div><h3>Sala VIP</h3><p>Intymna przestrzeń na prywatne spotkania i eleganckie kolacje.</p></div><div class="feature-card"><div class="icon">🏛️</div><h3>Cała restauracja</h3><p>Pełne Nocturno do dyspozycji podczas wyjątkowych wydarzeń.</p></div><div class="feature-card"><div class="icon">🎉</div><h3>Eventy specjalne</h3><p>Obsługa imprez, wydarzeń i wieczorów tematycznych w klimacie Nocturno.</p></div></div></section>
 <section id="recruitment" class="public-section"><div class="section-head"><div><h2>Dołącz do zespołu</h2><p class="lead">NOCTURNO STEAKHOUSE — Parrilla Premium • Vino • Pasión</p></div></div><div class="recruit-grid"><div><img class="recruit-poster" src="assets/rekrutacja.png" alt="Rekrutacja Nocturno"><p class="lead" style="margin-top:12px">📍 Vinewood Gantry Lane · Elastyczny grafik · System napiwków · Możliwość awansu</p></div><div class="public-form"><h3 style="font:27px Georgia;color:var(--gold);margin-top:0">Złóż CV</h3><p class="muted">Nie musisz być mistrzem gastronomii — najważniejsze są zaangażowanie, kultura osobista, odpowiedzialność i chęć do pracy.</p><form id="cvForm"><div class="form-grid">
 <div class="field"><label>Imię</label><input id="cvFirstName" required></div><div class="field"><label>Nazwisko</label><input id="cvLastName" required></div>
@@ -127,8 +127,53 @@ $("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent
 $("logout").onclick=async()=>{if(tick)clearInterval(tick);await db.auth.signOut();location.reload()};
 document.querySelectorAll(".nav").forEach(b=>b.onclick=async()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");const fn={receipts:loadMyReceipts,ranking:loadRanking,history:loadHistory,stats:loadStats,employees:loadEmployees,management:loadManagement,applications:loadApplications,shiftlog:loadShiftLog,audit:loadAudit}[b.dataset.page];if(fn)await fn();});
 
-async function boot(u){user=u;fillPositions();const r=await db.from("profiles").select("*").eq("id",u.id).single();if(r.error||!r.data){await db.auth.signOut();alert("Brak profilu w tabeli profiles.");return}profile=r.data;if(!profile.active){await db.auth.signOut();alert("Konto nieaktywne.");return}$("login").classList.add("hidden");$("app").classList.remove("hidden");$("whoName").textContent=profile.full_name;$("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");$("avatar").textContent=(profile.full_name||"N")[0].toUpperCase();$("welcome").textContent="Witaj, "+profile.full_name;if(profile.role==="manager")$("managerNav").classList.remove("hidden");fillWeekSelect("employeeWeek");fillWeekSelect("rankingWeek");if(profile.role==="manager")fillWeekSelect("managerWeek");await loadPeriods();await refresh();await loadMyReceipts();await loadRanking();if(profile.role==="manager"){await loadEmployees();await loadManagement()}}
-async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
+async function boot(u){
+  user=u;
+  fillPositions();
+  const r=await db.from("profiles").select("*").eq("id",u.id).maybeSingle();
+  if(r.error){
+    console.error("Błąd pobierania profilu:",r.error);
+    profile=null;
+    await db.auth.signOut();
+    openClient();
+    $("login").classList.remove("hidden");
+    $("loginError").textContent="Nie udało się odczytać profilu pracownika. Sprawdź polityki RLS w Supabase (plik v5_fix_rls.sql).";
+    return false;
+  }
+  if(!r.data){
+    profile=null;
+    await db.auth.signOut();
+    openClient();
+    $("login").classList.remove("hidden");
+    $("loginError").textContent="Konto istnieje w Authentication, ale nie ma profilu w public.profiles.";
+    return false;
+  }
+  profile=r.data;
+  if(!profile.active){
+    profile=null;
+    await db.auth.signOut();
+    openClient();
+    $("login").classList.remove("hidden");
+    $("loginError").textContent="Konto jest nieaktywne. Skontaktuj się z managerem.";
+    return false;
+  }
+  $("login").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  $("whoName").textContent=profile.full_name;
+  $("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");
+  $("avatar").textContent=(profile.full_name||"N")[0].toUpperCase();
+  $("welcome").textContent="Witaj, "+profile.full_name;
+  if(profile.role==="manager")$("managerNav").classList.remove("hidden");
+  fillWeekSelect("employeeWeek");
+  fillWeekSelect("rankingWeek");
+  if(profile.role==="manager")fillWeekSelect("managerWeek");
+  await loadPeriods();
+  await refresh();
+  await loadMyReceipts();
+  await loadRanking();
+  if(profile.role==="manager"){await loadEmployees();await loadManagement();await loadApplications();}
+  return true
+}async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
 function getCurrentPeriod(){return periods.find(p=>p.status==="open")||null}
 async function refresh(){const r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;renderTimer();const key=plKey(),start=utcForPlMidnight(key).toISOString(),end=utcForPlMidnight(addDaysKey(key,1)).toISOString();const a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",start).lt("started_at",end)).data||[];$("today").textContent=fmt(a.reduce((n,s)=>n+secs(s),0));$("sessionsToday").textContent=`${a.length} sesji`;const p=getCurrentPeriod();if(p){const m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",p.started_at)).data||[];const total=m.reduce((n,s)=>n+periodSecs(s,p),0);$("myPay").textContent=money(payFor(total,profile.position));$("periodLabel").textContent="Od "+dateTime(p.started_at)}else{$("myPay").textContent="$0";$("periodLabel").textContent="Brak okresu"}const rr=await fetchReceiptsForWeek(weekStartKey(key),user.id);const todayTotal=rr.filter(x=>plKey(new Date(x.created_at))===key).reduce((n,x)=>n+Number(x.amount),0);$("todaySales").textContent=money(todayTotal);$("todayReceipts").textContent=`${rr.filter(x=>plKey(new Date(x.created_at))===key).length} paragonów`;$("weekSales").textContent=money(rr.reduce((n,x)=>n+Number(x.amount),0));}
 function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("start").classList.add("hidden");$("stop").classList.remove("hidden");const run=()=>$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
@@ -173,18 +218,33 @@ async function loadAudit(){const r=await db.from("audit_log").select("*").order(
 $("changePassword").onclick=async()=>{const a=$("newPassword").value,b=$("newPassword2").value;if(a.length<8){toast("Nowe hasło musi mieć minimum 8 znaków.");return}if(a!==b){toast("Hasła nie są takie same.");return}const {error}=await db.auth.updateUser({password:a});if(error){toast(error.message);return}$("newPassword").value=$("newPassword2").value="";await logAction("Zmiana hasła","Użytkownik zmienił swoje hasło");toast("Hasło zostało zmienione")};
 
 
-const CLIENT_MENU=[
-{name:"Filete Mignon",desc:"Filet wołowy, puree ziemniaczane",price:1800,cat:"Dania główne"},
-{name:"Tomahawk Steak",desc:"Tomahawk z pieczonymi ziemniaczkami",price:2500,cat:"Dania główne"},
-{name:"Arroz a la Seta",desc:"Ryż, grzyby, masło",price:950,cat:"Dania główne"},
-{name:"Enzomillo",desc:"Polędwica wołowa, wino, czosnek",price:1500,cat:"Dania główne"},
-{name:"Burger Wagyu",desc:"Bułka brioche, wagyu, ser, cebula",price:1200,cat:"Dania główne"},
-{name:"Pato Confitado",desc:"Kaczka konfitowana, puree ziemniaczane",price:1100,cat:"Dania główne"},
-{name:"Pasta con Tofu y Setas",desc:"Makaron, tofu, grzyby, sałata",price:900,cat:"Dania główne"},
-{name:"Roast Beef Wagyu Gold",desc:"Wagyu, płatki złota, frytki steakowe",price:3000,cat:"Dania główne"},
-{name:"Tabla de Quesos",desc:"Deska serów i winogrona",price:700,cat:"Przystawki"},
-{name:"Tartar de Res",desc:"Tatar wołowy, kapary, jajko, cebula",price:900,cat:"Przystawki"}];
-function renderClientMenu(){const el=$("clientMenuGrid");if(!el)return;el.innerHTML=CLIENT_MENU.map(x=>`<article class="menu-card"><div><div class="menu-name">${esc(x.name)}</div><div class="menu-desc">${esc(x.desc)}</div><div class="badge off" style="margin-top:10px;display:inline-block">${esc(x.cat)}</div></div><div class="menu-price">${money(x.price)}</div></article>`).join("")}
+const CLIENT_MENU={
+  "Przystawki":[
+    {name:"Tabla de Quesos",desc:"Deska serów i winogrona",price:700},
+    {name:"Tartar de Res",desc:"Tatar wołowy, kapary, jajko, cebula",price:900}
+  ],
+  "Dania główne":[
+    {name:"Filete Mignon",desc:"Filet wołowy, puree ziemniaczane",price:1800},
+    {name:"Tomahawk Steak",desc:"Tomahawk z pieczonymi ziemniaczkami",price:2500},
+    {name:"Arroz a la Seta",desc:"Ryż, grzyby, masło",price:950},
+    {name:"Enzomillo",desc:"Polędwica wołowa, wino, czosnek",price:1500},
+    {name:"Burger Wagyu",desc:"Bułka brioche, wagyu, ser, cebula",price:1200},
+    {name:"Pato Confitado",desc:"Kaczka konfitowana, puree ziemniaczane",price:1100},
+    {name:"Pasta con Tofu y Setas",desc:"Makaron, tofu, grzyby, sałata",price:900},
+    {name:"Roast Beef Wagyu Gold",desc:"Wagyu, płatki złota, frytki steakowe",price:3000}
+  ],
+  "Napoje":[],
+  "Drinki":[],
+  "Desery":[]
+};
+function renderClientMenu(){
+  const el=$("clientMenuCategories");
+  if(!el)return;
+  el.innerHTML=Object.entries(CLIENT_MENU).map(([cat,items])=>{
+    if(!items.length)return `<section class="menu-category"><div class="menu-category-head"><h3>${esc(cat)}</h3></div><div class="menu-empty">Pozycje tej kategorii zostaną uzupełnione zgodnie z aktualną kartą Nocturno.</div></section>`;
+    return `<section class="menu-category"><div class="menu-category-head"><h3>${esc(cat)}</h3></div><div class="menu-grid">${items.map(x=>`<article class="menu-card"><div><div class="menu-name">${esc(x.name)}</div><div class="menu-desc">${esc(x.desc)}</div></div><div class="menu-price">${money(x.price)}</div></article>`).join("")}</div></section>`;
+  }).join("");
+}
 function openClient(){ $("login").classList.add("hidden"); $("app").classList.add("hidden"); $("publicSite").classList.remove("hidden"); window.scrollTo({top:0,behavior:"smooth"})}
 function openStaffLogin(){ $("publicSite").classList.add("hidden"); $("login").classList.remove("hidden"); window.scrollTo({top:0,behavior:"smooth"}); $("email")?.focus()}
 $("staffLoginBtn")?.addEventListener("click",openStaffLogin);$("backToClient")?.addEventListener("click",e=>{e.preventDefault();openClient()});renderClientMenu();
@@ -209,8 +269,8 @@ loadManagement=loadManagementV4;
 
 const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener("click",async()=>{if(b.dataset.page==="applications"&&profile?.role==="manager")await loadApplications();if(b.dataset.page==="shiftlog"&&profile?.role==="manager")await loadShiftLog()}));
 
-const _boot=boot;boot=async function(u){await _boot(u);$("publicSite").classList.add("hidden");$("login").classList.add("hidden");$("app").classList.remove("hidden");if(profile?.role==="manager"){await loadApplications();await loadShiftLog();await loadManagementV4()}};
+const _boot=boot;boot=async function(u){const ok=await _boot(u);if(!ok){$("publicSite").classList.remove("hidden");$("login").classList.add("hidden");$("app").classList.add("hidden");return false}$("publicSite").classList.add("hidden");$("login").classList.add("hidden");$("app").classList.remove("hidden");if(profile?.role==="manager"){await loadApplications();await loadShiftLog();await loadManagementV4()}return true};
 
-(async()=>{const r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
+(async()=>{openClient();const r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
 
 </script></body></html>
