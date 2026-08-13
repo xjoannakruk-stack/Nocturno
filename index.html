@@ -134,59 +134,79 @@ function fillWeekSelect(id,current=weekStartKey(plKey())){const s=$(id);if(!s)re
 async function fetchReceiptsForWeek(weekKey,employeeId=null){const start=utcForPlMidnight(weekKey).toISOString(),end=utcForPlMidnight(addDaysKey(weekKey,7)).toISOString();let q=db.from("receipts").select("*").gte("created_at",start).lt("created_at",end).order("created_at",{ascending:false});if(employeeId)q=q.eq("employee_id",employeeId);const r=await q.limit(5000);return r.data||[]}
 async function signedUrl(path){if(!path)return null;const r=await db.storage.from("receipts").createSignedUrl(path,3600);return r.data?.signedUrl||null}
 
-$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent="";const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}await boot(data.user)};
+$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginError").textContent="";const btn=e.submitter; if(btn) btn.disabled=true; try{const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){$("loginError").textContent=error.message;return}const ok=await boot(data.user);if(!ok){return}}catch(err){console.error(err);$("loginError").textContent="Wystąpił błąd podczas logowania: "+(err?.message||"nieznany błąd");openStaffLogin()}finally{if(btn)btn.disabled=false}};
 $("logout").onclick=async()=>{if(tick)clearInterval(tick);await db.auth.signOut();location.reload()};
 document.querySelectorAll(".nav").forEach(b=>b.onclick=async()=>{document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(b.dataset.page).classList.add("active");const fn={receipts:loadMyReceipts,ranking:loadRanking,history:loadHistory,stats:loadStats,employees:loadEmployees,management:loadManagement,hoursranking:loadHoursRanking,applications:loadApplications,shiftlog:loadShiftLog,audit:loadAudit}[b.dataset.page];if(fn)await fn();});
 
 async function boot(u){
   user=u;
+  profile=null;
+  // Nie pokazuj publicznej strony podczas próby uwierzytelnienia.
+  $("publicSite").classList.add("hidden");
+  $("login").classList.remove("hidden");
+  $("app").classList.add("hidden");
   $("managerNav").classList.add("hidden");
   $("managerNav").style.display="none";
   fillPositions();
-  const r=await db.from("profiles").select("*").eq("id",u.id).maybeSingle();
-  if(r.error){
-    console.error("Błąd pobierania profilu:",r.error);
+
+  try {
+    const r=await db.from("profiles").select("*").eq("id",u.id).maybeSingle();
+    if(r.error) throw r.error;
+    if(!r.data){
+      $("loginError").textContent="Konto istnieje w Authentication, ale nie ma profilu w public.profiles.";
+      return false;
+    }
+    profile=r.data;
+    profile.role=String(profile.role??"employee").trim().toLowerCase();
+    if(profile.active===false){
+      profile=null;
+      $("loginError").textContent="Konto jest nieaktywne. Skontaktuj się z managerem.";
+      return false;
+    }
+
+    // Profil jest poprawny — dopiero teraz odblokowujemy panel.
+    unlockApp();
+    $("loginError").textContent="";
+    $("whoName").textContent=profile.full_name||"Pracownik";
+    $("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");
+    $("avatar").textContent=(profile.full_name||"N")[0].toUpperCase();
+    $("welcome").textContent="Witaj, "+(profile.full_name||"Pracowniku");
+    if(isManagerRole(profile.role)){
+      $("managerNav").classList.remove("hidden");
+      $("managerNav").style.display="block";
+    } else {
+      $("managerNav").classList.add("hidden");
+      $("managerNav").style.display="none";
+    }
+    fillWeekSelect("employeeWeek");
+    fillWeekSelect("rankingWeek");
+    if(isManagerRole(profile.role)){fillWeekSelect("managerWeek");fillWeekSelect("hoursRankingWeek");}
+
+    // Moduły panelu są drugorzędne: ich błąd nie może wyrzucić użytkownika do strony głównej.
+    const safe=async(fn,label)=>{try{await fn()}catch(err){console.error(label,err);toast(label+": "+(err?.message||"błąd"))}};
+    await safe(loadPeriods,"Nie udało się wczytać okresów pracy");
+    await safe(refresh,"Nie udało się wczytać statystyk");
+    await safe(loadMyReceipts,"Nie udało się wczytać paragonów");
+    if(isManagerRole(profile.role)){
+      await safe(loadEmployees,"Nie udało się wczytać pracowników");
+      await safe(loadManagement,"Nie udało się wczytać Management");
+      await safe(loadApplications,"Nie udało się wczytać CV");
+      await safe(loadShiftLog,"Nie udało się wczytać dziennika zmian");
+      await safe(loadHoursRanking,"Nie udało się wczytać rankingu godzin");
+    }
+    return true;
+  } catch(err){
+    console.error("Błąd logowania/profilu:",err);
     profile=null;
-    await db.auth.signOut();
-    openClient();
+    // Zostaw użytkownika na ekranie logowania z konkretnym błędem zamiast wracać po cichu do strony głównej.
+    $("app").classList.add("hidden");
+    $("publicSite").classList.add("hidden");
     $("login").classList.remove("hidden");
-    $("loginError").textContent="Nie udało się odczytać profilu pracownika. Sprawdź polityki RLS w Supabase (plik v5_fix_rls.sql).";
+    $("loginError").textContent="Nie udało się otworzyć panelu: "+(err?.message||"błąd odczytu profilu");
     return false;
   }
-  if(!r.data){
-    profile=null;
-    await db.auth.signOut();
-    openClient();
-    $("login").classList.remove("hidden");
-    $("loginError").textContent="Konto istnieje w Authentication, ale nie ma profilu w public.profiles.";
-    return false;
-  }
-  profile=r.data;
-  profile.role=String(profile.role??"").trim().toLowerCase();
-  if(!profile.active){
-    profile=null;
-    await db.auth.signOut();
-    openClient();
-    $("login").classList.remove("hidden");
-    $("loginError").textContent="Konto jest nieaktywne. Skontaktuj się z managerem.";
-    return false;
-  }
-  $("login").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  $("whoName").textContent=profile.full_name;
-  $("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");
-  $("avatar").textContent=(profile.full_name||"N")[0].toUpperCase();
-  $("welcome").textContent="Witaj, "+profile.full_name;
-  if(isManagerRole(profile.role)){$("managerNav").classList.remove("hidden");$("managerNav").style.display="block";}else{$("managerNav").classList.add("hidden");$("managerNav").style.display="none";}
-  fillWeekSelect("employeeWeek");
-  fillWeekSelect("rankingWeek");
-  if(isManagerRole(profile.role)){fillWeekSelect("managerWeek");fillWeekSelect("hoursRankingWeek")} 
-  await loadPeriods();
-  await refresh();
-  await loadMyReceipts();
-  if(isManagerRole(profile.role)){await loadEmployees();await loadManagement();await loadApplications();}
-  return true
-}async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
+}
+async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
 function getCurrentPeriod(){return periods.find(p=>p.status==="open")||null}
 async function refresh(){const r=await db.from("work_sessions").select("*").eq("employee_id",user.id).is("ended_at",null).order("started_at",{ascending:false}).limit(1);active=r.data?.[0]||null;renderTimer();const key=plKey(),start=utcForPlMidnight(key).toISOString(),end=utcForPlMidnight(addDaysKey(key,1)).toISOString();const a=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",start).lt("started_at",end)).data||[];$("today").textContent=fmt(a.reduce((n,s)=>n+secs(s),0));$("sessionsToday").textContent=`${a.length} sesji`;const p=getCurrentPeriod();if(p){const m=(await db.from("work_sessions").select("*").eq("employee_id",user.id).gte("started_at",p.started_at)).data||[];const total=m.reduce((n,s)=>n+periodSecs(s,p),0);$("myPay").textContent=money(payFor(total,profile.position));$("periodLabel").textContent="Od "+dateTime(p.started_at)}else{$("myPay").textContent="$0";$("periodLabel").textContent="Brak okresu"}const rr=await fetchReceiptsForWeek(weekStartKey(key),user.id);const todayTotal=rr.filter(x=>plKey(new Date(x.created_at))===key).reduce((n,x)=>n+Number(x.amount),0);$("todaySales").textContent=money(todayTotal);$("todayReceipts").textContent=`${rr.filter(x=>plKey(new Date(x.created_at))===key).length} paragonów`;$("weekSales").textContent=money(rr.reduce((n,x)=>n+Number(x.amount),0));}
 function renderTimer(){if(tick)clearInterval(tick);if(active){$("state").textContent="PRACUJESZ";$("start").classList.add("hidden");$("stop").classList.remove("hidden");const run=()=>$("clock").textContent=fmt((Date.now()-new Date(active.started_at))/1000);run();tick=setInterval(run,1000)}else{$("state").textContent="NIE PRACUJESZ";$("clock").textContent="00:00:00";$("start").classList.remove("hidden");$("stop").classList.add("hidden")}}
@@ -384,17 +404,9 @@ const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener(
 
 function lockApp(){const app=$("app");app.classList.add("hidden","app-locked");app.classList.remove("app-authenticated");app.setAttribute("aria-hidden","true");$("publicSite").classList.remove("hidden");$("login").classList.add("hidden");}
 function unlockApp(){const app=$("app");app.classList.remove("hidden","app-locked");app.classList.add("app-authenticated");app.setAttribute("aria-hidden","false");$("publicSite").classList.add("hidden");$("login").classList.add("hidden");}
-const _boot=boot;boot=async function(u){
-  lockApp();
-  const ok=await _boot(u);
-  if(!ok){lockApp();return false}
-  unlockApp();
-  if(isManagerRole(profile?.role)){await loadApplications();await loadShiftLog();await loadManagementV4()}
-  return true;
-};
-
+// Nie nadpisujemy boot() tutaj — login i sesja korzystają z tej samej funkcji.
 // HARD GATE: panel is never visible to an unauthenticated visitor.
 lockApp();
-(async()=>{const r=await db.auth.getSession();if(r.data.session){await boot(r.data.session.user)}else{openClient()}})();
+(async()=>{try{const r=await db.auth.getSession();if(r.data?.session){await boot(r.data.session.user)}else{openClient()}}catch(err){console.error(err);openClient()}})();
 
 </script></body></html>
