@@ -65,7 +65,7 @@
 <header class="top"><div class="brand"><img src="assets/nocturno-logo.png" alt="Nocturno"><span>NOCTURNO</span></div><div class="who"><div class="name"><b id="whoName"></b><small id="whoRole" style="display:block;color:var(--muted)"></small></div><div id="avatar" class="avatar">N</div><button id="logout" class="logout">Wyloguj</button></div></header>
 <div class="layout"><aside class="side">
 <button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="staffmenu">🍽️ Menu</button><button class="nav" data-page="receipts">Paragony</button><button class="nav" data-page="history">Godziny</button><button class="nav" data-page="stats">Statystyki</button><button class="nav" data-page="settings">Ustawienia</button>
-<div id="managerNav" class="hidden"><div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div><button class="nav" data-page="employees">Pracownicy</button><button class="nav" data-page="applications">Złożone CV</button><button class="nav" data-page="management">Administrator</button><button class="nav" data-page="shiftlog">Dziennik zmiany</button><button class="nav" data-page="audit">Audyt systemowy</button></div>
+<div id="managerNav" class="hidden"><div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div><button class="nav" data-page="employees">Pracownicy</button><button class="nav" data-page="applications">Złożone CV</button><button class="nav" data-page="management">Administrator</button><button class="nav" data-page="hoursranking">⏱️ Ranking godzin</button><button class="nav" data-page="shiftlog">Dziennik zmiany</button><button class="nav" data-page="audit">Audyt systemowy</button></div>
 </aside><main class="content">
 <section id="dashboard" class="page active"><div class="title"><h1 id="welcome"></h1><p>Twój czas pracy i sprzedaż w Nocturno</p></div>
 <div class="grid g4"><div class="card"><div class="label">Dzisiaj — paragony</div><div id="todaySales" class="value green">$0</div><div id="todayReceipts" class="kpi-note">0 paragonów</div></div><div class="card"><div class="label">Ten tydzień</div><div id="weekSales" class="value goldtext">$0</div><div id="weekRank" class="kpi-note">Ranking: —</div></div><div class="card"><div class="label">Dzisiaj — godziny</div><div id="today" class="value">00:00:00</div><div id="sessionsToday" class="kpi-note">0 sesji</div></div><div class="card"><div class="label">Zarobki okresu</div><div id="myPay" class="value money">$0</div><div id="periodLabel" class="kpi-note">Brak okresu</div></div></div>
@@ -180,7 +180,7 @@ async function boot(u){
   if(isManagerRole(profile.role)){$("managerNav").classList.remove("hidden");$("managerNav").style.display="block";}else{$("managerNav").classList.add("hidden");$("managerNav").style.display="none";}
   fillWeekSelect("employeeWeek");
   fillWeekSelect("rankingWeek");
-  if(isManagerRole(profile.role)){fillWeekSelect("managerWeek")} 
+  if(isManagerRole(profile.role)){fillWeekSelect("managerWeek");fillWeekSelect("hoursRankingWeek")} 
   await loadPeriods();
   await refresh();
   await loadMyReceipts();
@@ -380,7 +380,7 @@ const loadManagementBase=loadManagement;
 async function loadManagementV4(){await loadManagementBase();const todayKey=plKey(),ts=utcForPlMidnight(todayKey).toISOString(),te=utcForPlMidnight(addDaysKey(todayKey,1)).toISOString();const td=(await db.from("receipts").select("amount").gte("created_at",ts).lt("created_at",te).limit(5000)).data||[];$("mTodaySales").textContent=money(td.reduce((n,x)=>n+Number(x.amount),0));$("mTodayReceipts").textContent=`${td.length} paragonów`;await loadDailySales()}
 loadManagement=loadManagementV4;
 
-const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener("click",async()=>{if(b.dataset.page==="applications"&&isManagerRole(profile?.role))await loadApplications();if(b.dataset.page==="shiftlog"&&isManagerRole(profile?.role))await loadShiftLog()}));
+const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener("click",async()=>{if(b.dataset.page==="applications"&&isManagerRole(profile?.role))await loadApplications();if(b.dataset.page==="shiftlog"&&isManagerRole(profile?.role))await loadShiftLog();if(b.dataset.page==="hoursranking"&&isManagerRole(profile?.role)){fillWeekSelect("hoursRankingWeek");await loadHoursRanking()}}));
 
 function lockApp(){const app=$("app");app.classList.add("hidden","app-locked");app.classList.remove("app-authenticated");app.setAttribute("aria-hidden","true");$("publicSite").classList.remove("hidden");$("login").classList.add("hidden");}
 function unlockApp(){const app=$("app");app.classList.remove("hidden","app-locked");app.classList.add("app-authenticated");app.setAttribute("aria-hidden","false");$("publicSite").classList.add("hidden");$("login").classList.add("hidden");}
