@@ -286,7 +286,6 @@ async function loadManagement(){
   const wk=$("managerWeek").value||weekStartKey(plKey());
   const receipts=await fetchReceiptsForWeek(wk);
   const totalSales=receipts.reduce((n,x)=>n+Number(x.amount),0);
-  $("mSales").textContent=money(totalSales);
 
   const emap=Object.fromEntries(e.map(x=>[x.id,{...x,total:0,count:0,hours:0,pay:0}]));
   receipts.forEach(r=>{if(emap[r.employee_id]){emap[r.employee_id].total+=Number(r.amount);emap[r.employee_id].count++}});
