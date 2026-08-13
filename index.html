@@ -2,22 +2,22 @@
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}.hidden{display:none!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
-.app{min-height:100vh}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#050906ee;backdrop-filter:blur(15px);position:sticky;top:0;z-index:10}.brand{font:27px Georgia;color:var(--gold);letter-spacing:4px}.who{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#14562f;font-weight:800}.logout{background:transparent;border:1px solid #26372b;color:#aab4ad;border-radius:9px;padding:8px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 72px)}.side{padding:20px 13px;border-right:1px solid var(--line);background:#050a06aa}.nav{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#9aa59e;padding:12px;border-radius:10px;cursor:pointer;margin-bottom:6px}.nav.active,.nav:hover{color:#fff;background:#103b27;border-color:#23623f}.content{padding:30px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.title{margin-bottom:22px}.title h1{font:32px Georgia;color:var(--gold);margin:0}.title p{color:var(--muted);margin:7px 0}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.card{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:20px}.label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}.value{font-size:28px;font-weight:850;margin-top:9px}.green{color:var(--green)}.goldtext{color:var(--gold)}.timer{text-align:center;padding:48px 20px;margin-top:16px}.state{color:var(--muted);font-size:11px;letter-spacing:2px}.clock{font:clamp(55px,8vw,92px) monospace;margin:22px 0}.actions{display:flex;justify-content:center;gap:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid #17231a}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.badge{font-size:10px;padding:5px 8px;border-radius:20px}.on{background:#123c26;color:#5bea99}.off{background:#202620;color:#9ba59f}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#07110a;border:1px solid #245238;border-radius:20px;padding:26px}.toast{position:fixed;right:20px;bottom:20px;background:#102018;border:1px solid #2a5136;padding:13px 16px;border-radius:11px;transform:translateY(100px);opacity:0;transition:.25s;z-index:40}.toast.show{transform:none;opacity:1}
+.app{min-height:100vh}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#050906ee;backdrop-filter:blur(15px);position:sticky;top:0;z-index:10}.brand{display:flex;align-items:center;gap:10px;font:27px Georgia;color:var(--gold);letter-spacing:4px}.brand img{width:44px;height:44px;object-fit:contain;border-radius:50%;display:block}.who{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#14562f;font-weight:800}.logout{background:transparent;border:1px solid #26372b;color:#aab4ad;border-radius:9px;padding:8px 11px;cursor:pointer}.layout{display:grid;grid-template-columns:225px 1fr;min-height:calc(100vh - 72px)}.side{padding:20px 13px;border-right:1px solid var(--line);background:#050a06aa}.nav{width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#9aa59e;padding:12px;border-radius:10px;cursor:pointer;margin-bottom:6px}.nav.active,.nav:hover{color:#fff;background:#103b27;border-color:#23623f}.content{padding:30px;max-width:1450px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.title{margin-bottom:22px}.title h1{font:32px Georgia;color:var(--gold);margin:0}.title p{color:var(--muted);margin:7px 0}.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.card{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:20px}.label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted)}.value{font-size:28px;font-weight:850;margin-top:9px}.green{color:var(--green)}.goldtext{color:var(--gold)}.timer{text-align:center;padding:48px 20px;margin-top:16px}.state{color:var(--muted);font-size:11px;letter-spacing:2px}.clock{font:clamp(55px,8vw,92px) monospace;margin:22px 0}.actions{display:flex;justify-content:center;gap:10px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid #17231a}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.badge{font-size:10px;padding:5px 8px;border-radius:20px}.on{background:#123c26;color:#5bea99}.off{background:#202620;color:#9ba59f}.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:30;padding:20px}.modal.show{display:grid}.modalbox{width:min(520px,100%);background:#07110a;border:1px solid #245238;border-radius:20px;padding:26px}.toast{position:fixed;right:20px;bottom:20px;background:#102018;border:1px solid #2a5136;padding:13px 16px;border-radius:11px;transform:translateY(100px);opacity:0;transition:.25s;z-index:40}.toast.show{transform:none;opacity:1}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{min-width:max-content;width:auto;margin:0 4px}.g4,.g3{grid-template-columns:1fr 1fr}.content{padding:18px}}@media(max-width:600px){.g4,.g3{grid-template-columns:1fr}.top{padding:0 12px}.who .name{display:none}.content{padding:14px}.loginbox{padding:25px}.logo{font-size:43px}}
 .smallbtn{padding:8px 10px;font-size:11px}.muted{color:var(--muted)}.money{color:var(--gold);font-weight:800}.modalbox.wide{width:min(760px,100%)}.actions-row{display:flex;gap:8px;flex-wrap:wrap}.periodbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}.periodselect{min-width:280px}.kpi-note{font-size:11px;color:var(--muted);margin-top:6px}.dangertext{color:#ff8f8f}.search{max-width:320px}.table-actions{white-space:nowrap}.online-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px}.payrate{font-size:12px;color:var(--muted)}.audit{font-size:12px}.locked{opacity:.65}
 .receipt-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}.receipt-form .fullrow{grid-column:1/-1}.pastebox{border:1px dashed #2b6142;background:#061009;border-radius:14px;min-height:160px;padding:18px;display:grid;place-items:center;text-align:center;cursor:pointer}.pastebox.drag{border-color:var(--green);background:#0b1c11}.preview{max-width:100%;max-height:220px;border-radius:12px;border:1px solid var(--line)}.receipt-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.weekbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:16px}.weekbar .field{margin:0}.top3{font-weight:900;color:var(--gold)}.rankmedal{font-size:18px}.thumb{width:58px;height:58px;border-radius:9px;object-fit:cover;border:1px solid var(--line)}.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.statnote{font-size:12px;color:var(--muted);line-height:1.5}@media(max-width:760px){.receipt-form,.details-grid{grid-template-columns:1fr}.receipt-form .fullrow{grid-column:auto}}
 .public{min-height:100vh;background:radial-gradient(circle at 20% 5%,rgba(27,104,65,.35),transparent 32%),radial-gradient(circle at 90% 75%,rgba(18,64,41,.3),transparent 30%),#020503;color:#f3f0e7}
 .public-top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 28px;border-bottom:1px solid #31452f;background:rgba(3,7,5,.88);backdrop-filter:blur(16px)}
-.public-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}.public-brand img{width:48px;height:48px;object-fit:contain}.public-brand strong{font:28px Georgia;color:var(--gold);letter-spacing:4px}
+.public-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}.public-brand img{width:54px;height:54px;object-fit:contain;border-radius:50%;display:block}.full-logo{width:min(430px,82vw);height:auto;aspect-ratio:1/1;object-fit:contain;display:block;border-radius:50%;filter:drop-shadow(0 22px 50px #000)}.public-brand strong{font:28px Georgia;color:var(--gold);letter-spacing:4px}
 .public-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.public-nav a,.public-nav button{color:#d6ddd7;background:transparent;border:1px solid transparent;padding:9px 12px;border-radius:9px;text-decoration:none;cursor:pointer}.public-nav a:hover,.public-nav button:hover{background:#103b27;border-color:#23623f;color:#fff}
 .discord-btn{display:inline-flex!important;align-items:center;gap:7px;border-color:#315a43!important;color:#bfe7cf!important}.discord-icon{width:18px;height:18px;display:block}
-.hero{padding:80px 24px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;max-width:1280px;margin:auto}.hero h1{font:clamp(52px,8vw,94px) Georgia;margin:0;color:#f1ede2;letter-spacing:5px}.hero h1 span{color:var(--green)}.hero-kicker{color:var(--gold);text-transform:uppercase;letter-spacing:5px;font-size:13px}.hero p{color:#aeb8b0;font-size:18px;line-height:1.7;max-width:700px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.hero-logo{display:grid;place-items:center}.hero-logo img{width:min(440px,82vw);filter:drop-shadow(0 22px 50px #000)}
+.hero{padding:80px 24px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;max-width:1280px;margin:auto}.hero h1{font:clamp(52px,8vw,94px) Georgia;margin:0;color:#f1ede2;letter-spacing:5px}.hero h1 span{color:var(--green)}.hero-kicker{color:var(--gold);text-transform:uppercase;letter-spacing:5px;font-size:13px}.hero p{color:#aeb8b0;font-size:18px;line-height:1.7;max-width:700px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.hero-logo{display:grid;place-items:center}.hero-logo img{width:min(440px,82vw);height:auto;aspect-ratio:1/1;object-fit:contain;display:block;border-radius:50%;filter:drop-shadow(0 22px 50px #000)}
 .public-wrap{max-width:1280px;margin:auto;padding:42px 24px 90px}.public-section{scroll-margin-top:90px;margin-top:28px}.public-section .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}.public-section h2{font:36px Georgia;color:var(--gold);margin:0}.public-section p.lead{color:var(--muted);margin:7px 0 0;line-height:1.6}
 .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.menu-category{margin-top:26px}.menu-category-head{display:flex;align-items:center;gap:14px;margin:0 0 12px}.menu-category-head h3{font:28px Georgia;color:var(--gold);margin:0}.menu-category-head:after{content:"";height:1px;background:linear-gradient(90deg,var(--green2),transparent);flex:1}.menu-empty{padding:18px;border:1px dashed #2b4635;border-radius:14px;color:var(--muted);background:#07100a}.menu-card{background:linear-gradient(160deg,#08120b,#061009);border:1px solid #1f3d2b;border-radius:16px;padding:18px;display:flex;justify-content:space-between;gap:18px;align-items:start}.menu-card .menu-name{font:21px Georgia;color:#e8e3d7}.menu-card .menu-desc{color:#8f9d94;font-size:12px;line-height:1.5;margin-top:5px}.menu-price{color:var(--gold);font-weight:900;white-space:nowrap}
 .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature-card{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:24px}.feature-card .icon{font-size:30px;margin-bottom:8px}.feature-card h3{margin:0 0 8px;font:23px Georgia;color:#efe9dc}.feature-card p{margin:0;color:#99a49d;line-height:1.6}
 .recruit-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start}.recruit-poster{width:100%;border-radius:18px;border:1px solid #2c4c38;display:block}
 .public-form{background:#07110ae8;border:1px solid var(--line);border-radius:18px;padding:22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-grid .fullrow{grid-column:1/-1}.cv-success{padding:14px;border-radius:12px;background:#0f2e1d;border:1px solid #245a3b;color:#9de6b6}
-.public-footer{border-top:1px solid #18291e;padding:28px 24px;color:#727e76;text-align:center}.client-back{color:#98a69d;text-decoration:none;cursor:pointer;font-size:13px;margin-top:14px;display:inline-block}.loginbox .login-brand-img{width:120px;height:120px;object-fit:contain;margin:0 auto 10px;display:block}
+.public-footer{border-top:1px solid #18291e;padding:28px 24px;color:#727e76;text-align:center}.client-back{color:#98a69d;text-decoration:none;cursor:pointer;font-size:13px;margin-top:14px;display:inline-block}.loginbox .login-brand-img{width:150px;height:150px;object-fit:contain;margin:0 auto 12px;display:block;border-radius:50%;filter:drop-shadow(0 10px 24px #000)}
 .vip-banner{background:linear-gradient(120deg,#0e2c1c,#07110a);border:1px solid #2b6243;border-radius:20px;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:24px}.vip-banner strong{font:28px Georgia;color:var(--gold)}.vip-banner span{display:block;color:#a8b5ad;margin-top:7px;line-height:1.5}
 .app-row-photo{width:70px;height:70px;border-radius:12px;object-fit:cover;border:1px solid var(--line)}.app-status{min-width:130px}
 @media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}.hero p{margin:14px auto}.hero-actions{justify-content:center}.feature-grid,.recruit-grid{grid-template-columns:1fr}.menu-grid{grid-template-columns:1fr}}
@@ -26,13 +26,13 @@
 
 <section id="publicSite" class="public">
 <header class="public-top">
-<a class="public-brand" href="#top"><img src="assets/bull-head.png" alt="Nocturno"><div><strong>NOCTURNO</strong><div class="sub" style="text-align:left;margin:1px 0 0">Steakhouse · Parrilla Premium</div></div></a>
+<a class="public-brand" href="#top"><img src="assets/nocturno-logo.png" alt="Nocturno"><div><strong>NOCTURNO</strong><div class="sub" style="text-align:left;margin:1px 0 0">Steakhouse · Parrilla Premium</div></div></a>
 <nav class="public-nav">
 <a href="#menu">Menu</a><a href="#vip">VIP / Wynajem</a><a href="#recruitment">Praca</a>
 <a class="discord-btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener" aria-label="Discord Nocturno"><svg class="discord-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.54 4.42A17.5 17.5 0 0 0 15.15 3l-.54 1.1a15.9 15.9 0 0 0-5.22 0L8.85 3a17.5 17.5 0 0 0-4.39 1.42C1.66 8.6.9 12.68 1.27 16.7A17.8 17.8 0 0 0 6.66 19l1.31-1.76a10 10 0 0 1-2.16-1.03l.53-.41c4.15 1.92 8.86 1.92 13.01 0l.53.41a10 10 0 0 1-2.16 1.03L19.03 19a17.8 17.8 0 0 0 5.39-2.3c.44-4.67-.75-8.71-4.88-12.28ZM8.34 14.9c-1.2 0-2.19-1.08-2.19-2.4s.97-2.4 2.19-2.4 2.2 1.08 2.2 2.4-.99 2.4-2.2 2.4Zm7.32 0c-1.21 0-2.2-1.08-2.2-2.4s.98-2.4 2.2-2.4 2.19 1.08 2.19 2.4-.98 2.4-2.19 2.4Z"/></svg>Discord</a>
 <button id="staffLoginBtn">Panel pracownika</button>
 </nav></header>
-<div id="top" class="hero"><div><div class="hero-kicker">Vinewood · Parrilla Premium · Vino · Pasión</div><h1>DOŁĄCZ DO<br><span>NOCTURNO</span></h1><p>Steki z charakterem, hiszpańska kuchnia, elegancki nocny klimat i miejsce stworzone zarówno na wyjątkową kolację, jak i większe okazje.</p><div class="hero-actions"><a class="btn gold" href="#menu" style="text-decoration:none">ZOBACZ MENU</a><a class="btn primary" href="#vip" style="text-decoration:none">WYNAJMIJ NOCTURNO</a><a class="discord-btn btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener">💬 DOŁĄCZ NA DISCORD</a></div></div><div class="hero-logo"><img src="assets/bull-head.png" alt="Byk Nocturno"></div></div>
+<div id="top" class="hero"><div><div class="hero-kicker">Vinewood · Parrilla Premium · Vino · Pasión</div><h1>DOŁĄCZ DO<br><span>NOCTURNO</span></h1><p>Steki z charakterem, hiszpańska kuchnia, elegancki nocny klimat i miejsce stworzone zarówno na wyjątkową kolację, jak i większe okazje.</p><div class="hero-actions"><a class="btn gold" href="#menu" style="text-decoration:none">ZOBACZ MENU</a><a class="btn primary" href="#vip" style="text-decoration:none">WYNAJMIJ NOCTURNO</a><a class="discord-btn btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener">💬 DOŁĄCZ NA DISCORD</a></div></div><div class="hero-logo"><img src="assets/nocturno-logo.png" alt="Logo Nocturno"></div></div>
 <div class="public-wrap">
 <section id="menu" class="public-section"><div class="section-head"><div><h2>Menu Nocturno</h2><p class="lead">Menu podzielone według kategorii. Ceny podane w dolarach RP.</p></div></div><div id="clientMenuCategories"></div></section>
 <section id="vip" class="public-section"><div class="vip-banner"><div><strong>Sala VIP &amp; wynajem całego Nocturno</strong><span>Rezerwacje na urodziny, spotkania biznesowe, kolacje rodzinne, eventy i wyjątkowe okazje. Możliwość wynajęcia wybranej sali VIP albo całej restauracji.</span></div><a class="btn gold" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener" style="text-decoration:none">ZAPYTAJ NA DISCORD</a></div><div class="feature-grid" style="margin-top:16px"><div class="feature-card"><div class="icon">🥂</div><h3>Sala VIP</h3><p>Intymna przestrzeń na prywatne spotkania i eleganckie kolacje.</p></div><div class="feature-card"><div class="icon">🏛️</div><h3>Cała restauracja</h3><p>Pełne Nocturno do dyspozycji podczas wyjątkowych wydarzeń.</p></div><div class="feature-card"><div class="icon">🎉</div><h3>Eventy specjalne</h3><p>Obsługa imprez, wydarzeń i wieczorów tematycznych w klimacie Nocturno.</p></div></div></section>
@@ -51,20 +51,21 @@
 
 <section id="login" class="login hidden">
   <div class="loginbox">
-    <img class="login-brand-img" src="assets/bull-head.png" alt="Nocturno"><div class="logo">NOCTURNO</div><div class="sub">Restaurante · Staff Management</div>
+    <img class="login-brand-img" src="assets/nocturno-logo.png" alt="Nocturno"><div class="logo">NOCTURNO</div><div class="sub">Restaurante · Staff Management</div>
     <form id="loginForm"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Hasło</label><input id="password" type="password" required autocomplete="current-password"></div><button class="btn primary full">ZALOGUJ SIĘ</button><div id="loginError" class="error"></div></form><a class="client-back" id="backToClient">← Wróć do strony restauracji</a>
   </div>
 </section>
 <section id="app" class="app hidden">
-<header class="top"><div class="brand">NOCTURNO</div><div class="who"><div class="name"><b id="whoName"></b><small id="whoRole" style="display:block;color:var(--muted)"></small></div><div id="avatar" class="avatar">N</div><button id="logout" class="logout">Wyloguj</button></div></header>
+<header class="top"><div class="brand"><img src="assets/nocturno-logo.png" alt="Nocturno"><span>NOCTURNO</span></div><div class="who"><div class="name"><b id="whoName"></b><small id="whoRole" style="display:block;color:var(--muted)"></small></div><div id="avatar" class="avatar">N</div><button id="logout" class="logout">Wyloguj</button></div></header>
 <div class="layout"><aside class="side">
-<button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="receipts">Paragony</button><button class="nav" data-page="ranking">Ranking</button><button class="nav" data-page="history">Godziny</button><button class="nav" data-page="stats">Statystyki</button><button class="nav" data-page="settings">Ustawienia</button>
+<button class="nav active" data-page="dashboard">Dashboard</button><button class="nav" data-page="staffmenu">🍽️ Menu</button><button class="nav" data-page="receipts">Paragony</button><button class="nav" data-page="ranking">Ranking</button><button class="nav" data-page="history">Godziny</button><button class="nav" data-page="stats">Statystyki</button><button class="nav" data-page="settings">Ustawienia</button>
 <div id="managerNav" class="hidden"><div style="color:#566259;font-size:9px;letter-spacing:1.5px;margin:17px 10px 8px">MANAGEMENT</div><button class="nav" data-page="employees">Pracownicy</button><button class="nav" data-page="applications">Złożone CV</button><button class="nav" data-page="management">Administrator</button><button class="nav" data-page="shiftlog">Dziennik zmiany</button><button class="nav" data-page="audit">Audyt systemowy</button></div>
 </aside><main class="content">
 <section id="dashboard" class="page active"><div class="title"><h1 id="welcome"></h1><p>Twój czas pracy i sprzedaż w Nocturno</p></div>
 <div class="grid g4"><div class="card"><div class="label">Dzisiaj — paragony</div><div id="todaySales" class="value green">$0</div><div id="todayReceipts" class="kpi-note">0 paragonów</div></div><div class="card"><div class="label">Ten tydzień</div><div id="weekSales" class="value goldtext">$0</div><div id="weekRank" class="kpi-note">Ranking: —</div></div><div class="card"><div class="label">Dzisiaj — godziny</div><div id="today" class="value">00:00:00</div><div id="sessionsToday" class="kpi-note">0 sesji</div></div><div class="card"><div class="label">Zarobki okresu</div><div id="myPay" class="value money">$0</div><div id="periodLabel" class="kpi-note">Brak okresu</div></div></div>
 <div class="card timer"><div id="state" class="state">NIE PRACUJESZ</div><div id="clock" class="clock">00:00:00</div><div class="actions"><button id="start" class="btn primary">ROZPOCZNIJ PRACĘ</button><button id="stop" class="btn danger hidden">ZAKOŃCZ PRACĘ</button></div></div></section>
 
+<section id="staffmenu" class="page"><div class="title"><h1>Menu Nocturno</h1><p>Pełna karta restauracji z aktualnymi cenami — dostępna bez wylogowywania się z panelu.</p></div><div id="staffMenuCategories"></div></section>
 <section id="receipts" class="page"><div class="title"><h1>Paragony</h1><p>Każdy paragon trafia do dnia od 00:00 do 00:00 następnego dnia.</p></div>
 <div class="card"><div class="toolbar"><div><b>Dodaj paragon</b><div class="statnote">Kwota jest przypisana automatycznie do chwili zapisania. Zdjęcie możesz wkleić przez <b>Ctrl+V</b>.</div></div><span class="badge on">ZAPISYWANIE</span></div>
 <div class="receipt-form"><div class="field"><label>Kwota paragonu</label><input id="receiptAmount" type="number" min="0.01" step="0.01" placeholder="np. 1250.50"></div><div class="field"><label>Zdjęcie paragonu (opcjonalne)</label><input id="receiptFile" type="file" accept="image/*"></div><div class="field fullrow"><label>Zdjęcie — kliknij i wklej Ctrl+V</label><div id="pastebox" class="pastebox">Wklej zdjęcie bezpośrednio tutaj (Ctrl+V)<br><span class="muted">albo przeciągnij plik / wybierz powyżej</span><div id="previewWrap" class="hidden" style="margin-top:12px"><img id="receiptPreview" class="preview"></div></div></div><div class="fullrow receipt-actions"><button id="clearReceipt" class="btn">WYCZYŚĆ</button><button id="saveReceipt" class="btn gold">ZAPISZ PARAGON</button></div></div></div>
@@ -220,34 +221,61 @@ $("changePassword").onclick=async()=>{const a=$("newPassword").value,b=$("newPas
 
 const CLIENT_MENU={
   "Przystawki":[
-    {name:"Tabla de Quesos",desc:"Deska serów i winogrona",price:700},
-    {name:"Tartar de Res",desc:"Tatar wołowy, kapary, jajko, cebula",price:900}
+    {name:"Carpaccio de Ternera",price:230},
+    {name:"Gazpacho",price:230},
+    {name:"Pan con tomate",price:230},
+    {name:"Steak Tartare",price:270},
+    {name:"Tabla de Quesos",price:230}
   ],
   "Dania główne":[
-    {name:"Filete Mignon",desc:"Filet wołowy, puree ziemniaczane",price:1800},
-    {name:"Tomahawk Steak",desc:"Tomahawk z pieczonymi ziemniaczkami",price:2500},
-    {name:"Arroz a la Seta",desc:"Ryż, grzyby, masło",price:950},
-    {name:"Enzomillo",desc:"Polędwica wołowa, wino, czosnek",price:1500},
-    {name:"Burger Wagyu",desc:"Bułka brioche, wagyu, ser, cebula",price:1200},
-    {name:"Pato Confitado",desc:"Kaczka konfitowana, puree ziemniaczane",price:1100},
-    {name:"Pasta con Tofu y Setas",desc:"Makaron, tofu, grzyby, sałata",price:900},
-    {name:"Roast Beef Wagyu Gold",desc:"Wagyu, płatki złota, frytki steakowe",price:3000}
+    {name:"Arroz de Setas",price:260},
+    {name:"Filet Mignon",price:320},
+    {name:"Burger Wagyu",price:290},
+    {name:"Pasta con Tofu y Setas",price:260},
+    {name:"Confit de Pato",price:290},
+    {name:"Rosbef Wagyu Gold",price:340},
+    {name:"Enzomillo",price:320},
+    {name:"Tomahawk a la Parrilla",price:340}
   ],
-  "Napoje":[],
-  "Drinki":[],
-  "Desery":[]
+  "Napoje bezalkoholowe":[
+    {name:"Agua del Glaciar",price:150},
+    {name:"Limonada de Frambuesa",price:150},
+    {name:"Limonada de Limón",price:150},
+    {name:"Nocturno Blanco 0%",price:150},
+    {name:"Té Helado de Frutos del Bosque",price:150}
+  ],
+  "Alkohole":[
+    {name:"Black Velvet de Rick",price:180},
+    {name:"Código Rojo",price:180},
+    {name:"El Secreto de Rosa",price:180},
+    {name:"Enzo After Dark",price:180},
+    {name:"Nocturna",price:180},
+    {name:"Nocturno Blanco",price:150},
+    {name:"Nocturno Rubí",price:150},
+    {name:"Oro Nocturno",price:150},
+    {name:"Patricio Está Llamando",price:180},
+    {name:"Rosa Nocturna",price:150},
+    {name:"Tinto de Verano",price:180},
+    {name:"Tio Willy",price:180},
+    {name:"Whisky con Hielo",price:180}
+  ],
+  "Desery":[
+    {name:"Crema Catalana",price:160},
+    {name:"Fondant de Chocolate",price:160},
+    {name:"Mousse de Chocolate Blanco",price:160}
+  ]
 };
-function renderClientMenu(){
-  const el=$("clientMenuCategories");
-  if(!el)return;
-  el.innerHTML=Object.entries(CLIENT_MENU).map(([cat,items])=>{
-    if(!items.length)return `<section class="menu-category"><div class="menu-category-head"><h3>${esc(cat)}</h3></div><div class="menu-empty">Pozycje tej kategorii zostaną uzupełnione zgodnie z aktualną kartą Nocturno.</div></section>`;
-    return `<section class="menu-category"><div class="menu-category-head"><h3>${esc(cat)}</h3></div><div class="menu-grid">${items.map(x=>`<article class="menu-card"><div><div class="menu-name">${esc(x.name)}</div><div class="menu-desc">${esc(x.desc)}</div></div><div class="menu-price">${money(x.price)}</div></article>`).join("")}</div></section>`;
-  }).join("");
+function renderMenuInto(id){
+  const el=$(id); if(!el)return;
+  el.innerHTML=Object.entries(CLIENT_MENU).map(([cat,items])=>
+    `<section class="menu-category"><div class="menu-category-head"><h3>${esc(cat)}</h3></div><div class="menu-grid">${items.map(x=>`<article class="menu-card"><div><div class="menu-name">${esc(x.name)}</div></div><div class="menu-price">${money(x.price)} <span style="font-size:11px;font-weight:600">USD</span></div></article>`).join("")}</div></section>`
+  ).join("");
 }
+function renderClientMenu(){renderMenuInto("clientMenuCategories");}
+function renderStaffMenu(){renderMenuInto("staffMenuCategories");}
 function openClient(){ $("login").classList.add("hidden"); $("app").classList.add("hidden"); $("publicSite").classList.remove("hidden"); window.scrollTo({top:0,behavior:"smooth"})}
 function openStaffLogin(){ $("publicSite").classList.add("hidden"); $("login").classList.remove("hidden"); window.scrollTo({top:0,behavior:"smooth"}); $("email")?.focus()}
-$("staffLoginBtn")?.addEventListener("click",openStaffLogin);$("backToClient")?.addEventListener("click",e=>{e.preventDefault();openClient()});renderClientMenu();
+$("staffLoginBtn")?.addEventListener("click",openStaffLogin);$("backToClient")?.addEventListener("click",e=>{e.preventDefault();openClient()});renderClientMenu();renderStaffMenu();
 
 async function submitCv(e){
 e.preventDefault();const photo=$("cvPhoto").files?.[0];if(!photo){toast("Dodaj zdjęcie do zgłoszenia.");return}const id=crypto.randomUUID();const ext=(photo.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"");const path=`applications/${id}.${ext}`;$("cvSubmit").disabled=true;$("cvSubmit").textContent="WYSYŁANIE…";
