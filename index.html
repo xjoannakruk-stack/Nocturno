@@ -109,7 +109,8 @@ const periodSecs=(s,p)=>{const a=Math.max(new Date(s.started_at).getTime(),new D
 const rateFor=position=>POSITIONS[position]??0; const payFor=(seconds,position)=>Math.floor(Math.max(0,seconds)/PAY_BLOCK)*rateFor(position);
 function esc(s){return String(s??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c]))};
 function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3000)}
-function roleLabel(r){return r==="manager"?"Manager / Właściciel":"Pracownik"}
+function isManagerRole(r){return String(r??"").trim().toLowerCase()==="manager"}
+function roleLabel(r){return isManagerRole(r)?"Manager / Właściciel":"Pracownik"}
 function fillPositions(){$("empPosition").innerHTML=POSITION_NAMES.map(p=>`<option value="${esc(p)}">${esc(p)} — ${money(POSITIONS[p])}/15 min</option>`).join("")}
 async function logAction(action,details){try{await db.from("audit_log").insert({actor_id:user.id,action,details})}catch(e){console.warn(e)}}
 function pad(n){return String(n).padStart(2,"0")}
@@ -130,6 +131,8 @@ document.querySelectorAll(".nav").forEach(b=>b.onclick=async()=>{document.queryS
 
 async function boot(u){
   user=u;
+  $("managerNav").classList.add("hidden");
+  $("managerNav").style.display="none";
   fillPositions();
   const r=await db.from("profiles").select("*").eq("id",u.id).maybeSingle();
   if(r.error){
@@ -150,6 +153,7 @@ async function boot(u){
     return false;
   }
   profile=r.data;
+  profile.role=String(profile.role??"").trim().toLowerCase();
   if(!profile.active){
     profile=null;
     await db.auth.signOut();
@@ -164,15 +168,15 @@ async function boot(u){
   $("whoRole").textContent=roleLabel(profile.role)+" · "+(profile.position||"Pracownik");
   $("avatar").textContent=(profile.full_name||"N")[0].toUpperCase();
   $("welcome").textContent="Witaj, "+profile.full_name;
-  if(profile.role==="manager")$("managerNav").classList.remove("hidden");
+  if(isManagerRole(profile.role)){$("managerNav").classList.remove("hidden");$("managerNav").style.display="block";}else{$("managerNav").classList.add("hidden");$("managerNav").style.display="none";}
   fillWeekSelect("employeeWeek");
   fillWeekSelect("rankingWeek");
-  if(profile.role==="manager")fillWeekSelect("managerWeek");
+  if(isManagerRole(profile.role))fillWeekSelect("managerWeek");
   await loadPeriods();
   await refresh();
   await loadMyReceipts();
   await loadRanking();
-  if(profile.role==="manager"){await loadEmployees();await loadManagement();await loadApplications();}
+  if(isManagerRole(profile.role)){await loadEmployees();await loadManagement();await loadApplications();}
   return true
 }async function loadPeriods(){const r=await db.from("work_periods").select("*").order("started_at",{ascending:false}).limit(100);periods=r.data||[]}
 function getCurrentPeriod(){return periods.find(p=>p.status==="open")||null}
@@ -187,7 +191,7 @@ $("pastebox").onclick=()=>$("receiptFile").click();
 $("pastebox").ondragover=e=>{e.preventDefault();$("pastebox").classList.add("drag")};$("pastebox").ondragleave=()=>$("pastebox").classList.remove("drag");$("pastebox").ondrop=e=>{e.preventDefault();$("pastebox").classList.remove("drag");const f=e.dataTransfer.files?.[0];if(f?.type.startsWith("image/"))setPreview(f)};
 document.addEventListener("paste",e=>{const items=[...(e.clipboardData?.items||[])];const img=items.find(i=>i.type.startsWith("image/"));if(img){const f=img.getAsFile();if(f){setPreview(f);toast("Zdjęcie wklejone z Ctrl+V")}}});
 $("clearReceipt").onclick=()=>{$("receiptAmount").value="";$("receiptFile").value="";setPreview(null)};
-$("saveReceipt").onclick=async()=>{const amount=Number($("receiptAmount").value);if(!(amount>0)){toast("Podaj poprawną kwotę paragonu.");return}let image_path=null;if(receiptImageFile){if(!receiptImageFile.type.startsWith("image/")){toast("Dołączony plik nie jest zdjęciem.");return}if(receiptImageFile.size>10*1024*1024){toast("Zdjęcie może mieć maksymalnie 10 MB.");return}const ext=(receiptImageFile.name?.split(".").pop()||"png").toLowerCase().replace(/[^a-z0-9]/g,"")||"png";const path=`${user.id}/${Date.now()}.${ext}`;const up=await db.storage.from("receipts").upload(path,receiptImageFile,{cacheControl:"3600",upsert:false,contentType:receiptImageFile.type||"image/png"});if(up.error){toast("Nie udało się zapisać zdjęcia: "+up.error.message);return}image_path=path}const r=await db.from("receipts").insert({employee_id:user.id,amount,image_path});if(r.error){toast("Nie udało się zapisać paragonu: "+r.error.message);if(image_path)await db.storage.from("receipts").remove([image_path]);return}await logAction("Dodanie paragonu",`kwota=${amount.toFixed(2)}`);toast("Paragon zapisany");$("clearReceipt").click();await loadMyReceipts();await loadRanking();await refresh();if(profile.role==="manager")await loadManagement()};
+$("saveReceipt").onclick=async()=>{const amount=Number($("receiptAmount").value);if(!(amount>0)){toast("Podaj poprawną kwotę paragonu.");return}let image_path=null;if(receiptImageFile){if(!receiptImageFile.type.startsWith("image/")){toast("Dołączony plik nie jest zdjęciem.");return}if(receiptImageFile.size>10*1024*1024){toast("Zdjęcie może mieć maksymalnie 10 MB.");return}const ext=(receiptImageFile.name?.split(".").pop()||"png").toLowerCase().replace(/[^a-z0-9]/g,"")||"png";const path=`${user.id}/${Date.now()}.${ext}`;const up=await db.storage.from("receipts").upload(path,receiptImageFile,{cacheControl:"3600",upsert:false,contentType:receiptImageFile.type||"image/png"});if(up.error){toast("Nie udało się zapisać zdjęcia: "+up.error.message);return}image_path=path}const r=await db.from("receipts").insert({employee_id:user.id,amount,image_path});if(r.error){toast("Nie udało się zapisać paragonu: "+r.error.message);if(image_path)await db.storage.from("receipts").remove([image_path]);return}await logAction("Dodanie paragonu",`kwota=${amount.toFixed(2)}`);toast("Paragon zapisany");$("clearReceipt").click();await loadMyReceipts();await loadRanking();await refresh();if(isManagerRole(profile.role))await loadManagement()};
 
 async function loadMyReceipts(){const wk=$("employeeWeek").value||weekStartKey(plKey());const rows=await fetchReceiptsForWeek(wk,user.id);const total=rows.reduce((n,x)=>n+Number(x.amount),0);$("employeeWeekTotal").textContent=money(total);$("employeeWeekCount").textContent=rows.length;$("myReceiptsBody").innerHTML=rows.map(x=>`<tr><td>${dateTime(x.created_at)}</td><td class="money">${money(x.amount)}</td><td id="img-${x.id}">${x.image_path?"Ładowanie…":"—"}</td></tr>`).join("");for(const x of rows)if(x.image_path){const u=await signedUrl(x.image_path);if(u)$("img-"+x.id).innerHTML=`<a href="${u}" target="_blank"><img class="thumb" src="${u}" alt="Paragon"></a>`}}
 $("employeeWeek").onchange=loadMyReceipts;
@@ -295,9 +299,9 @@ const loadManagementBase=loadManagement;
 async function loadManagementV4(){await loadManagementBase();const todayKey=plKey(),ts=utcForPlMidnight(todayKey).toISOString(),te=utcForPlMidnight(addDaysKey(todayKey,1)).toISOString();const td=(await db.from("receipts").select("amount").gte("created_at",ts).lt("created_at",te).limit(5000)).data||[];$("mTodaySales").textContent=money(td.reduce((n,x)=>n+Number(x.amount),0));$("mTodayReceipts").textContent=`${td.length} paragonów`;await loadDailySales()}
 loadManagement=loadManagementV4;
 
-const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener("click",async()=>{if(b.dataset.page==="applications"&&profile?.role==="manager")await loadApplications();if(b.dataset.page==="shiftlog"&&profile?.role==="manager")await loadShiftLog()}));
+const _nav=document.querySelectorAll(".nav");_nav.forEach(b=>b.addEventListener("click",async()=>{if(b.dataset.page==="applications"&&isManagerRole(profile?.role))await loadApplications();if(b.dataset.page==="shiftlog"&&isManagerRole(profile?.role))await loadShiftLog()}));
 
-const _boot=boot;boot=async function(u){const ok=await _boot(u);if(!ok){$("publicSite").classList.remove("hidden");$("login").classList.add("hidden");$("app").classList.add("hidden");return false}$("publicSite").classList.add("hidden");$("login").classList.add("hidden");$("app").classList.remove("hidden");if(profile?.role==="manager"){await loadApplications();await loadShiftLog();await loadManagementV4()}return true};
+const _boot=boot;boot=async function(u){const ok=await _boot(u);if(!ok){$("publicSite").classList.remove("hidden");$("login").classList.add("hidden");$("app").classList.add("hidden");return false}$("publicSite").classList.add("hidden");$("login").classList.add("hidden");$("app").classList.remove("hidden");if(isManagerRole(profile?.role)){await loadApplications();await loadShiftLog();await loadManagementV4()}return true};
 
 (async()=>{openClient();const r=await db.auth.getSession();if(r.data.session)await boot(r.data.session.user)})();
 
