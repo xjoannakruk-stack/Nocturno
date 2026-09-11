@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V19</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -114,6 +114,12 @@
 .title-with-action{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
 @media(max-width:650px){.menu-name,.menu-price{font-size:17px!important}.menu-category-head h3{font-size:24px!important}.title-with-action{align-items:stretch;flex-direction:column}}
 
+
+/* V19 — edycja stanowiska */
+.employee-position-editor{display:flex;align-items:center;gap:8px;min-width:260px}
+.employee-position-select{min-width:180px;padding:8px 10px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:9px}
+@media(max-width:700px){.employee-position-editor{min-width:220px;flex-direction:column;align-items:stretch}.employee-position-select{min-width:0;width:100%}}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -121,7 +127,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V18</div>
+    <div class="sub">Staff Portal V19</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -329,7 +335,7 @@
       <select id="employeePositionFilter"><option value="">Wszystkie stanowiska</option></select>
     </div>
   </div>
-  <div class="card tablewrap"><table><thead><tr><th>Stanowisko</th><th>Pracownik</th><th>Rola</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="employeesTable"></tbody></table></div>
+  <div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Rola</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="employeesTable"></tbody></table></div>
 </section>
 
       <section id="page-recruitment" class="page manager-only-page">
@@ -955,16 +961,54 @@ async function deleteEmployee(userId,name){
   }
 }
 
+
+async function updateEmployeePosition(userId){
+  if(!managerAccess)return toast('Tylko management może edytować stanowiska.');
+
+  const select=document.querySelector(`.employee-position-select[data-id="${userId}"]`);
+  if(!select)return;
+
+  const position=select.value.trim();
+  if(!position)return toast('Wybierz stanowisko.');
+
+  const saveBtn=document.querySelector(`.employee-position-save[data-id="${userId}"]`);
+  if(saveBtn){saveBtn.disabled=true;saveBtn.textContent='Zapisywanie…';}
+
+  try{
+    const {error}=await sb.from('profiles').update({position}).eq('id',userId);
+    if(error)throw error;
+
+    if(profilesCache[userId])profilesCache[userId].position=position;
+    toast('Stanowisko zostało zmienione.');
+
+    // If manager edits own position, update dashboard label too.
+    if(userId===currentUser.id){
+      currentProfile.position=position;
+      $('kpiPosition').textContent=position;
+      $('profileBox').innerHTML=`<strong>${esc(currentProfile.full_name||'Pracownik')}</strong><div class="muted">${esc(position)} · ${managerAccess?'management':'pracownik'}</div><div class="muted">${esc(currentUser.email||'')}</div>`;
+    }
+
+    await loadEmployees();
+  }catch(e){
+    console.error('Update position:',e);
+    toast('Nie udało się zmienić stanowiska: '+(e?.message||'nieznany błąd'));
+  }finally{
+    if(saveBtn){saveBtn.disabled=false;saveBtn.textContent='Zapisz';}
+  }
+}
+
 async function loadEmployees(){
   if(!isManager())return;
   await preloadProfiles();
 
+  const positionOptions=['Kelner','Kierownik','Kucharz','Manager','Początkujący kelner','Szef','Szef kuchni','Zastępca szefa'];
+
   const select=$('employeePositionFilter');
-  const positions=[...new Set(Object.values(profilesCache).map(p=>(p.position||'Pracownik').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pl'));
+  const positionsInDb=[...new Set(Object.values(profilesCache).map(p=>(p.position||'Pracownik').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pl'));
   if(select){
     const current=select.value;
     select.innerHTML='<option value="">Wszystkie stanowiska</option>';
-    positions.forEach(pos=>{
+    positionsInDb.forEach(pos=>{
       const o=document.createElement('option');
       o.value=pos;o.textContent=pos;
       select.appendChild(o);
@@ -980,17 +1024,29 @@ async function loadEmployees(){
       return pa.localeCompare(pb,'pl') || (a.full_name||'').localeCompare(b.full_name||'','pl');
     });
 
-  $('employeesTable').innerHTML=rows.map(p=>`<tr>
-    <td>${esc(p.position||'Pracownik')}</td>
-    <td>${esc(p.full_name||'—')}</td>
-    <td>${p.role==='manager'?'<span class="badge warn">management</span>':'pracownik'}</td>
-    <td><span class="badge ${p.active?'on':'off'}">${p.active?'Aktywny':'Nieaktywny'}</span></td>
-    <td>${p.id===currentUser.id
-      ?'<span class="muted">Twoje konto</span>'
-      :`<button type="button" class="btn danger smallbtn employee-delete" data-id="${p.id}" data-name="${esc(p.full_name||'pracownika')}">Usuń</button>`}
-    </td>
-  </tr>`).join('')||'<tr><td colspan="5">Brak pracowników.</td></tr>';
+  $('employeesTable').innerHTML=rows.map(p=>{
+    const currentPosition=p.position||'Pracownik';
+    const opts=[...new Set([...positionOptions,currentPosition])];
+    return `<tr>
+      <td>${esc(p.full_name||'—')}</td>
+      <td>
+        <div class="employee-position-editor">
+          <select class="employee-position-select" data-id="${p.id}">
+            ${opts.map(pos=>`<option value="${esc(pos)}" ${pos===currentPosition?'selected':''}>${esc(pos)}</option>`).join('')}
+          </select>
+          <button type="button" class="btn primary smallbtn employee-position-save" data-id="${p.id}">Zapisz</button>
+        </div>
+      </td>
+      <td>${p.role==='manager'?'<span class="badge warn">management</span>':'pracownik'}</td>
+      <td><span class="badge ${p.active?'on':'off'}">${p.active?'Aktywny':'Nieaktywny'}</span></td>
+      <td>${p.id===currentUser.id
+        ?'<span class="muted">Twoje konto</span>'
+        :`<button type="button" class="btn danger smallbtn employee-delete" data-id="${p.id}" data-name="${esc(p.full_name||'pracownika')}">Usuń</button>`}
+      </td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="5">Brak pracowników.</td></tr>';
 
+  $('employeesTable').querySelectorAll('.employee-position-save').forEach(btn=>btn.onclick=()=>updateEmployeePosition(btn.dataset.id));
   $('employeesTable').querySelectorAll('.employee-delete').forEach(btn=>btn.onclick=()=>deleteEmployee(btn.dataset.id,btn.dataset.name));
 }
 
