@@ -152,66 +152,205 @@
 
 <!-- Skrypty aplikacji -->
 <script>
-// Konfiguracja Supabase (uzupełnij własnymi danymi)
-const SUPABASE_URL = 'https://TWOJ-PROJEKT.supabase.co';
-const SUPABASE_ANON_KEY = 'TWOJ-KLUCZ-ANON';
-const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+// ============================================================
+// SUPABASE — KONFIGURACJA
+// ============================================================
+// UŻYWAMY WYŁĄCZNIE klucza publishable/anon po stronie przeglądarki.
+// NIGDY nie wklejaj tutaj sb_secret ani service_role.
+//
+// Projekt: eutloybyywmnvnoostuu
+const SUPABASE_URL = 'https://eutloybyywmnvnoostuu.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_k5q-jhRf951gQMWVytVYVw_sgeumyaM';
 
-// Obsługa widoków (Strona publiczna vs Panel logowania vs Panel pracownika)
+const supabaseClient =
+  window.supabase
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
+      })
+    : null;
+
+// Obsługa widoków (Strona publiczna / logowanie / panel)
 const publicSite = document.getElementById('publicSite');
 const staffLogin = document.getElementById('staffLogin');
 const staffApp = document.getElementById('staffApp');
 
 function showPublic() {
-  publicSite.classList.remove('hidden');
-  staffLogin.classList.add('hidden');
-  staffApp.classList.add('hidden');
+  publicSite?.classList.remove('hidden');
+  staffLogin?.classList.add('hidden');
+  staffApp?.classList.add('hidden');
 }
 
 function showLogin() {
-  publicSite.classList.add('hidden');
-  staffLogin.classList.remove('hidden');
-  staffApp.classList.add('hidden');
+  publicSite?.classList.add('hidden');
+  staffLogin?.classList.remove('hidden');
+  staffApp?.classList.add('hidden');
 }
 
 function showApp() {
-  publicSite.classList.add('hidden');
-  staffLogin.classList.add('hidden');
-  staffApp.classList.remove('hidden');
+  publicSite?.classList.add('hidden');
+  staffLogin?.classList.add('hidden');
+  staffApp?.classList.remove('hidden');
 }
 
-document.getElementById('staffLoginBtn').addEventListener('click', showLogin);
-document.getElementById('footerLoginLink').addEventListener('click', showLogin);
-document.getElementById('backToPublicFromLogin').addEventListener('click', showPublic);
+function showLoginError(message) {
+  const errBox = document.getElementById('loginError');
+  if (!errBox) return;
+  errBox.textContent = message;
+  errBox.classList.remove('hidden');
+}
 
-// Logowanie przez Supabase
+function clearLoginError() {
+  document.getElementById('loginError')?.classList.add('hidden');
+}
+
+function setUserHeader(user) {
+  const email = user?.email || 'Pracownik';
+  const name = user?.user_metadata?.full_name || email.split('@')[0] || 'Pracownik';
+  const avatar = (name.trim()[0] || 'N').toUpperCase();
+
+  const nameEl = document.getElementById('userName');
+  const avatarEl = document.getElementById('userAvatar');
+
+  if (nameEl) nameEl.textContent = name;
+  if (avatarEl) avatarEl.textContent = avatar;
+}
+
+document.getElementById('staffLoginBtn')?.addEventListener('click', showLogin);
+document.getElementById('footerLoginLink')?.addEventListener('click', showLogin);
+document.getElementById('backToPublicFromLogin')?.addEventListener('click', showPublic);
+
+// ============================================================
+// LOGOWANIE
+// ============================================================
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  const errBox = document.getElementById('loginError');
-  errBox.classList.add('hidden');
+
+  const email = document.getElementById('loginEmail')?.value.trim();
+  const password = document.getElementById('loginPassword')?.value;
+  const submitBtn = e.currentTarget.querySelector('button[type="submit"]');
+
+  clearLoginError();
 
   if (!supabaseClient) {
-    errBox.textContent = "Błąd konfiguracji Supabase.";
-    errBox.classList.remove('hidden');
+    showLoginError('Nie udało się uruchomić klienta Supabase. Odśwież stronę.');
     return;
   }
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  if (error) {
-    errBox.textContent = error.message;
-    errBox.classList.remove('hidden');
-  } else {
+  if (!email || !password) {
+    showLoginError('Podaj adres e-mail i hasło.');
+    return;
+  }
+
+  try {
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'LOGOWANIE...';
+    }
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      console.error('Supabase login error:', error);
+
+      let message = error.message || 'Nie udało się zalogować.';
+
+      if (/invalid login credentials/i.test(message)) {
+        message = 'Nieprawidłowy e-mail lub hasło. Sprawdź, czy konto pracownika nadal istnieje w Supabase Authentication.';
+      } else if (/email not confirmed/i.test(message)) {
+        message = 'Konto istnieje, ale adres e-mail nie został potwierdzony w Supabase Authentication.';
+      } else if (/fetch|network|failed to fetch/i.test(message)) {
+        message = 'Brak połączenia z Supabase. Sprawdź adres projektu, klucz publishable/anon oraz konfigurację hostingu.';
+      }
+
+      showLoginError(message);
+      return;
+    }
+
+    if (!data?.session || !data?.user) {
+      showLoginError('Supabase nie zwrócił aktywnej sesji. Konto może nie istnieć lub logowanie jest zablokowane.');
+      return;
+    }
+
+    setUserHeader(data.user);
     showApp();
+
+  } catch (err) {
+    console.error('Unexpected login error:', err);
+    showLoginError('Wystąpił nieoczekiwany błąd logowania. Otwórz konsolę przeglądarki (F12), jeśli problem się powtarza.');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ZALOGUJ SIĘ';
+    }
+  }
+});
+
+// ============================================================
+// PRZYWRACANIE SESJI PO ODSWIEŻENIU
+// ============================================================
+async function restoreAuthSession() {
+  if (!supabaseClient) {
+    showPublic();
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) {
+      console.error('Supabase getSession error:', error);
+      showPublic();
+      return;
+    }
+
+    if (data?.session?.user) {
+      setUserHeader(data.session.user);
+      showApp();
+    } else {
+      showPublic();
+    }
+  } catch (err) {
+    console.error('Session restore error:', err);
+    showPublic();
+  }
+}
+
+// Reagujemy również na wylogowanie / odświeżenie tokenu.
+supabaseClient?.auth.onAuthStateChange((event, session) => {
+  console.log('Supabase auth event:', event);
+
+  if (session?.user) {
+    setUserHeader(session.user);
+    showApp();
+  } else if (event === 'SIGNED_OUT') {
+    showPublic();
   }
 });
 
 // Wylogowanie
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-  if (supabaseClient) await supabaseClient.auth.signOut();
+  if (!supabaseClient) {
+    showPublic();
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    console.error('Supabase logout error:', error);
+  }
+
   showPublic();
 });
+
+restoreAuthSession();
 
 // Przycisk Powrót do góry
 const backToTopBtn = document.getElementById('backToTop');
