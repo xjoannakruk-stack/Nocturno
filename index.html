@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V13</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V15</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -93,6 +93,13 @@
 .sales-podium .podium-time{font-size:29px}
 .receipt-loading td{color:var(--muted);font-style:italic}
 
+
+/* V15 optimization */
+#page-management-receipts .tablewrap{max-height:62vh;overflow:auto}
+#page-management-receipts thead th{position:sticky;top:0;background:#07110a;z-index:2}
+#page-receipts .tablewrap{max-height:58vh;overflow:auto}
+.receipt-loading td{padding:22px!important;text-align:center}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -100,7 +107,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V13</div>
+    <div class="sub">Staff Portal V15</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -138,6 +145,7 @@
       <div class="side-section manager-only hidden">
         <div class="side-caption">MANAGEMENT</div>
         <button class="nav" data-page="time"><span>◷</span>Czas pracy</button>
+        <button class="nav" data-page="management-receipts"><span>▣</span>Paragony Management</button>
         <button class="nav" data-page="ranking"><span>♛</span>Ranking</button>
         <button class="nav" data-page="employees"><span>♟</span>Pracownicy</button>
         <button class="nav" data-page="recruitment"><span>✦</span>Rekrutacja</button>
@@ -180,10 +188,34 @@
           <div class="toolbar" style="margin-bottom:0"><div class="label">Twoje paragony</div><button class="btn ghost compactbtn" id="refreshReceiptsBtn">Odśwież historię</button></div>
           <div class="tablewrap section-gap"><table><thead><tr><th>Kwota</th><th>Data</th><th>Zdjęcie</th></tr></thead><tbody id="ownReceiptsTable"></tbody></table></div>
         </div>
+      </section>
 
-        <div id="managerReceiptsBox" class="card section-gap manager-only hidden">
-          <div class="label">Wszystkie paragony pracowników — management</div>
-          <div class="tablewrap section-gap"><table><thead><tr><th>Pracownik</th><th>Kwota</th><th>Data</th><th>Zdjęcie</th><th>Akcja</th></tr></thead><tbody id="allReceiptsTable"></tbody></table></div>
+
+      <section id="page-management-receipts" class="page manager-only-page">
+        <div class="title">
+          <h1>Paragony Management</h1>
+          <p>Wszystkie paragony pracowników. Ta sekcja ładuje się osobno dopiero po jej otwarciu.</p>
+        </div>
+        <div class="toolbar">
+          <div class="actions-row">
+            <div class="field" style="min-width:240px;margin:0">
+              <label>Filtr pracownika</label>
+              <select id="managerReceiptEmployeeFilter"><option value="">Wszyscy pracownicy</option></select>
+            </div>
+          </div>
+          <button class="btn ghost compactbtn" id="refreshManagerReceiptsBtn">Odśwież listę</button>
+        </div>
+        <div class="card">
+          <div class="toolbar" style="margin-bottom:0">
+            <div class="label">Wszystkie paragony pracowników</div>
+            <span class="badge on">TYLKO MANAGEMENT</span>
+          </div>
+          <div class="tablewrap section-gap">
+            <table>
+              <thead><tr><th>Pracownik</th><th>Kwota</th><th>Data</th><th>Zdjęcie</th><th>Akcja</th></tr></thead>
+              <tbody id="managementReceiptsTable"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -372,7 +404,7 @@
 const SUPABASE_URL='https://eutloybyywmnvnoostuu.supabase.co';
 const SUPABASE_KEY='sb_publishable_k5q-jhRf951gQMWVytVYVw_sgeumyaM';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const $=id=>document.getElementById(id);let currentUser=null,currentProfile=null,profilesCache={},receiptClipboardFile=null,applicationsCache={},currentRankingBounds=null;
+const $=id=>document.getElementById(id);let currentUser=null,currentProfile=null,profilesCache={},receiptClipboardFile=null,applicationsCache={},currentRankingBounds=null,managerAccess=false,profileReady=false;
 const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const fmtDate=x=>x?new Date(x).toLocaleString('pl-PL'):'—';const fmtDay=x=>x?new Date(x+'T12:00:00').toLocaleDateString('pl-PL'):'—';const fmtMoney=n=>`${Number(n||0).toLocaleString('pl-PL',{maximumFractionDigits:2})} USD`;const fmtDuration=s=>{s=Math.max(0,Math.floor(Number(s)||0));const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return `${h}h ${String(m).padStart(2,'0')}m`};const rowClass=i=>i===0?'rank1':i===1?'rank2':i===2?'rank3':'';
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
@@ -388,14 +420,42 @@ function showApp(){
   $('publicSite').classList.add('hidden');$('staffLogin').classList.add('hidden');$('staffApp').classList.remove('hidden');
   sessionStorage.setItem('nocturno_current_view','panel');
 }
-function isManager(){return currentProfile?.role==='manager'}
+function isManager(){return managerAccess===true}
 function switchPage(name){document.querySelectorAll('#staffApp .page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#staffApp .nav').forEach(n=>n.classList.remove('active'));$('page-'+name)?.classList.add('active');document.querySelector(`#staffApp .nav[data-page="${name}"]`)?.classList.add('active')}
 async function signedUrl(bucket,path){if(!path)return null;const {data,error}=await sb.storage.from(bucket).createSignedUrl(path,3600);if(error)return null;return data?.signedUrl||null}
 async function openImage(bucket,path){const u=await signedUrl(bucket,path);if(!u)return toast('Nie udało się otworzyć zdjęcia.');$('modalImage').src=u;$('imageModal').classList.add('show')}
 document.querySelectorAll('[data-close-modal]').forEach(b=>b.onclick=()=>$(b.dataset.closeModal).classList.remove('show'));
 
-async function loadProfile(){const {data,error}=await sb.from('profiles').select('*').eq('id',currentUser.id).single();if(error)throw error;currentProfile=data;$('userName').textContent=data.full_name||currentUser.email;$('userAvatar').textContent=(data.full_name||'N').trim()[0].toUpperCase();$('kpiStatus').textContent=data.active?'Aktywny':'Nieaktywny';$('kpiPosition').textContent=data.position||'Pracownik';$('profileBox').innerHTML=`<strong>${esc(data.full_name||'Pracownik')}</strong><div class="muted">${esc(data.position||'Pracownik')} · ${data.role==='manager'?'management':'pracownik'}</div><div class="muted">${esc(currentUser.email||'')}</div>`;document.querySelectorAll('.manager-only').forEach(el=>el.classList.toggle('hidden',!isManager()));}
-async function preloadProfiles(){if(!isManager()){profilesCache={[currentUser.id]:currentProfile};return}const {data}=await sb.from('profiles').select('id,full_name,position,role,active');profilesCache={};(data||[]).forEach(p=>profilesCache[p.id]=p)}
+async function loadProfile(){
+  if(!currentUser?.id)throw new Error('Brak aktywnego użytkownika.');
+  const {data,error}=await sb.from('profiles').select('*').eq('id',currentUser.id).single();
+  if(error)throw error;
+
+  currentProfile=data;
+  managerAccess=data?.role==='manager' && data?.active===true;
+  profileReady=true;
+
+  $('userName').textContent=data.full_name||currentUser.email;
+  $('userAvatar').textContent=(data.full_name||'N').trim()[0].toUpperCase();
+  $('kpiStatus').textContent=data.active?'Aktywny':'Nieaktywny';
+  $('kpiPosition').textContent=data.position||'Pracownik';
+  $('profileBox').innerHTML=`<strong>${esc(data.full_name||'Pracownik')}</strong><div class="muted">${esc(data.position||'Pracownik')} · ${managerAccess?'management':'pracownik'}</div><div class="muted">${esc(currentUser.email||'')}</div>`;
+
+  document.querySelectorAll('.manager-only').forEach(el=>el.classList.toggle('hidden',!managerAccess));
+}
+async function preloadProfiles(){
+  if(!profileReady || !currentProfile){
+    await loadProfile();
+  }
+  if(!managerAccess){
+    profilesCache={[currentUser.id]:currentProfile};
+    return;
+  }
+  const {data,error}=await sb.from('profiles').select('id,full_name,position,role,active');
+  if(error)throw error;
+  profilesCache={};
+  (data||[]).forEach(p=>profilesCache[p.id]=p);
+}
 async function currentPeriodStart(){const {data}=await sb.from('work_periods').select('started_at').eq('status','open').order('started_at',{ascending:false}).limit(1);return data?.[0]?.started_at||null}
 async function loadDashboard(){const ps=await currentPeriodStart();let q=sb.from('work_sessions').select('*').eq('employee_id',currentUser.id).order('started_at',{ascending:false});if(ps)q=q.gte('started_at',ps);const {data,error}=await q;if(error)return;let total=0,open=null;(data||[]).forEach(s=>{const st=new Date(s.started_at),en=new Date(s.ended_at||Date.now());total+=Math.max(0,(en-st)/1000);if(!s.ended_at&&!open)open=s});$('kpiMyTime').textContent=fmtDuration(total);$('shiftState').innerHTML=open?`<span class="badge on">PRACA W TOKU</span><div class="section-gap">Rozpoczęto: ${fmtDate(open.started_at)}</div>`:`<span class="badge off">BRAK OTWARTEJ ZMIANY</span>`;$('startShiftBtn').disabled=!!open;$('stopShiftBtn').disabled=!open;$('mySessionsTable').innerHTML=(data||[]).slice(0,10).map(s=>`<tr><td>${fmtDate(s.started_at)}</td><td>${s.ended_at?fmtDate(s.ended_at):'<span class="badge on">W toku</span>'}</td><td>${fmtDuration((new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000)}</td></tr>`).join('')||'<tr><td colspan="3">Brak sesji</td></tr>';const {data:last}=await sb.from('receipts').select('amount').eq('employee_id',currentUser.id).order('created_at',{ascending:false}).limit(1);$('kpiLastReceipt').textContent=last?.[0]?fmtMoney(last[0].amount):'—'}
 async function startShift(){const {data}=await sb.from('work_sessions').select('id').eq('employee_id',currentUser.id).is('ended_at',null).limit(1);if(data?.length)return toast('Masz już rozpoczętą pracę.');const {error}=await sb.from('work_sessions').insert({employee_id:currentUser.id});if(error)return toast(error.message);toast('Rozpoczęto pracę.');loadDashboard()}
@@ -479,77 +539,86 @@ async function pasteReceiptFromClipboard(){
   }
 }
 
-async function addReceipt(){const amount=Number($('receiptAmount').value);if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');const file=receiptClipboardFile||$('receiptImage').files?.[0];if(!file)return toast('Dodaj zdjęcie paragonu.');const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const {error}=await sb.from('receipts').insert({employee_id:currentUser.id,amount,image_path:path});if(error)return toast(error.message);$('receiptAmount').value='';clearReceiptFile();toast('Paragon dodany.');await Promise.all([loadReceipts(),loadDashboard()])}
-async function loadReceipts(retry=true){
-  if(!currentUser?.id){
-    const {data}=await sb.auth.getSession();
-    currentUser=data?.session?.user||null;
-  }
+async function addReceipt(){const amount=Number($('receiptAmount').value);if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');const file=receiptClipboardFile||$('receiptImage').files?.[0];if(!file)return toast('Dodaj zdjęcie paragonu.');const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const {error}=await sb.from('receipts').insert({employee_id:currentUser.id,amount,image_path:path});if(error)return toast(error.message);$('receiptAmount').value='';clearReceiptFile();toast('Paragon dodany.');await Promise.allSettled([loadOwnReceipts(),loadDashboard()])}
+async function loadOwnReceipts(){
   if(!currentUser?.id)return;
 
-  if(!currentProfile){
-    try{await loadProfile()}catch(e){console.warn('Profile before receipts:',e)}
-  }
-  await preloadProfiles();
-
-  if($('ownReceiptsTable')) $('ownReceiptsTable').innerHTML='<tr class="receipt-loading"><td colspan="3">Wczytywanie historii paragonów…</td></tr>';
-
-  const {data:own,error:ownError}=await sb.from('receipts')
-    .select('id,employee_id,amount,image_path,created_at')
-    .eq('employee_id',currentUser.id)
-    .order('created_at',{ascending:false})
-    .limit(200);
-
-  if(ownError){
-    console.error('Own receipts error:',ownError);
-    if(retry){
-      await new Promise(r=>setTimeout(r,650));
-      return loadReceipts(false);
-    }
-    $('ownReceiptsTable').innerHTML=`<tr><td colspan="3">Błąd odczytu historii: ${esc(ownError.message)}</td></tr>`;
-  }else{
-    const ownRows=[];
-    for(const r of own||[]){
-      const u=r.image_path?await signedUrl('receipts',r.image_path):null;
-      ownRows.push(`<tr><td class="money">${fmtMoney(r.amount)}</td><td>${fmtDate(r.created_at)}</td><td>${u?`<img class="thumb own-receipt-thumb" src="${u}" data-path="${esc(r.image_path)}">`:'—'}</td></tr>`);
-    }
-    $('ownReceiptsTable').innerHTML=ownRows.join('')||'<tr><td colspan="3">Brak paragonów.</td></tr>';
-    $('ownReceiptsTable').querySelectorAll('.own-receipt-thumb').forEach(i=>i.onclick=()=>openImage('receipts',i.dataset.path));
-  }
-
-  if(!isManager())return;
-
-  if($('allReceiptsTable')) $('allReceiptsTable').innerHTML='<tr class="receipt-loading"><td colspan="5">Wczytywanie paragonów pracowników…</td></tr>';
+  const tbody=$('ownReceiptsTable');
+  if(!tbody)return;
+  tbody.innerHTML='<tr class="receipt-loading"><td colspan="3">Wczytywanie historii paragonów…</td></tr>';
 
   const {data,error}=await sb.from('receipts')
-    .select('id,employee_id,amount,image_path,created_at')
+    .select('id,amount,image_path,created_at')
+    .eq('employee_id',currentUser.id)
     .order('created_at',{ascending:false})
-    .limit(1000);
+    .limit(150);
 
   if(error){
-    console.error('Manager receipts error:',error);
-    if(retry){
-      await new Promise(r=>setTimeout(r,650));
-      return loadReceipts(false);
-    }
-    $('allReceiptsTable').innerHTML=`<tr><td colspan="5">Błąd odczytu: ${esc(error.message)}</td></tr>`;
+    console.error('Own receipts:',error);
+    tbody.innerHTML=`<tr><td colspan="3">Błąd odczytu: ${esc(error.message)}</td></tr>`;
     return;
   }
 
-  const rows=[];
-  for(const r of data||[]){
-    const u=r.image_path?await signedUrl('receipts',r.image_path):null;
-    rows.push(`<tr>
-      <td>${esc(profilesCache[r.employee_id]?.full_name||r.employee_id)}</td>
-      <td class="money">${fmtMoney(r.amount)}</td>
-      <td>${fmtDate(r.created_at)}</td>
-      <td>${u?`<img class="thumb receipt-thumb" src="${u}" data-path="${esc(r.image_path)}">`:'—'}</td>
-      <td><button class="btn danger smallbtn receipt-delete" data-id="${r.id}" data-path="${esc(r.image_path||'')}">Usuń</button></td>
-    </tr>`);
+  tbody.innerHTML=(data||[]).map(r=>`<tr>
+    <td class="money">${fmtMoney(r.amount)}</td>
+    <td>${fmtDate(r.created_at)}</td>
+    <td>${r.image_path?`<button type="button" class="btn ghost smallbtn own-receipt-view" data-path="${esc(r.image_path)}">Podgląd</button>`:'—'}</td>
+  </tr>`).join('')||'<tr><td colspan="3">Brak paragonów.</td></tr>';
+
+  tbody.querySelectorAll('.own-receipt-view').forEach(b=>b.onclick=()=>openImage('receipts',b.dataset.path));
+}
+
+async function prepareManagerReceiptFilter(){
+  if(!managerAccess)return;
+  await preloadProfiles();
+  const sel=$('managerReceiptEmployeeFilter');
+  if(!sel || sel.dataset.ready==='1')return;
+
+  Object.values(profilesCache)
+    .sort((a,b)=>(a.full_name||'').localeCompare(b.full_name||'','pl'))
+    .forEach(p=>{
+      const o=document.createElement('option');
+      o.value=p.id;
+      o.textContent=p.full_name||p.id;
+      sel.appendChild(o);
+    });
+
+  sel.dataset.ready='1';
+}
+
+async function loadManagerReceipts(){
+  if(!managerAccess)return;
+  await prepareManagerReceiptFilter();
+
+  const tbody=$('managementReceiptsTable');
+  if(!tbody)return;
+  tbody.innerHTML='<tr class="receipt-loading"><td colspan="5">Wczytywanie paragonów managementu…</td></tr>';
+
+  let q=sb.from('receipts')
+    .select('id,employee_id,amount,image_path,created_at')
+    .order('created_at',{ascending:false})
+    .limit(500);
+
+  const employeeId=$('managerReceiptEmployeeFilter')?.value;
+  if(employeeId)q=q.eq('employee_id',employeeId);
+
+  const {data,error}=await q;
+  if(error){
+    console.error('Manager receipts:',error);
+    tbody.innerHTML=`<tr><td colspan="5">Błąd odczytu: ${esc(error.message)}</td></tr>`;
+    return;
   }
-  $('allReceiptsTable').innerHTML=rows.join('')||'<tr><td colspan="5">Brak paragonów.</td></tr>';
-  $('allReceiptsTable').querySelectorAll('.receipt-thumb').forEach(i=>i.onclick=()=>openImage('receipts',i.dataset.path));
-  $('allReceiptsTable').querySelectorAll('.receipt-delete').forEach(b=>b.onclick=()=>deleteReceipt(b.dataset.id,b.dataset.path));
+
+  tbody.innerHTML=(data||[]).map(r=>`<tr>
+    <td>${esc(profilesCache[r.employee_id]?.full_name||r.employee_id)}</td>
+    <td class="money">${fmtMoney(r.amount)}</td>
+    <td>${fmtDate(r.created_at)}</td>
+    <td>${r.image_path?`<button type="button" class="btn ghost smallbtn management-receipt-view" data-path="${esc(r.image_path)}">Podgląd</button>`:'—'}</td>
+    <td><button type="button" class="btn danger smallbtn management-receipt-delete" data-id="${r.id}" data-path="${esc(r.image_path||'')}">Usuń</button></td>
+  </tr>`).join('')||'<tr><td colspan="5">Brak paragonów.</td></tr>';
+
+  tbody.querySelectorAll('.management-receipt-view').forEach(b=>b.onclick=()=>openImage('receipts',b.dataset.path));
+  tbody.querySelectorAll('.management-receipt-delete').forEach(b=>b.onclick=()=>deleteReceipt(b.dataset.id,b.dataset.path));
 }
 
 function startOfWeek(d){
@@ -771,27 +840,38 @@ $('restaurantBookingForm')?.addEventListener('submit',async e=>{e.preventDefault
 $('cvForm')?.addEventListener('submit',async e=>{e.preventDefault();const file=$('cvPhoto').files?.[0];if(!file)return toast('Dodaj zdjęcie.');const ext=(file.name.split('.').pop()||'jpg').toLowerCase(),path=`applications/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('cv-applications').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const payload={first_name:$('cvFirstName').value.trim(),last_name:$('cvLastName').value.trim(),discord_name:$('cvDiscordName').value.trim(),discord_id:$('cvDiscordId').value.trim(),phone:$('cvPhone').value.trim(),position:$('cvPosition').value,qualifications:$('cvQualifications').value.trim(),availability:$('cvAvailability').value,preferred_hours:$('cvPreferredHours').value.trim(),photo_path:path};const {error}=await sb.from('job_applications').insert(payload);if(error){await sb.storage.from('cv-applications').remove([path]);return toast(error.message)}e.target.reset();$('cvSuccess').classList.remove('hidden');setTimeout(()=>$('cvSuccess').classList.add('hidden'),5000)});
 
 async function loadManagerPages(){
-  if(!isManager())return;
+  if(!managerAccess)return;
+  // Heavy management data is intentionally lazy-loaded when a page is opened.
   populateRankingWeeks();
-  await Promise.allSettled([loadManagerSessions(),loadEmployees(),loadApplications(),loadBookings(),loadManagerMenu(),loadRankings(currentRankingBounds)]);
 }
 async function loadAll(){
   await loadProfile();
   populateRankingWeeks();
-  await Promise.allSettled([loadDashboard(),loadReceipts(),loadStaffMenu()]);
-  if(isManager())await loadManagerPages();
+
+  // Fast startup: only the dashboard and lightweight menu are loaded initially.
+  await Promise.allSettled([
+    loadDashboard(),
+    loadStaffMenu()
+  ]);
+
+  if(managerAccess)await loadManagerPages();
+
+  // If the current page is receipts after a browser refresh, load only own history.
+  if($('page-receipts')?.classList.contains('active')) loadOwnReceipts();
 }
 document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{
   if(b.classList.contains('hidden'))return;
   switchPage(b.dataset.page);
-  if(b.dataset.page==='receipts')loadReceipts();
-  if(b.dataset.page==='menu')loadStaffMenu();
-  if(b.dataset.page==='time')loadManagerSessions();
-  if(b.dataset.page==='ranking'){populateRankingWeeks();loadRankings(currentRankingBounds);}
-  if(b.dataset.page==='employees')loadEmployees();
-  if(b.dataset.page==='recruitment')loadApplications();
-  if(b.dataset.page==='bookings')loadBookings();
-  if(b.dataset.page==='menu-admin')loadManagerMenu();
+
+  if(b.dataset.page==='receipts') await loadOwnReceipts();
+  else if(b.dataset.page==='menu') await loadStaffMenu();
+  else if(b.dataset.page==='time') await loadManagerSessions();
+  else if(b.dataset.page==='management-receipts') await loadManagerReceipts();
+  else if(b.dataset.page==='ranking'){populateRankingWeeks();await loadRankings(currentRankingBounds);}
+  else if(b.dataset.page==='employees') await loadEmployees();
+  else if(b.dataset.page==='recruitment') await loadApplications();
+  else if(b.dataset.page==='bookings') await loadBookings();
+  else if(b.dataset.page==='menu-admin') await loadManagerMenu();
 });
 $('staffLoginBtn')?.addEventListener('click',async()=>{
   const {data}=await sb.auth.getSession();
@@ -801,14 +881,19 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
   }else showLogin();
 });$('footerLoginLink')?.addEventListener('click',showLogin);$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
-$('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);
-$('refreshReceiptsBtn')?.addEventListener('click',()=>loadReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);
+$('refreshReceiptsBtn')?.addEventListener('click',()=>loadOwnReceipts());$('refreshManagerReceiptsBtn')?.addEventListener('click',()=>loadManagerReceipts());$('managerReceiptEmployeeFilter')?.addEventListener('change',()=>loadManagerReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
 
 sb.auth.onAuthStateChange((event,session)=>{
-  if(session?.user) currentUser=session.user;
-  if((event==='TOKEN_REFRESHED'||event==='SIGNED_IN') && !$('staffApp').classList.contains('hidden')){
-    setTimeout(()=>loadReceipts(),100);
+  if(session?.user)currentUser=session.user;
+  if(event==='SIGNED_OUT'){
+    currentUser=null;
+    currentProfile=null;
+    profileReady=false;
+    managerAccess=false;
+    profilesCache={};
   }
+  // No automatic page/data reload on token refresh.
 });
 
 const backToTopBtn=document.getElementById('backToTop');window.addEventListener('scroll',()=>{if(window.scrollY>300)backToTopBtn.classList.add('show');else backToTopBtn.classList.remove('show')});backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
