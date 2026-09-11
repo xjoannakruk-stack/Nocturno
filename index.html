@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V10</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V12</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -35,6 +35,55 @@
 .manager-datetime{min-width:190px;padding:8px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:9px}
 .longcell{min-width:240px;max-width:340px;white-space:pre-wrap;line-height:1.45}
 .menu-admin-note{margin-bottom:16px}
+
+.ranking-controls{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.ranking-actions{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.ranking-week-field{margin:0!important;min-width:220px;max-width:280px}
+.ranking-week-field select{width:100%;min-width:220px}
+.ranking-btn{width:auto!important;min-width:0!important;white-space:nowrap}
+
+
+/* V12 — sidebar inspired by the recovered Nocturno screens */
+.side{padding:18px 12px;background:#041009;border-right:1px solid #13251a}
+.side-section{padding-bottom:18px;margin-bottom:15px;border-bottom:1px solid #13251a}
+.side-section:last-child{border-bottom:0}
+.side-caption{font-size:9px;letter-spacing:2.1px;color:#596b60;padding:8px 11px 10px;text-transform:uppercase}
+.nav{display:flex;align-items:center;gap:9px;padding:10px 11px;margin-bottom:4px;border-radius:7px;font-size:12px}
+.nav span{width:16px;text-align:center;color:#8eb39a}
+.nav.active,.nav:hover{background:#0d422b;border-color:#1d6441;color:#fff}
+.nav.active span{color:#f0c85c}
+
+/* V12 — ranking hero */
+.ranking-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.ranking-head h1{font:28px Georgia;color:#f0cf72;margin:0}
+.ranking-head p{color:var(--muted);margin:6px 0 0}
+.rank-chip{font-size:9px;letter-spacing:1.2px;padding:6px 10px;border-radius:999px;background:#063d22;color:#5ef19a;border:1px solid #145c36;white-space:nowrap}
+.ranking-main{padding:20px}
+.ranking-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.rank-switch{display:flex;align-items:flex-end;gap:9px;flex-wrap:wrap}
+.ranking-week-field{min-width:205px;max-width:235px;margin:0!important}
+.ranking-week-field select{min-width:205px;width:100%;padding:8px 10px}
+.ranking-btn{padding:8px 11px!important;font-size:10px!important;border-radius:8px!important;width:auto!important}
+.time-podium{display:grid;grid-template-columns:1.12fr 1fr 1fr;gap:14px;margin:18px 0 22px}
+.podium-card{position:relative;min-height:145px;border:1px solid #243323;border-radius:16px;padding:19px;background:linear-gradient(145deg,#071009,#050b07);overflow:hidden}
+.podium-card:after{content:"";position:absolute;right:-35px;top:-45px;width:120px;height:120px;border-radius:50%;opacity:.08;background:currentColor}
+.podium-card.first{color:#f2c64d;border-color:#735d1c;box-shadow:inset 0 0 35px rgba(230,184,55,.055)}
+.podium-card.second{color:#d7dde5;border-color:#47515c}
+.podium-card.third{color:#d99157;border-color:#5d3d29}
+.podium-place{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:14px}
+.podium-time{font-size:31px;font-weight:900;line-height:1;margin-bottom:12px}
+.podium-name{font-size:13px;font-weight:800;color:#f3f5f3}
+.podium-position{font-size:10px;color:#91a097;margin-top:5px}
+.ranking-table th{padding-top:11px;padding-bottom:11px}
+.ranking-table td{padding-top:14px;padding-bottom:14px}
+.ranking-table tr.top1 td{color:#eac552;font-weight:800}
+.ranking-table tr.top2 td{color:#d7dde5;font-weight:750}
+.ranking-table tr.top3 td{color:#d99157;font-weight:750}
+.rank-medal{font-size:18px}
+.rank-hours{font-weight:900}
+.sales-rank-card{max-width:none}
+@media(max-width:850px){.time-podium{grid-template-columns:1fr}.ranking-head{align-items:center}.ranking-toolbar{align-items:stretch}.rank-switch{width:100%}}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -42,7 +91,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V10</div>
+    <div class="sub">Staff Portal V12</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -71,14 +120,21 @@
   </header>
   <div class="layout">
     <aside class="side">
-      <button class="nav active" data-page="dashboard">Pulpit</button>
-      <button class="nav" data-page="receipts">Paragony</button>
-      <button class="nav manager-only hidden" data-page="time">Czas pracy</button>
-      <button class="nav manager-only hidden" data-page="ranking">Ranking</button>
-      <button class="nav manager-only hidden" data-page="employees">Pracownicy</button>
-      <button class="nav manager-only hidden" data-page="recruitment">Rekrutacja</button>
-      <button class="nav" data-page="menu">Menu</button>
-      <button class="nav manager-only hidden" data-page="bookings">Rezerwacje</button>
+      <div class="side-section">
+        <div class="side-caption">PANEL PRACOWNIKA</div>
+        <button class="nav active" data-page="dashboard"><span>⌂</span>Pulpit</button>
+        <button class="nav" data-page="receipts"><span>▣</span>Paragony</button>
+        <button class="nav" data-page="menu"><span>◈</span>Menu</button>
+      </div>
+      <div class="side-section manager-only hidden">
+        <div class="side-caption">MANAGEMENT</div>
+        <button class="nav" data-page="time"><span>◷</span>Czas pracy</button>
+        <button class="nav" data-page="ranking"><span>♛</span>Ranking</button>
+        <button class="nav" data-page="employees"><span>♟</span>Pracownicy</button>
+        <button class="nav" data-page="recruitment"><span>✦</span>Rekrutacja</button>
+        <button class="nav" data-page="bookings"><span>▤</span>Rezerwacje</button>
+        <button class="nav" data-page="menu-admin"><span>⚙</span>Zarządzanie Menu</button>
+      </div>
     </aside>
     <main class="content">
       <section id="page-dashboard" class="page active">
@@ -110,10 +166,17 @@
           <div id="pasteBox" class="pastebox section-gap" tabindex="0"><div id="pasteText">Kliknij tutaj i naciśnij <b>Ctrl+V</b>, aby wkleić zdjęcie paragonu.<br><span class="muted">Możesz też przeciągnąć obraz.</span></div><img id="pastePreview" class="pastepreview hidden" alt="Podgląd"></div>
           <div class="actions-row section-gap"><button class="btn primary" id="pasteReceiptBtn">Wklej ze schowka</button><button class="btn gold" id="addReceiptBtn">Dodaj paragon</button><button class="btn ghost" id="clearReceiptImageBtn">Wyczyść zdjęcie</button></div>
         </div>
-        <div class="card section-gap"><div class="label">Twój ostatni paragon</div><div id="lastOwnReceipt" class="section-gap muted">Brak.</div></div>
-        <div id="managerReceiptsBox" class="card section-gap manager-only hidden"><div class="label">Paragony pracowników</div><div class="tablewrap section-gap"><table><thead><tr><th>Pracownik</th><th>Kwota</th><th>Data</th><th>Zdjęcie</th><th>Akcja</th></tr></thead><tbody id="allReceiptsTable"></tbody></table></div></div>
-      </section>
 
+        <div class="card section-gap">
+          <div class="label">Twoje paragony</div>
+          <div class="tablewrap section-gap"><table><thead><tr><th>Kwota</th><th>Data</th><th>Zdjęcie</th></tr></thead><tbody id="ownReceiptsTable"></tbody></table></div>
+        </div>
+
+        <div id="managerReceiptsBox" class="card section-gap manager-only hidden">
+          <div class="label">Wszystkie paragony pracowników — management</div>
+          <div class="tablewrap section-gap"><table><thead><tr><th>Pracownik</th><th>Kwota</th><th>Data</th><th>Zdjęcie</th><th>Akcja</th></tr></thead><tbody id="allReceiptsTable"></tbody></table></div>
+        </div>
+      </section>
 
       <section id="page-time" class="page manager-only-page">
         <div class="title"><h1>Czas pracy</h1><p>Management może przeglądać i korygować godziny pracy wszystkich pracowników.</p></div>
@@ -133,19 +196,43 @@
       </section>
 
       <section id="page-ranking" class="page manager-only-page">
-        <div class="title"><h1>Ranking</h1><p>Ranking widoczny wyłącznie dla managementu.</p></div>
-        <div class="periodbar">
-  <div class="actions-row">
-    <button class="btn gold compactbtn" id="rankingAllBtn">Całościowy</button>
-    <div class="field" style="min-width:220px">
-      <label>Wybierz dowolny dzień tygodnia</label>
-      <input id="rankingDate" type="date">
-    </div>
-    <button class="btn primary compactbtn" id="rankingWeekBtn">Pokaż tydzień</button>
-  </div>
-  <div id="rankingRangeText" class="muted">Zakres: całościowy</div>
-</div>
-        <div class="grid g2"><div class="card"><div class="label">Ranking czasu pracy</div><div class="tablewrap section-gap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Czas</th></tr></thead><tbody id="timeRankingTable"></tbody></table></div></div><div class="card"><div class="label">Ranking sprzedaży</div><div class="tablewrap section-gap"><table><thead><tr><th>#</th><th>Pracownik</th><th>Suma paragonów</th></tr></thead><tbody id="salesRankingTable"></tbody></table></div></div></div>
+        <div class="ranking-head">
+          <div>
+            <h1>Ranking godzin pracowników</h1>
+            <p>Ranking według czasu pracy. Pierwsze trzy miejsca są wyróżnione.</p>
+          </div>
+          <div class="rank-chip">CZAS PRACY</div>
+        </div>
+
+        <div class="card ranking-main">
+          <div class="ranking-toolbar">
+            <div class="rank-switch">
+              <button class="btn gold compactbtn ranking-btn active-range" id="rankingAllBtn">Ranking całościowy</button>
+              <div class="field ranking-week-field">
+                <label>Wybierz tydzień</label>
+                <select id="rankingWeekSelect"></select>
+              </div>
+              <button class="btn primary compactbtn ranking-btn" id="rankingWeekBtn">Pokaż tydzień</button>
+            </div>
+            <div id="rankingRangeText" class="muted">Zakres: całościowy</div>
+          </div>
+
+          <div id="timePodium" class="time-podium"></div>
+
+          <div class="tablewrap ranking-table-wrap">
+            <table class="ranking-table">
+              <thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Godziny</th><th>Sesje</th><th>Śr. sesja</th></tr></thead>
+              <tbody id="timeRankingTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card section-gap sales-rank-card">
+          <div class="label">Ranking sprzedaży / suma paragonów</div>
+          <div class="tablewrap section-gap">
+            <table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Suma paragonów</th></tr></thead><tbody id="salesRankingTable"></tbody></table>
+          </div>
+        </div>
       </section>
 
       <section id="page-employees" class="page manager-only-page">
@@ -170,24 +257,28 @@
 </section>
 
       <section id="page-menu" class="page">
-  <div class="title"><h1>Menu</h1><p>Menu Nocturno posegregowane kategoriami, w takim samym układzie jak na stronie głównej.</p></div>
-  <div id="menuAdminBox" class="card manager-only hidden">
-    <div class="label">Zarządzanie menu — tylko management</div>
-    <div class="grid g3 section-gap">
-      <div class="field"><label>Kategoria</label><select id="menuCategory"><option>Dania główne</option><option>Desery</option><option>Przystawki</option><option>Napoje bezalkoholowe</option><option>Alkohole</option></select></div>
-      <div class="field"><label>Nazwa</label><input id="menuName"></div>
-      <div class="field"><label>Cena USD</label><input id="menuPrice" type="number" step="1"></div>
-    </div>
-    <div class="field"><label>Opis opcjonalny</label><textarea id="menuDescription" rows="2"></textarea></div>
-    <button class="btn gold" id="addMenuBtn">Dodaj pozycję</button>
-  </div>
-  <div id="staffMenu" class="section-gap"></div>
-</section>
+        <div class="title"><h1>Menu</h1><p>Aktualne menu Nocturno — tylko do podglądu.</p></div>
+        <div id="staffMenu" class="section-gap"></div>
+      </section>
 
       <section id="page-bookings" class="page manager-only-page">
   <div class="title"><h1>Rezerwacje</h1><p>Szczegóły są ukryte w pełnym podglądzie, żeby tabela pozostała czytelna.</p></div>
   <div class="card tablewrap"><table><thead><tr><th>Klient</th><th>Kontakt</th><th>Termin</th><th>Osoby</th><th>Przestrzeń</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="bookingsTable"></tbody></table></div>
 </section>
+
+      <section id="page-menu-admin" class="page manager-only-page">
+        <div class="title"><h1>Zarządzanie Menu</h1><p>Zmiany tutaj aktualizują menu pracownika oraz menu na stronie głównej.</p></div>
+        <div class="card">
+          <div class="grid g3">
+            <div class="field"><label>Kategoria</label><select id="menuCategory"><option>Dania główne</option><option>Desery</option><option>Przystawki</option><option>Napoje bezalkoholowe</option><option>Alkohole</option></select></div>
+            <div class="field"><label>Nazwa</label><input id="menuName"></div>
+            <div class="field"><label>Cena USD</label><input id="menuPrice" type="number" step="1"></div>
+          </div>
+          <div class="field"><label>Opis opcjonalny</label><textarea id="menuDescription" rows="2"></textarea></div>
+          <button class="btn gold" id="addMenuBtn">Dodaj pozycję</button>
+        </div>
+        <div id="managerMenu" class="section-gap"></div>
+      </section>
     </main>
   </div>
 </div>
@@ -260,7 +351,7 @@
 const SUPABASE_URL='https://eutloybyywmnvnoostuu.supabase.co';
 const SUPABASE_KEY='sb_publishable_k5q-jhRf951gQMWVytVYVw_sgeumyaM';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const $=id=>document.getElementById(id);let currentUser=null,currentProfile=null,profilesCache={},receiptClipboardFile=null,applicationsCache={};
+const $=id=>document.getElementById(id);let currentUser=null,currentProfile=null,profilesCache={},receiptClipboardFile=null,applicationsCache={},currentRankingBounds=null;
 const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const fmtDate=x=>x?new Date(x).toLocaleString('pl-PL'):'—';const fmtDay=x=>x?new Date(x+'T12:00:00').toLocaleDateString('pl-PL'):'—';const fmtMoney=n=>`${Number(n||0).toLocaleString('pl-PL',{maximumFractionDigits:2})} USD`;const fmtDuration=s=>{s=Math.max(0,Math.floor(Number(s)||0));const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return `${h}h ${String(m).padStart(2,'0')}m`};const rowClass=i=>i===0?'rank1':i===1?'rank2':i===2?'rank3':'';
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
@@ -333,7 +424,7 @@ async function loadManagerSessions(){
     if(error)return toast(error.message);
     toast('Godziny zapisane.');
     await loadManagerSessions();
-    await loadRankings(null);
+    await loadRankings(currentRankingBounds);
   });
 }
 
@@ -361,15 +452,35 @@ async function pasteReceiptFromClipboard(){
 async function addReceipt(){const amount=Number($('receiptAmount').value);if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');const file=receiptClipboardFile||$('receiptImage').files?.[0];if(!file)return toast('Dodaj zdjęcie paragonu.');const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const {error}=await sb.from('receipts').insert({employee_id:currentUser.id,amount,image_path:path});if(error)return toast(error.message);$('receiptAmount').value='';clearReceiptFile();toast('Paragon dodany.');await Promise.all([loadReceipts(),loadDashboard()])}
 async function loadReceipts(){
   await preloadProfiles();
-  const {data:own}=await sb.from('receipts').select('*').eq('employee_id',currentUser.id).order('created_at',{ascending:false}).limit(1);
-  if(own?.[0]){
-    const r=own[0],u=await signedUrl('receipts',r.image_path);
-    $('lastOwnReceipt').innerHTML=`<div class="actions-row"><div><strong class="money">${fmtMoney(r.amount)}</strong><div class="muted">${fmtDate(r.created_at)}</div></div>${u?`<img class="thumb" src="${u}" id="lastOwnReceiptImg">`:''}</div>`;
-    if(u)$('lastOwnReceiptImg').onclick=()=>openImage('receipts',r.image_path);
-  }else $('lastOwnReceipt').innerHTML='<span class="muted">Brak paragonów.</span>';
+
+  const {data:own,error:ownError}=await sb.from('receipts')
+    .select('*')
+    .eq('employee_id',currentUser.id)
+    .order('created_at',{ascending:false})
+    .limit(100);
+
+  if(ownError){
+    console.error('Own receipts error:',ownError);
+    $('ownReceiptsTable').innerHTML=`<tr><td colspan="3">Błąd odczytu: ${esc(ownError.message)}</td></tr>`;
+  }else{
+    const ownRows=[];
+    for(const r of own||[]){
+      const u=r.image_path?await signedUrl('receipts',r.image_path):null;
+      ownRows.push(`<tr><td class="money">${fmtMoney(r.amount)}</td><td>${fmtDate(r.created_at)}</td><td>${u?`<img class="thumb own-receipt-thumb" src="${u}" data-path="${esc(r.image_path)}">`:'—'}</td></tr>`);
+    }
+    $('ownReceiptsTable').innerHTML=ownRows.join('')||'<tr><td colspan="3">Brak paragonów.</td></tr>';
+    $('ownReceiptsTable').querySelectorAll('.own-receipt-thumb').forEach(i=>i.onclick=()=>openImage('receipts',i.dataset.path));
+  }
+
   if(!isManager())return;
-  const {data,error}=await sb.from('receipts').select('*').order('created_at',{ascending:false}).limit(300);
-  if(error)return toast(error.message);
+
+  const {data,error}=await sb.from('receipts').select('*').order('created_at',{ascending:false}).limit(500);
+  if(error){
+    console.error('Manager receipts error:',error);
+    $('allReceiptsTable').innerHTML=`<tr><td colspan="5">Błąd odczytu: ${esc(error.message)}</td></tr>`;
+    return;
+  }
+
   const rows=[];
   for(const r of data||[]){
     const u=r.image_path?await signedUrl('receipts',r.image_path):null;
@@ -386,20 +497,118 @@ async function loadReceipts(){
   $('allReceiptsTable').querySelectorAll('.receipt-delete').forEach(b=>b.onclick=()=>deleteReceipt(b.dataset.id,b.dataset.path));
 }
 
-function dateWeekBounds(v){
+function startOfWeek(d){
+  const x=new Date(d);
+  const day=x.getDay()||7;
+  x.setDate(x.getDate()-day+1);
+  x.setHours(0,0,0,0);
+  return x;
+}
+function fmtShortDate(d){return d.toLocaleDateString('pl-PL',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function populateRankingWeeks(){
+  const sel=$('rankingWeekSelect');
+  if(!sel || sel.options.length)return;
+  const current=startOfWeek(new Date());
+  for(let offset=8;offset>=-24;offset--){
+    const start=new Date(current);
+    start.setDate(start.getDate()+offset*7);
+    const end=new Date(start);
+    end.setDate(end.getDate()+6);
+    const opt=document.createElement('option');
+    opt.value=start.toISOString().slice(0,10);
+    opt.textContent=`${fmtShortDate(start)} – ${fmtShortDate(end)}`;
+    if(offset===0)opt.selected=true;
+    sel.appendChild(opt);
+  }
+}
+function selectedWeekBounds(){
+  const v=$('rankingWeekSelect')?.value;
   if(!v)return null;
-  const d=new Date(v+'T12:00:00');
-  if(Number.isNaN(d.getTime()))return null;
-  const day=d.getDay()||7;
-  const start=new Date(d);
-  start.setDate(d.getDate()-day+1);
-  start.setHours(0,0,0,0);
+  const start=new Date(v+'T00:00:00');
   const end=new Date(start);
   end.setDate(end.getDate()+7);
   return [start,end];
 }
-async function loadRankings(bounds=null){if(!isManager())return;await preloadProfiles();const [{data:sessions},{data:receipts}]=await Promise.all([sb.from('work_sessions').select('employee_id,started_at,ended_at'),sb.from('receipts').select('employee_id,amount,created_at')]);const sums={};(sessions||[]).forEach(s=>{let st=new Date(s.started_at),en=new Date(s.ended_at||Date.now());if(bounds){if(en<=bounds[0]||st>=bounds[1])return;st=new Date(Math.max(st,bounds[0]));en=new Date(Math.min(en,bounds[1]))}sums[s.employee_id]=(sums[s.employee_id]||0)+Math.max(0,(en-st)/1000)});const tr=Object.entries(sums).map(([id,v])=>({id,v,name:profilesCache[id]?.full_name||id})).sort((a,b)=>b.v-a.v);$('timeRankingTable').innerHTML=tr.map((r,i)=>`<tr class="${rowClass(i)}"><td>${i+1}</td><td>${esc(r.name)}</td><td>${fmtDuration(r.v)}</td></tr>`).join('')||'<tr><td colspan="3">Brak danych.</td></tr>';const sales={};(receipts||[]).forEach(r=>{const d=new Date(r.created_at);if(bounds&&(d<bounds[0]||d>=bounds[1]))return;sales[r.employee_id]=(sales[r.employee_id]||0)+Number(r.amount||0)});const sr=Object.entries(sales).map(([id,v])=>({id,v,name:profilesCache[id]?.full_name||id})).sort((a,b)=>b.v-a.v);$('salesRankingTable').innerHTML=sr.map((r,i)=>`<tr class="${rowClass(i)}"><td>${i+1}</td><td>${esc(r.name)}</td><td>${fmtMoney(r.v)}</td></tr>`).join('')||'<tr><td colspan="3">Brak danych.</td></tr>';$('rankingRangeText').textContent=bounds?`Zakres: ${bounds[0].toLocaleDateString('pl-PL')} – ${new Date(bounds[1]-1).toLocaleDateString('pl-PL')}`:'Zakres: całościowy'}
-$('rankingAllBtn').onclick=()=>loadRankings(null);$('rankingWeekBtn').onclick=()=>{const b=dateWeekBounds($('rankingDate').value);if(!b)return toast('Wybierz dzień z interesującego Cię tygodnia.');loadRankings(b)};
+async function loadRankings(bounds=currentRankingBounds){
+  if(!isManager())return;
+  currentRankingBounds=bounds;
+  await preloadProfiles();
+
+  const [{data:sessions,error:sErr},{data:receipts,error:rErr}]=await Promise.all([
+    sb.from('work_sessions').select('employee_id,started_at,ended_at'),
+    sb.from('receipts').select('employee_id,amount,created_at')
+  ]);
+  if(sErr)console.error('Ranking sessions:',sErr);
+  if(rErr)console.error('Ranking receipts:',rErr);
+
+  const stats={};
+  (sessions||[]).forEach(s=>{
+    let st=new Date(s.started_at), en=new Date(s.ended_at||Date.now());
+    if(bounds){
+      if(en<=bounds[0]||st>=bounds[1])return;
+      st=new Date(Math.max(st,bounds[0]));
+      en=new Date(Math.min(en,bounds[1]));
+    }
+    const sec=Math.max(0,(en-st)/1000);
+    if(!stats[s.employee_id])stats[s.employee_id]={seconds:0,sessions:0};
+    stats[s.employee_id].seconds+=sec;
+    stats[s.employee_id].sessions+=1;
+  });
+
+  const tr=Object.entries(stats).map(([id,v])=>({
+    id,
+    seconds:v.seconds,
+    sessions:v.sessions,
+    avg:v.sessions?v.seconds/v.sessions:0,
+    name:profilesCache[id]?.full_name||id,
+    position:profilesCache[id]?.position||'Pracownik'
+  })).sort((a,b)=>b.seconds-a.seconds);
+
+  const medals=['🥇','🥈','🥉'];
+  const places=['1 MIEJSCE','2 MIEJSCE','3 MIEJSCE'];
+  const classes=['first','second','third'];
+  $('timePodium').innerHTML=[0,1,2].map(i=>{
+    const r=tr[i];
+    if(!r)return `<div class="podium-card ${classes[i]}"><div class="podium-place">${medals[i]} ${places[i]}</div><div class="podium-time">—</div><div class="podium-name">Brak danych</div></div>`;
+    return `<div class="podium-card ${classes[i]}">
+      <div class="podium-place">${medals[i]} ${places[i]}</div>
+      <div class="podium-time">${fmtDuration(r.seconds)}</div>
+      <div class="podium-name">${esc(r.name)}</div>
+      <div class="podium-position">${esc(r.position)}</div>
+    </div>`;
+  }).join('');
+
+  $('timeRankingTable').innerHTML=tr.map((r,i)=>{
+    const cls=i===0?'top1':i===1?'top2':i===2?'top3':'';
+    const place=i<3?`<span class="rank-medal">${medals[i]}</span>`:(i+1);
+    return `<tr class="${cls}">
+      <td>${place}</td>
+      <td>${esc(r.name)}</td>
+      <td>${esc(r.position)}</td>
+      <td class="rank-hours">${fmtDuration(r.seconds)}</td>
+      <td>${r.sessions}</td>
+      <td>${fmtDuration(r.avg)}</td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="6">Brak danych.</td></tr>';
+
+  const sales={};
+  (receipts||[]).forEach(r=>{
+    const d=new Date(r.created_at);
+    if(bounds&&(d<bounds[0]||d>=bounds[1]))return;
+    sales[r.employee_id]=(sales[r.employee_id]||0)+Number(r.amount||0);
+  });
+  const sr=Object.entries(sales).map(([id,v])=>({
+    id,v,
+    name:profilesCache[id]?.full_name||id,
+    position:profilesCache[id]?.position||'Pracownik'
+  })).sort((a,b)=>b.v-a.v);
+  $('salesRankingTable').innerHTML=sr.map((r,i)=>`<tr class="${rowClass(i)}"><td>${i<3?medals[i]:i+1}</td><td>${esc(r.name)}</td><td>${esc(r.position)}</td><td>${fmtMoney(r.v)}</td></tr>`).join('')||'<tr><td colspan="4">Brak danych.</td></tr>';
+
+  $('rankingRangeText').textContent=bounds
+    ?`Zakres: ${bounds[0].toLocaleDateString('pl-PL')} – ${new Date(bounds[1]-1).toLocaleDateString('pl-PL')}`
+    :'Zakres: całościowy';
+}
+$('rankingAllBtn').onclick=()=>{currentRankingBounds=null;loadRankings(null)};$('rankingWeekBtn').onclick=()=>{const b=selectedWeekBounds();if(!b)return toast('Wybierz tydzień.');currentRankingBounds=b;loadRankings(b)};
 async function loadEmployees(){
   if(!isManager())return;
   await preloadProfiles();
@@ -441,15 +650,24 @@ async function openApplication(id){const a=applicationsCache[id];if(!a)return;co
 async function deleteApplication(id){const a=applicationsCache[id];if(!a||!confirm(`Usunąć zgłoszenie ${a.first_name} ${a.last_name}?`))return;const {error}=await sb.from('job_applications').delete().eq('id',id);if(error)return toast(error.message);if(a.photo_path)await sb.storage.from('cv-applications').remove([a.photo_path]);toast('Zgłoszenie usunięte.');loadApplications()}
 
 const cats=['Dania główne','Desery','Przystawki','Napoje bezalkoholowe','Alkohole'];
-function renderMenu(data,target,manager=false){const h=$(target);h.innerHTML='';cats.forEach(cat=>{const items=(data||[]).filter(x=>x.category===cat&&(manager||x.active!==false)).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));if(!items.length)return;const sec=document.createElement('div');sec.className='menu-category';sec.innerHTML=`<div class="menu-category-head"><h3>${cat}</h3></div><div class="menu-grid">${items.map(i=>`<div class="menu-card"><div class="menu-copy"><div class="menu-name">${esc(i.name)}</div>${i.description?`<div class="menu-desc">${esc(i.description)}</div>`:''}</div><div><div class="menu-price">${fmtMoney(i.price)}</div>${manager?`<div class="actions-row" style="margin-top:8px;justify-content:flex-end"><button class="btn ghost smallbtn menu-toggle" data-id="${i.id}" data-active="${i.active!==false}">${i.active!==false?'Ukryj':'Pokaż'}</button><button class="btn danger smallbtn menu-delete" data-id="${i.id}">Usuń</button></div>`:''}</div></div>`).join('')}</div>`;h.appendChild(sec)});if(manager){h.querySelectorAll('.menu-toggle').forEach(b=>b.onclick=async()=>{const {error}=await sb.from('menu_items').update({active:b.dataset.active!=='true'}).eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadStaffMenu(),loadPublicMenu()])});h.querySelectorAll('.menu-delete').forEach(b=>b.onclick=async()=>{if(!confirm('Usunąć pozycję menu?'))return;const {error}=await sb.from('menu_items').delete().eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadStaffMenu(),loadPublicMenu()])})}}
-async function loadPublicMenu(){const {data,error}=await sb.from('menu_items').select('*').eq('active',true).order('sort_order',{ascending:true});if(error){$('clientMenuCategories').innerHTML='<div class="menu-empty">Menu chwilowo niedostępne.</div>';return}renderMenu(data,'clientMenuCategories',false)}
-async function loadStaffMenu(){
-  const q=isManager()?sb.from('menu_items').select('*').order('sort_order',{ascending:true}):sb.from('menu_items').select('*').eq('active',true).order('sort_order',{ascending:true});
-  const {data,error}=await q;
-  if(error)return toast(error.message);
-  renderMenu(data,'staffMenu',isManager());
+function renderMenu(data,target,manager=false){const h=$(target);h.innerHTML='';cats.forEach(cat=>{const items=(data||[]).filter(x=>x.category===cat&&(manager||x.active!==false)).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));if(!items.length)return;const sec=document.createElement('div');sec.className='menu-category';sec.innerHTML=`<div class="menu-category-head"><h3>${cat}</h3></div><div class="menu-grid">${items.map(i=>`<div class="menu-card"><div class="menu-copy"><div class="menu-name">${esc(i.name)}</div>${i.description?`<div class="menu-desc">${esc(i.description)}</div>`:''}</div><div><div class="menu-price">${fmtMoney(i.price)}</div>${manager?`<div class="actions-row" style="margin-top:8px;justify-content:flex-end"><button class="btn ghost smallbtn menu-toggle" data-id="${i.id}" data-active="${i.active!==false}">${i.active!==false?'Ukryj':'Pokaż'}</button><button class="btn danger smallbtn menu-delete" data-id="${i.id}">Usuń</button></div>`:''}</div></div>`).join('')}</div>`;h.appendChild(sec)});if(manager){h.querySelectorAll('.menu-toggle').forEach(b=>b.onclick=async()=>{const {error}=await sb.from('menu_items').update({active:b.dataset.active!=='true'}).eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()])});h.querySelectorAll('.menu-delete').forEach(b=>b.onclick=async()=>{if(!confirm('Usunąć pozycję menu?'))return;const {error}=await sb.from('menu_items').delete().eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()])})}}
+async function loadPublicMenu(){
+  const {data,error}=await sb.from('menu_items').select('*').eq('active',true).order('sort_order',{ascending:true});
+  if(error){$('clientMenuCategories').innerHTML='<div class="notice">Menu chwilowo niedostępne.</div>';return}
+  renderMenu(data,'clientMenuCategories',false);
 }
-async function addMenuItem(){const name=$('menuName').value.trim(),price=Number($('menuPrice').value);if(!name||!price)return toast('Podaj nazwę i cenę.');const {error}=await sb.from('menu_items').insert({category:$('menuCategory').value,name,price,description:$('menuDescription').value.trim(),active:true});if(error)return toast(error.message);$('menuName').value='';$('menuPrice').value='';$('menuDescription').value='';toast('Dodano pozycję.');Promise.all([loadStaffMenu(),loadPublicMenu()])}
+async function loadStaffMenu(){
+  const {data,error}=await sb.from('menu_items').select('*').eq('active',true).order('sort_order',{ascending:true});
+  if(error)return toast(error.message);
+  renderMenu(data,'staffMenu',false);
+}
+async function loadManagerMenu(){
+  if(!isManager())return;
+  const {data,error}=await sb.from('menu_items').select('*').order('sort_order',{ascending:true});
+  if(error)return toast(error.message);
+  renderMenu(data,'managerMenu',true);
+}
+async function addMenuItem(){const name=$('menuName').value.trim(),price=Number($('menuPrice').value);if(!name||!price)return toast('Podaj nazwę i cenę.');const {error}=await sb.from('menu_items').insert({category:$('menuCategory').value,name,price,description:$('menuDescription').value.trim(),active:true});if(error)return toast(error.message);$('menuName').value='';$('menuPrice').value='';$('menuDescription').value='';toast('Dodano pozycję.');Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()])}
 
 async function loadBookings(){
   if(!isManager())return;
@@ -485,9 +703,29 @@ function openBooking(id){
 $('restaurantBookingForm')?.addEventListener('submit',async e=>{e.preventDefault();const payload={customer_name:$('bkName').value.trim(),contact:$('bkContact').value.trim(),booking_date:$('bkDate').value,guests:Number($('bkGuests').value),space:$('bkSpace').value,details:$('bkDetails').value.trim()};const {error}=await sb.from('bookings').insert(payload);if(error)return toast('Nie udało się wysłać rezerwacji: '+error.message);e.target.reset();$('bkSuccess').classList.remove('hidden');setTimeout(()=>$('bkSuccess').classList.add('hidden'),5000)});
 $('cvForm')?.addEventListener('submit',async e=>{e.preventDefault();const file=$('cvPhoto').files?.[0];if(!file)return toast('Dodaj zdjęcie.');const ext=(file.name.split('.').pop()||'jpg').toLowerCase(),path=`applications/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('cv-applications').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const payload={first_name:$('cvFirstName').value.trim(),last_name:$('cvLastName').value.trim(),discord_name:$('cvDiscordName').value.trim(),discord_id:$('cvDiscordId').value.trim(),phone:$('cvPhone').value.trim(),position:$('cvPosition').value,qualifications:$('cvQualifications').value.trim(),availability:$('cvAvailability').value,preferred_hours:$('cvPreferredHours').value.trim(),photo_path:path};const {error}=await sb.from('job_applications').insert(payload);if(error){await sb.storage.from('cv-applications').remove([path]);return toast(error.message)}e.target.reset();$('cvSuccess').classList.remove('hidden');setTimeout(()=>$('cvSuccess').classList.add('hidden'),5000)});
 
-async function loadManagerPages(){if(!isManager())return;await Promise.allSettled([loadManagerSessions(),loadEmployees(),loadApplications(),loadBookings(),loadRankings(null)])}
-async function loadAll(){await loadProfile();await Promise.allSettled([loadDashboard(),loadReceipts(),loadStaffMenu()]);if(isManager())await loadManagerPages()}
-document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{if(b.classList.contains('hidden'))return;switchPage(b.dataset.page);if(b.dataset.page==='receipts')loadReceipts();if(b.dataset.page==='time')loadManagerSessions();if(b.dataset.page==='ranking')loadRankings(null);if(b.dataset.page==='employees')loadEmployees();if(b.dataset.page==='recruitment')loadApplications();if(b.dataset.page==='menu')loadStaffMenu();if(b.dataset.page==='bookings')loadBookings()});
+async function loadManagerPages(){
+  if(!isManager())return;
+  populateRankingWeeks();
+  await Promise.allSettled([loadManagerSessions(),loadEmployees(),loadApplications(),loadBookings(),loadManagerMenu(),loadRankings(currentRankingBounds)]);
+}
+async function loadAll(){
+  await loadProfile();
+  populateRankingWeeks();
+  await Promise.allSettled([loadDashboard(),loadReceipts(),loadStaffMenu()]);
+  if(isManager())await loadManagerPages();
+}
+document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{
+  if(b.classList.contains('hidden'))return;
+  switchPage(b.dataset.page);
+  if(b.dataset.page==='receipts')loadReceipts();
+  if(b.dataset.page==='menu')loadStaffMenu();
+  if(b.dataset.page==='time')loadManagerSessions();
+  if(b.dataset.page==='ranking'){populateRankingWeeks();loadRankings(currentRankingBounds);}
+  if(b.dataset.page==='employees')loadEmployees();
+  if(b.dataset.page==='recruitment')loadApplications();
+  if(b.dataset.page==='bookings')loadBookings();
+  if(b.dataset.page==='menu-admin')loadManagerMenu();
+});
 $('staffLoginBtn')?.addEventListener('click',async()=>{
   const {data}=await sb.auth.getSession();
   if(data?.session?.user){
