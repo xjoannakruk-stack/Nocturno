@@ -30,6 +30,68 @@
 </style>
 </head><body>
 
+<!-- Ekran logowania pracownika -->
+<div id="staffLogin" class="login hidden">
+  <div class="loginbox">
+    <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
+    <div class="logo">NOCTURNO</div>
+    <div class="sub">Staff Portal V5.5</div>
+    <form id="loginForm">
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="loginEmail" required placeholder="twoj@email.com">
+      </div>
+      <div class="field">
+        <label>Hasło</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn primary full" style="margin-top:10px">ZALOGUJ SIĘ</button>
+      <div id="loginError" class="error hidden"></div>
+    </form>
+    <a class="client-back" id="backToPublicFromLogin" style="display:block;text-align:center;margin-top:20px">← Powrót do strony głównej</a>
+  </div>
+</div>
+
+<!-- Główna aplikacja panelu pracownika (ukryta domyślnie, pokazuje się po zalogowaniu) -->
+<div id="staffApp" class="app hidden">
+  <header class="top">
+    <div class="brand"><img src="assets/nocturno-logo.png" alt="Logo"> NOCTURNO</div>
+    <div class="who">
+      <div class="avatar" id="userAvatar">N</div>
+      <span class="name" id="userName">Pracownik</span>
+      <button class="logout" id="logoutBtn">Wyloguj</button>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="side">
+      <button class="nav active" data-page="dashboard">Pulpit</button>
+      <button class="nav" data-page="menu">Zarządzanie Menu</button>
+      <button class="nav" data-page="bookings">Rezerwacje</button>
+      <button class="nav" data-page="recruitment">Rekrutacja</button>
+    </aside>
+    <main class="content">
+      <div id="page-dashboard" class="page active">
+        <div class="title"><h1>Pulpit</h1><p>Witaj w panelu zarządzania Nocturno Steakhouse.</p></div>
+        <div class="grid g3">
+          <div class="card"><div class="label">Status restauracji</div><div class="value green">Otwarta</div></div>
+          <div class="card"><div class="label">Aktywne rezerwacje</div><div class="value goldtext" id="kpiBookings">0</div></div>
+          <div class="card"><div class="label">Nowe zgłoszenia CV</div><div class="value" id="kpiCv">0</div></div>
+        </div>
+      </div>
+      <div id="page-menu" class="page">
+        <div class="title"><h1>Zarządzanie Menu</h1><p>Edycja pozycji i cen w menu publicznym.</p></div>
+      </div>
+      <div id="page-bookings" class="page">
+        <div class="title"><h1>Rezerwacje</h1><p>Lista nadchodzących rezerwacji stolików i eventów.</p></div>
+      </div>
+      <div id="page-recruitment" class="page">
+        <div class="title"><h1>Rekrutacja CV</h1><p>Zgłoszenia kandydatów do pracy.</p></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Strona publiczna -->
 <section id="publicSite" class="public">
 <header class="public-top">
 <a class="public-brand" href="#top"><img src="assets/nocturno-logo.png" alt="Nocturno"><div><strong>NOCTURNO</strong><div class="sub" style="text-align:left;margin:1px 0 0">Steakhouse · Parrilla Premium</div></div></a>
@@ -43,9 +105,9 @@
 <section id="menu" class="public-section"><div class="section-head"><div><h2>Menu Nocturno</h2><p class="lead">Menu podzielone według kategorii. Ceny podane w dolarach RP.</p></div></div><div id="clientMenuCategories"></div></section>
 <section id="vip" class="public-section"><div class="vip-banner"><div><strong>Sala VIP &amp; wynajem całego Nocturno</strong><span>Rezerwacje na urodziny, spotkania biznesowe, kolacje rodzinne, eventy i wyjątkowe okazje. Możliwość wynajęcia wybranej sali VIP albo całej restauracji.</span></div><a class="btn gold" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener" style="text-decoration:none">ZAPYTAJ NA DISCORD</a></div><div class="feature-grid" style="margin-top:16px"><div class="feature-card"><div class="icon">🥂</div><h3>Sala VIP</h3><p>Intymna przestrzeń na prywatne spotkania i eleganckie kolacje.</p></div><div class="feature-card"><div class="icon">🏛️</div><h3>Cała restauracja</h3><p>Pełne Nocturno do dyspozycji podczas wyjątkowych wydarzeń.</p></div><div class="feature-card"><div class="icon">🎉</div><h3>Eventy specjalne</h3><p>Obsługa imprez, wydarzeń i wieczorów tematycznych w klimacie Nocturno.</p></div></div></section>
 
-<!-- 1. Formularz rezerwacji restauracji na wesela itp. -->
+<!-- Formularz rezerwacji -->
 <section id="booking" class="public-section">
-<div class="section-head"><div><h2>Rezerwacja restauracji / Wesela / Eventy</h2><p class="lead">Wypełnij formularz rezerwacyjny. Postaraj się jak najdokładniej opisać swoje potrzeby (cała restauracja, środek, ogródek, jedzenie, termin, liczba osób itp.).</p></div></div>
+<div class="section-head"><div><h2>Rezerwacja restauracji / Wesela / Eventy</h2><p class="lead">Wypełnij formularz rezerwacyjny. Postaraj się jak najdokładniej opisać swoje potrzeby.</p></div></div>
 <div class="public-form">
 <form id="restaurantBookingForm">
 <div class="form-grid">
@@ -54,27 +116,27 @@
 <div class="field"><label>Planowany termin</label><input id="bkDate" type="date" required></div>
 <div class="field"><label>Szacowana liczba osób</label><input id="bkGuests" type="number" min="1" required placeholder="np. 30"></div>
 <div class="field fullrow"><label>Wybór przestrzeni</label><select id="bkSpace" required><option value="">Wybierz opcję</option><option value="Cała restauracja">Cała restauracja</option><option value="Tylko środek (sala główna)">Tylko środek (sala główna)</option><option value="Tylko ogródek">Tylko ogródek</option><option value="Sala VIP">Sala VIP</option><option value="Inne / Mieszane">Inne (opisane poniżej)</option></select></div>
-<div class="field fullrow"><label>Szczegółowy opis (jedzenie, atrakcje, organizacja, preferencje)</label><textarea id="bkDetails" required rows="4" placeholder="Opisz dokładnie swoje potrzeby: czy potrzebne jest pełne menu/catering, oprawa muzyczna, specyficzne godziny trwania imprezy itp."></textarea></div>
+<div class="field fullrow"><label>Szczegółowy opis</label><textarea id="bkDetails" required rows="4" placeholder="Opisz dokładnie swoje potrzeby..."></textarea></div>
 <div class="fullrow"><button class="btn gold full" type="submit">WYŚLIJ ZAPYTANIE O REZERWACJĘ</button></div>
-<div class="fullrow hidden" id="bkSuccess"><div class="cv-success">✅ Twoja rezerwacja została przyjęta! Management Nocturno skontaktuje się z Tobą w celu omówienia szczegółów.</div></div>
+<div class="fullrow hidden" id="bkSuccess"><div class="cv-success">✅ Twoja rezerwacja została przyjęta! Management Nocturno skontaktuje się z Tobą.</div></div>
 </div>
 </form>
 </div>
 </section>
 
-<section id="recruitment" class="public-section"><div class="section-head"><div><h2>Dołącz do zespołu</h2><p class="lead">NOCTURNO STEAKHOUSE — Parrilla Premium • Vino • Pasión</p></div></div><div class="recruit-grid"><div><img class="recruit-poster" src="assets/rekrutacja.png" alt="Rekrutacja Nocturno"><p class="lead" style="margin-top:12px">📍 Vinewood Gantry Lane · Elastyczny grafik · System napiwków · Możliwość awansu</p></div><div class="public-form"><h3 style="font:27px Georgia;color:var(--gold);margin-top:0">Złóż CV</h3><p class="muted">Nie musisz być mistrzem gastronomii — najważniejsze są zaangażowanie, kultura osobista, odpowiedzialność i chęć do pracy.</p><form id="cvForm"><div class="form-grid">
+<section id="recruitment" class="public-section"><div class="section-head"><div><h2>Dołącz do zespołu</h2><p class="lead">NOCTURNO STEAKHOUSE — Parrilla Premium • Vino • Pasión</p></div></div><div class="recruit-grid"><div><img class="recruit-poster" src="assets/rekrutacja.png" alt="Rekrutacja Nocturno"><p class="lead" style="margin-top:12px">📍 Vinewood Gantry Lane · Elastyczny grafik · System napiwków · Możliwość awansu</p></div><div class="public-form"><h3 style="font:27px Georgia;color:var(--gold);margin-top:0">Złóż CV</h3><form id="cvForm"><div class="form-grid">
 <div class="field"><label>Imię</label><input id="cvFirstName" required></div><div class="field"><label>Nazwisko</label><input id="cvLastName" required></div>
 <div class="field"><label>Nazwa Discord</label><input id="cvDiscordName" required placeholder="np. nocturno_jo"></div><div class="field"><label>ID Discord</label><input id="cvDiscordId" required placeholder="np. 123456789012345678"></div>
-<div class="field"><label>Numer telefonu</label><input id="cvPhone" type="tel" required placeholder="np. +48 600 123 456" autocomplete="tel"></div>
+<div class="field"><label>Numer telefonu</label><input id="cvPhone" type="tel" required placeholder="np. +48 600 123 456"></div>
 <div class="field"><label>Stanowisko</label><select id="cvPosition" required><option value="">Wybierz stanowisko</option><option>Kelner / Kelnerka</option><option>Sommelier</option><option>Kucharz / Kucharka</option><option>Szef kuchni</option></select></div>
 <div class="field"><label>Dyspozycyjność</label><select id="cvAvailability" required><option value="">Wybierz</option><option>Pełna</option><option>Popołudnia i wieczory</option><option>Wieczory i weekendy</option><option>Weekendy</option><option>Ograniczona</option></select></div>
 <div class="field fullrow"><label>Preferowane godziny</label><input id="cvPreferredHours" required placeholder="np. 18:00–02:00, głównie weekendy"></div>
 <div class="field fullrow"><label>Kwalifikacje / doświadczenie</label><textarea id="cvQualifications" required style="width:100%;min-height:110px;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;resize:vertical"></textarea></div>
 <div class="field fullrow"><label>Zdjęcie</label><input id="cvPhoto" type="file" accept="image/*" required></div>
-<div class="fullrow"><button class="btn gold full" type="submit" id="cvSubmit">WYŚLIJ ZGŁOSZENIE</button></div><div class="fullrow hidden" id="cvSuccess"><div class="cv-success">✅ Zgłoszenie zostało zapisane. Management Nocturno może się z Tobą skontaktować przez Discord.</div></div>
+<div class="fullrow"><button class="btn gold full" type="submit" id="cvSubmit">WYŚLIJ ZGŁOSZENIE</button></div><div class="fullrow hidden" id="cvSuccess"><div class="cv-success">✅ Zgłoszenie zostało zapisane.</div></div>
 </div></form></div></div></section>
 
-<!-- 6. Zaktualizowana sekcja partnerów (bez LSPD, dodane LSSD, BigShein, StreetLine Motors, NorthSide Customs) -->
+<!-- Sekcja partnerów z poprawnymi danymi -->
 <section id="partners" class="public-section partners-bottom"><div class="section-head"><div><h2>Nasi partnerzy</h2><p class="lead">Współpracujemy z markami i organizacjami, które razem z Nocturno tworzą wyjątkowy klimat Vinewood.</p></div></div><div class="partners-grid">
 <div class="partner-card"><div class="partner-name">LSSD</div><div class="partner-note">Bezpieczeństwo i porządek</div></div>
 <div class="partner-card"><div class="partner-name">BigShein</div><div class="partner-note">Muzyka nowego pokolenia</div></div>
@@ -88,9 +150,70 @@
 <!-- Przycisk powrotu do góry -->
 <button id="backToTop" aria-label="Powrót do góry">▲</button>
 
-<!-- Skrypt obsługujący całą aplikację i logikę -->
+<!-- Skrypty aplikacji -->
 <script>
-// Prosta inicjalizacja strony i przycisku Powrót do góry oraz automatycznego zamykania tygodnia
+// Konfiguracja Supabase (uzupełnij własnymi danymi)
+const SUPABASE_URL = 'https://TWOJ-PROJEKT.supabase.co';
+const SUPABASE_ANON_KEY = 'TWOJ-KLUCZ-ANON';
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+// Obsługa widoków (Strona publiczna vs Panel logowania vs Panel pracownika)
+const publicSite = document.getElementById('publicSite');
+const staffLogin = document.getElementById('staffLogin');
+const staffApp = document.getElementById('staffApp');
+
+function showPublic() {
+  publicSite.classList.remove('hidden');
+  staffLogin.classList.add('hidden');
+  staffApp.classList.add('hidden');
+}
+
+function showLogin() {
+  publicSite.classList.add('hidden');
+  staffLogin.classList.remove('hidden');
+  staffApp.classList.add('hidden');
+}
+
+function showApp() {
+  publicSite.classList.add('hidden');
+  staffLogin.classList.add('hidden');
+  staffApp.classList.remove('hidden');
+}
+
+document.getElementById('staffLoginBtn').addEventListener('click', showLogin);
+document.getElementById('footerLoginLink').addEventListener('click', showLogin);
+document.getElementById('backToPublicFromLogin').addEventListener('click', showPublic);
+
+// Logowanie przez Supabase
+document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const errBox = document.getElementById('loginError');
+  errBox.classList.add('hidden');
+
+  if (!supabaseClient) {
+    errBox.textContent = "Błąd konfiguracji Supabase.";
+    errBox.classList.remove('hidden');
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if (error) {
+    errBox.textContent = error.message;
+    errBox.classList.remove('hidden');
+  } else {
+    showApp();
+  }
+});
+
+// Wylogowanie
+document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+  if (supabaseClient) await supabaseClient.auth.signOut();
+  showPublic();
+});
+
+// Przycisk Powrót do góry
 const backToTopBtn = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
     if(window.scrollY > 300) {
@@ -112,21 +235,5 @@ document.getElementById('restaurantBookingForm')?.addEventListener('submit', (e)
         document.getElementById('bkSuccess').classList.add('hidden');
     }, 5000);
 });
-
-// Automatyczne zamykanie tygodnia o północy w niedzielę (symulacja/sprawdzenie cykliczne)
-function checkWeeklyAutoClose() {
-    const now = new Date();
-    // Niedziela to 0, północ to godziny 0:00 - 0:01
-    if (now.getDay() === 0 && now.getHours() === 0 && now.getMinutes() === 0) {
-        const lastClosed = localStorage.getItem('nocturno_last_autoclose');
-        const todayStr = now.toDateString();
-        if (lastClosed !== todayStr) {
-            console.log("Automatyczne zamknięcie tygodnia (Niedziela północ)");
-            localStorage.setItem('nocturno_last_autoclose', todayStr);
-            // Tu można dodać logikę wyczyszczenia lub archiwizacji danych tygodniowych jeśli wymagane
-        }
-    }
-}
-setInterval(checkWeeklyAutoClose, 60000); // Sprawdzaj co minutę
 </script>
 </body></html>
