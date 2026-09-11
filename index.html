@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V15</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V17</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -100,6 +100,10 @@
 #page-receipts .tablewrap{max-height:58vh;overflow:auto}
 .receipt-loading td{padding:22px!important;text-align:center}
 
+
+.employee-management-check{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer}
+.employee-management-check input{width:18px;height:18px;accent-color:#d8ad45}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -107,7 +111,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V15</div>
+    <div class="sub">Staff Portal V17</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -289,8 +293,27 @@
       </section>
 
       <section id="page-employees" class="page manager-only-page">
-  <div class="title"><h1>Pracownicy</h1><p>Posortowani według stanowiska. Możesz filtrować listę.</p></div>
-  <div class="toolbar">
+  <div class="title"><h1>Pracownicy</h1><p>Dodawanie kont pracowników oraz lista posegregowana według stanowiska.</p></div>
+
+  <div class="card">
+    <div class="label">Dodaj pracownika</div>
+    <div class="grid g2 section-gap">
+      <div class="field"><label>E-mail</label><input id="newEmployeeEmail" type="email" autocomplete="off" placeholder="pracownik@email.pl"></div>
+      <div class="field"><label>Hasło</label><input id="newEmployeePassword" type="password" autocomplete="new-password" placeholder="Minimum 6 znaków"></div>
+      <div class="field"><label>Imię i nazwisko</label><input id="newEmployeeName" type="text" placeholder="Imię Nazwisko"></div>
+      <div class="field"><label>Stanowisko</label>
+        <select id="newEmployeePosition">
+          <option>Kelner</option><option>Kierownik</option><option>Kucharz</option><option>Manager</option>
+          <option>Początkujący kelner</option><option>Szef</option><option>Szef kuchni</option><option>Zastępca szefa</option>
+        </select>
+      </div>
+    </div>
+    <label class="employee-management-check"><input id="newEmployeeManager" type="checkbox"> Nadaj dostęp do Managementu</label>
+    <div class="actions-row section-gap"><button class="btn gold" id="addEmployeeBtn">Dodaj pracownika</button></div>
+    <div class="muted section-gap">Konto zostanie utworzone w Supabase Auth i automatycznie dodane do profili Nocturno.</div>
+  </div>
+
+  <div class="toolbar section-gap">
     <div class="field" style="min-width:260px;margin:0">
       <label>Filtr stanowiska</label>
       <select id="employeePositionFilter"><option value="">Wszystkie stanowiska</option></select>
@@ -618,7 +641,66 @@ async function loadManagerReceipts(){
   </tr>`).join('')||'<tr><td colspan="5">Brak paragonów.</td></tr>';
 
   tbody.querySelectorAll('.management-receipt-view').forEach(b=>b.onclick=()=>openImage('receipts',b.dataset.path));
-  tbody.querySelectorAll('.management-receipt-delete').forEach(b=>b.onclick=()=>deleteReceipt(b.dataset.id,b.dataset.path));
+  tbody.querySelectorAll('.management-receipt-delete').forEach(b=>b.onclick=async()=>{
+    if(b.disabled)return;
+    b.disabled=true;
+    try{await deleteReceipt(b.dataset.id,b.dataset.path);}
+    finally{b.disabled=false;}
+  });
+}
+
+
+async function deleteReceipt(id,path){
+  if(!id)return toast('Brak ID paragonu.');
+
+  if(!profileReady || !currentProfile){
+    try{
+      await loadProfile();
+    }catch(e){
+      console.error('Delete receipt profile check:',e);
+      return toast('Nie udało się potwierdzić uprawnień managementu.');
+    }
+  }
+
+  if(!managerAccess){
+    return toast('Tylko management może usuwać paragony.');
+  }
+
+  if(!confirm('Czy na pewno usunąć ten paragon? Tej operacji nie można cofnąć.'))return;
+
+  const {data,error}=await sb
+    .from('receipts')
+    .delete()
+    .eq('id',id)
+    .select('id');
+
+  if(error){
+    console.error('Delete receipt DB error:',error);
+    return toast('Nie udało się usunąć paragonu: '+error.message);
+  }
+
+  if(!data?.length){
+    return toast('Paragon nie został usunięty. Sprawdź uprawnienia RLS.');
+  }
+
+  // Database row is the important part. Storage cleanup is secondary.
+  if(path){
+    const {error:storageError}=await sb.storage.from('receipts').remove([path]);
+    if(storageError){
+      console.warn('Receipt image cleanup failed:',storageError);
+      toast('Paragon usunięty, ale zdjęcie nie zostało usunięte ze Storage.');
+    }else{
+      toast('Paragon usunięty.');
+    }
+  }else{
+    toast('Paragon usunięty.');
+  }
+
+  await Promise.allSettled([
+    loadManagerReceipts(),
+    loadDashboard(),
+    loadRankings(currentRankingBounds)
+  ]);
 }
 
 function startOfWeek(d){
@@ -745,6 +827,47 @@ async function loadRankings(bounds=currentRankingBounds){
     :'Zakres: całościowy';
 }
 $('rankingAllBtn').onclick=()=>{currentRankingBounds=null;loadRankings(null)};$('rankingWeekBtn').onclick=()=>{const b=selectedWeekBounds();if(!b)return toast('Wybierz tydzień.');currentRankingBounds=b;loadRankings(b)};
+
+async function addEmployee(){
+  if(!managerAccess)return toast('Tylko management może dodawać pracowników.');
+
+  const email=$('newEmployeeEmail')?.value.trim();
+  const password=$('newEmployeePassword')?.value||'';
+  const full_name=$('newEmployeeName')?.value.trim();
+  const position=$('newEmployeePosition')?.value||'Pracownik';
+  const management=!!$('newEmployeeManager')?.checked;
+
+  if(!email || !full_name || !position)return toast('Uzupełnij e-mail, imię i nazwisko oraz stanowisko.');
+  if(password.length<6)return toast('Hasło musi mieć minimum 6 znaków.');
+
+  const btn=$('addEmployeeBtn');
+  if(btn){btn.disabled=true;btn.textContent='Dodawanie…';}
+
+  try{
+    const {data,error}=await sb.functions.invoke('create-employee',{
+      body:{email,password,full_name,position,management}
+    });
+    if(error)throw error;
+    if(data?.error)throw new Error(data.error);
+
+    toast('Pracownik został dodany.');
+    $('newEmployeeEmail').value='';
+    $('newEmployeePassword').value='';
+    $('newEmployeeName').value='';
+    $('newEmployeeManager').checked=false;
+
+    profilesCache={};
+    const filter=$('employeePositionFilter');
+    if(filter){filter.innerHTML='<option value="">Wszystkie stanowiska</option>';}
+    await loadEmployees();
+  }catch(e){
+    console.error('Create employee:',e);
+    toast('Nie udało się dodać pracownika: '+(e?.message||'nieznany błąd'));
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Dodaj pracownika';}
+  }
+}
+
 async function loadEmployees(){
   if(!isManager())return;
   await preloadProfiles();
@@ -882,7 +1005,7 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
 });$('footerLoginLink')?.addEventListener('click',showLogin);$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
 $('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);
-$('refreshReceiptsBtn')?.addEventListener('click',()=>loadOwnReceipts());$('refreshManagerReceiptsBtn')?.addEventListener('click',()=>loadManagerReceipts());$('managerReceiptEmployeeFilter')?.addEventListener('change',()=>loadManagerReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
+$('addEmployeeBtn')?.addEventListener('click',addEmployee);$('refreshReceiptsBtn')?.addEventListener('click',()=>loadOwnReceipts());$('refreshManagerReceiptsBtn')?.addEventListener('click',()=>loadManagerReceipts());$('managerReceiptEmployeeFilter')?.addEventListener('change',()=>loadManagerReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
 
 sb.auth.onAuthStateChange((event,session)=>{
   if(session?.user)currentUser=session.user;
