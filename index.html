@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V12</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V13</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -84,6 +84,15 @@
 .sales-rank-card{max-width:none}
 @media(max-width:850px){.time-podium{grid-template-columns:1fr}.ranking-head{align-items:center}.ranking-toolbar{align-items:stretch}.rank-switch{width:100%}}
 
+
+.ranking-subhead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}
+.ranking-subhead h2{font:24px Georgia;color:#f0cf72;margin:0}
+.ranking-subhead p{color:var(--muted);margin:5px 0 0;font-size:12px}
+.sales-chip{background:#3d2b08;color:#f4ce65;border-color:#6b5116}
+.sales-podium{margin-top:14px}
+.sales-podium .podium-time{font-size:29px}
+.receipt-loading td{color:var(--muted);font-style:italic}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -91,7 +100,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V12</div>
+    <div class="sub">Staff Portal V13</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -168,7 +177,7 @@
         </div>
 
         <div class="card section-gap">
-          <div class="label">Twoje paragony</div>
+          <div class="toolbar" style="margin-bottom:0"><div class="label">Twoje paragony</div><button class="btn ghost compactbtn" id="refreshReceiptsBtn">Odśwież historię</button></div>
           <div class="tablewrap section-gap"><table><thead><tr><th>Kwota</th><th>Data</th><th>Zdjęcie</th></tr></thead><tbody id="ownReceiptsTable"></tbody></table></div>
         </div>
 
@@ -228,9 +237,21 @@
         </div>
 
         <div class="card section-gap sales-rank-card">
-          <div class="label">Ranking sprzedaży / suma paragonów</div>
-          <div class="tablewrap section-gap">
-            <table><thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Suma paragonów</th></tr></thead><tbody id="salesRankingTable"></tbody></table>
+          <div class="ranking-subhead">
+            <div>
+              <h2>Ranking paragonów pracowników</h2>
+              <p>Suma wartości paragonów w tym samym wybranym zakresie.</p>
+            </div>
+            <div class="rank-chip sales-chip">PARAGONY</div>
+          </div>
+
+          <div id="salesPodium" class="time-podium sales-podium"></div>
+
+          <div class="tablewrap ranking-table-wrap">
+            <table class="ranking-table">
+              <thead><tr><th>#</th><th>Pracownik</th><th>Stanowisko</th><th>Suma paragonów</th></tr></thead>
+              <tbody id="salesRankingTable"></tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -355,9 +376,18 @@ const $=id=>document.getElementById(id);let currentUser=null,currentProfile=null
 const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const fmtDate=x=>x?new Date(x).toLocaleString('pl-PL'):'—';const fmtDay=x=>x?new Date(x+'T12:00:00').toLocaleDateString('pl-PL'):'—';const fmtMoney=n=>`${Number(n||0).toLocaleString('pl-PL',{maximumFractionDigits:2})} USD`;const fmtDuration=s=>{s=Math.max(0,Math.floor(Number(s)||0));const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return `${h}h ${String(m).padStart(2,'0')}m`};const rowClass=i=>i===0?'rank1':i===1?'rank2':i===2?'rank3':'';
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
-function showPublic(){ $('publicSite').classList.remove('hidden');$('staffLogin').classList.add('hidden');$('staffApp').classList.add('hidden') }
-function showLogin(){ $('publicSite').classList.add('hidden');$('staffLogin').classList.remove('hidden');$('staffApp').classList.add('hidden') }
-function showApp(){ $('publicSite').classList.add('hidden');$('staffLogin').classList.add('hidden');$('staffApp').classList.remove('hidden') }
+function showPublic(){
+  $('publicSite').classList.remove('hidden');$('staffLogin').classList.add('hidden');$('staffApp').classList.add('hidden');
+  sessionStorage.setItem('nocturno_current_view','public');
+}
+function showLogin(){
+  $('publicSite').classList.add('hidden');$('staffLogin').classList.remove('hidden');$('staffApp').classList.add('hidden');
+  sessionStorage.setItem('nocturno_current_view','login');
+}
+function showApp(){
+  $('publicSite').classList.add('hidden');$('staffLogin').classList.add('hidden');$('staffApp').classList.remove('hidden');
+  sessionStorage.setItem('nocturno_current_view','panel');
+}
 function isManager(){return currentProfile?.role==='manager'}
 function switchPage(name){document.querySelectorAll('#staffApp .page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#staffApp .nav').forEach(n=>n.classList.remove('active'));$('page-'+name)?.classList.add('active');document.querySelector(`#staffApp .nav[data-page="${name}"]`)?.classList.add('active')}
 async function signedUrl(bucket,path){if(!path)return null;const {data,error}=await sb.storage.from(bucket).createSignedUrl(path,3600);if(error)return null;return data?.signedUrl||null}
@@ -450,18 +480,33 @@ async function pasteReceiptFromClipboard(){
 }
 
 async function addReceipt(){const amount=Number($('receiptAmount').value);if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');const file=receiptClipboardFile||$('receiptImage').files?.[0];if(!file)return toast('Dodaj zdjęcie paragonu.');const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const {error}=await sb.from('receipts').insert({employee_id:currentUser.id,amount,image_path:path});if(error)return toast(error.message);$('receiptAmount').value='';clearReceiptFile();toast('Paragon dodany.');await Promise.all([loadReceipts(),loadDashboard()])}
-async function loadReceipts(){
+async function loadReceipts(retry=true){
+  if(!currentUser?.id){
+    const {data}=await sb.auth.getSession();
+    currentUser=data?.session?.user||null;
+  }
+  if(!currentUser?.id)return;
+
+  if(!currentProfile){
+    try{await loadProfile()}catch(e){console.warn('Profile before receipts:',e)}
+  }
   await preloadProfiles();
 
+  if($('ownReceiptsTable')) $('ownReceiptsTable').innerHTML='<tr class="receipt-loading"><td colspan="3">Wczytywanie historii paragonów…</td></tr>';
+
   const {data:own,error:ownError}=await sb.from('receipts')
-    .select('*')
+    .select('id,employee_id,amount,image_path,created_at')
     .eq('employee_id',currentUser.id)
     .order('created_at',{ascending:false})
-    .limit(100);
+    .limit(200);
 
   if(ownError){
     console.error('Own receipts error:',ownError);
-    $('ownReceiptsTable').innerHTML=`<tr><td colspan="3">Błąd odczytu: ${esc(ownError.message)}</td></tr>`;
+    if(retry){
+      await new Promise(r=>setTimeout(r,650));
+      return loadReceipts(false);
+    }
+    $('ownReceiptsTable').innerHTML=`<tr><td colspan="3">Błąd odczytu historii: ${esc(ownError.message)}</td></tr>`;
   }else{
     const ownRows=[];
     for(const r of own||[]){
@@ -474,9 +519,19 @@ async function loadReceipts(){
 
   if(!isManager())return;
 
-  const {data,error}=await sb.from('receipts').select('*').order('created_at',{ascending:false}).limit(500);
+  if($('allReceiptsTable')) $('allReceiptsTable').innerHTML='<tr class="receipt-loading"><td colspan="5">Wczytywanie paragonów pracowników…</td></tr>';
+
+  const {data,error}=await sb.from('receipts')
+    .select('id,employee_id,amount,image_path,created_at')
+    .order('created_at',{ascending:false})
+    .limit(1000);
+
   if(error){
     console.error('Manager receipts error:',error);
+    if(retry){
+      await new Promise(r=>setTimeout(r,650));
+      return loadReceipts(false);
+    }
     $('allReceiptsTable').innerHTML=`<tr><td colspan="5">Błąd odczytu: ${esc(error.message)}</td></tr>`;
     return;
   }
@@ -602,7 +657,19 @@ async function loadRankings(bounds=currentRankingBounds){
     name:profilesCache[id]?.full_name||id,
     position:profilesCache[id]?.position||'Pracownik'
   })).sort((a,b)=>b.v-a.v);
-  $('salesRankingTable').innerHTML=sr.map((r,i)=>`<tr class="${rowClass(i)}"><td>${i<3?medals[i]:i+1}</td><td>${esc(r.name)}</td><td>${esc(r.position)}</td><td>${fmtMoney(r.v)}</td></tr>`).join('')||'<tr><td colspan="4">Brak danych.</td></tr>';
+
+  $('salesPodium').innerHTML=[0,1,2].map(i=>{
+    const r=sr[i];
+    if(!r)return `<div class="podium-card ${classes[i]}"><div class="podium-place">${medals[i]} ${places[i]}</div><div class="podium-time">—</div><div class="podium-name">Brak danych</div></div>`;
+    return `<div class="podium-card ${classes[i]}">
+      <div class="podium-place">${medals[i]} ${places[i]}</div>
+      <div class="podium-time">${fmtMoney(r.v)}</div>
+      <div class="podium-name">${esc(r.name)}</div>
+      <div class="podium-position">${esc(r.position)}</div>
+    </div>`;
+  }).join('');
+
+  $('salesRankingTable').innerHTML=sr.map((r,i)=>`<tr class="${i===0?'top1':i===1?'top2':i===2?'top3':''}"><td>${i<3?`<span class="rank-medal">${medals[i]}</span>`:i+1}</td><td>${esc(r.name)}</td><td>${esc(r.position)}</td><td class="rank-hours">${fmtMoney(r.v)}</td></tr>`).join('')||'<tr><td colspan="4">Brak danych.</td></tr>';
 
   $('rankingRangeText').textContent=bounds
     ?`Zakres: ${bounds[0].toLocaleDateString('pl-PL')} – ${new Date(bounds[1]-1).toLocaleDateString('pl-PL')}`
@@ -735,13 +802,31 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
 });$('footerLoginLink')?.addEventListener('click',showLogin);$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
 $('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);
-$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
+$('refreshReceiptsBtn')?.addEventListener('click',()=>loadReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
+
+sb.auth.onAuthStateChange((event,session)=>{
+  if(session?.user) currentUser=session.user;
+  if((event==='TOKEN_REFRESHED'||event==='SIGNED_IN') && !$('staffApp').classList.contains('hidden')){
+    setTimeout(()=>loadReceipts(),100);
+  }
+});
+
 const backToTopBtn=document.getElementById('backToTop');window.addEventListener('scroll',()=>{if(window.scrollY>300)backToTopBtn.classList.add('show');else backToTopBtn.classList.remove('show')});backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 (async()=>{
   await loadPublicMenu();
   const {data}=await sb.auth.getSession();
   currentUser=data?.session?.user||null;
-  showPublic();
+
+  const previousView=sessionStorage.getItem('nocturno_current_view');
+  const navEntry=performance.getEntriesByType?.('navigation')?.[0];
+  const wasReload=navEntry?.type==='reload';
+
+  if(currentUser && wasReload && previousView==='panel'){
+    showApp();
+    try{await loadAll()}catch(e){console.error(e);toast('Część danych panelu nie mogła się załadować.')}
+  }else{
+    showPublic();
+  }
 })();
 </script>
 </body></html>
