@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Staff V17</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -104,6 +104,16 @@
 .employee-management-check{display:flex;align-items:center;gap:10px;font-weight:700;cursor:pointer}
 .employee-management-check input{width:18px;height:18px;accent-color:#d8ad45}
 
+
+/* V18 menu readability */
+.menu-category-head h3{font-size:28px!important;letter-spacing:.6px}
+.menu-name{font-size:19px!important;line-height:1.25}
+.menu-price{font-size:19px!important;font-weight:900}
+.menu-desc{font-size:13px!important;line-height:1.5;margin-top:5px;color:#9aa89f}
+.menu-admin-actions{margin-top:10px;justify-content:flex-end;gap:6px}
+.title-with-action{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+@media(max-width:650px){.menu-name,.menu-price{font-size:17px!important}.menu-category-head h3{font-size:24px!important}.title-with-action{align-items:stretch;flex-direction:column}}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -111,7 +121,7 @@
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V17</div>
+    <div class="sub">Staff Portal V18</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -181,7 +191,7 @@
       </section>
 
       <section id="page-receipts" class="page">
-        <div class="title"><h1>Paragony</h1><p>Dodaj zdjęcie plikiem, przeciągnięciem albo skrótem Ctrl+V.</p></div>
+        <div class="title"><h1>Paragony</h1><p>Wpisz kwotę. Zdjęcie paragonu jest opcjonalne — możesz dodać je plikiem, przeciągnięciem albo Ctrl+V.</p></div>
         <div class="card">
           <div class="grid g2"><div class="field"><label>Kwota</label><input id="receiptAmount" type="number" min="0.01" step="0.01" placeholder="np. 450"></div><div class="field"><label>Plik zdjęcia</label><input id="receiptImage" type="file" accept="image/*"></div></div>
           <div id="pasteBox" class="pastebox section-gap" tabindex="0"><div id="pasteText">Kliknij tutaj i naciśnij <b>Ctrl+V</b>, aby wkleić zdjęcie paragonu.<br><span class="muted">Możesz też przeciągnąć obraz.</span></div><img id="pastePreview" class="pastepreview hidden" alt="Podgląd"></div>
@@ -319,11 +329,11 @@
       <select id="employeePositionFilter"><option value="">Wszystkie stanowiska</option></select>
     </div>
   </div>
-  <div class="card tablewrap"><table><thead><tr><th>Stanowisko</th><th>Pracownik</th><th>Rola</th><th>Status</th></tr></thead><tbody id="employeesTable"></tbody></table></div>
+  <div class="card tablewrap"><table><thead><tr><th>Stanowisko</th><th>Pracownik</th><th>Rola</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="employeesTable"></tbody></table></div>
 </section>
 
       <section id="page-recruitment" class="page manager-only-page">
-  <div class="title"><h1>Rekrutacja</h1><p>Skrócona lista zgłoszeń. Pełne dane, opis i zdjęcie są w podglądzie.</p></div>
+  <div class="title title-with-action"><div><h1>Rekrutacja</h1><p>Skrócona lista zgłoszeń. Pełne dane, opis i zdjęcie są w podglądzie.</p></div><button type="button" class="btn ghost compactbtn" id="refreshRecruitmentBtn">Odśwież</button></div>
   <div class="card tablewrap">
     <table class="recruit-compact">
       <thead><tr><th>Kandydat</th><th>Stanowisko</th><th>Status</th><th>Data</th><th>Akcje</th></tr></thead>
@@ -338,7 +348,7 @@
       </section>
 
       <section id="page-bookings" class="page manager-only-page">
-  <div class="title"><h1>Rezerwacje</h1><p>Szczegóły są ukryte w pełnym podglądzie, żeby tabela pozostała czytelna.</p></div>
+  <div class="title title-with-action"><div><h1>Rezerwacje</h1><p>Szczegóły są ukryte w pełnym podglądzie, żeby tabela pozostała czytelna.</p></div><button type="button" class="btn ghost compactbtn" id="refreshBookingsBtn">Odśwież</button></div>
   <div class="card tablewrap"><table><thead><tr><th>Klient</th><th>Kontakt</th><th>Termin</th><th>Osoby</th><th>Przestrzeń</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="bookingsTable"></tbody></table></div>
 </section>
 
@@ -350,7 +360,7 @@
             <div class="field"><label>Nazwa</label><input id="menuName"></div>
             <div class="field"><label>Cena USD</label><input id="menuPrice" type="number" step="1"></div>
           </div>
-          <div class="field"><label>Opis opcjonalny</label><textarea id="menuDescription" rows="2"></textarea></div>
+          <div class="field"><label>Krótki opis</label><textarea id="menuDescription" rows="2" maxlength="180" placeholder="Krótki opis widoczny na stronie głównej"></textarea></div>
           <button class="btn gold" id="addMenuBtn">Dodaj pozycję</button>
         </div>
         <div id="managerMenu" class="section-gap"></div>
@@ -362,6 +372,25 @@
 <div class="modal" id="imageModal"><div class="modalbox wide"><div class="actions-row" style="justify-content:flex-end"><button class="btn ghost" data-close-modal="imageModal">Zamknij</button></div><img id="modalImage" class="modalimg" alt="Podgląd"></div></div>
 <div class="modal" id="applicationModal"><div class="modalbox wide"><div class="actions-row" style="justify-content:space-between"><h2 style="margin:0;color:var(--gold)">Zgłoszenie rekrutacyjne</h2><button class="btn ghost" data-close-modal="applicationModal">Zamknij</button></div><div id="applicationDetails" class="section-gap"></div></div></div>
 <div class="modal" id="bookingModal"><div class="modalbox wide"><div class="actions-row" style="justify-content:space-between"><h2 style="margin:0;color:var(--gold)">Szczegóły rezerwacji</h2><button class="btn ghost" data-close-modal="bookingModal">Zamknij</button></div><div id="bookingDetails" class="section-gap"></div></div></div>
+
+<div class="modal" id="menuEditModal">
+  <div class="modalbox">
+    <div class="actions-row" style="justify-content:space-between">
+      <h2 style="margin:0;color:var(--gold)">Edytuj pozycję menu</h2>
+      <button type="button" class="btn ghost" data-close-modal="menuEditModal">Zamknij</button>
+    </div>
+    <input type="hidden" id="editMenuId">
+    <div class="grid g2 section-gap">
+      <div class="field"><label>Nazwa</label><input id="editMenuName"></div>
+      <div class="field"><label>Cena USD</label><input id="editMenuPrice" type="number" min="0" step="1"></div>
+    </div>
+    <div class="field"><label>Krótki opis</label><textarea id="editMenuDescription" rows="3" maxlength="180" placeholder="Krótki opis widoczny w menu na stronie głównej"></textarea></div>
+    <div class="actions-row section-gap">
+      <button type="button" class="btn gold" id="saveMenuEditBtn">Zapisz zmiany</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- Strona publiczna -->
@@ -562,7 +591,38 @@ async function pasteReceiptFromClipboard(){
   }
 }
 
-async function addReceipt(){const amount=Number($('receiptAmount').value);if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');const file=receiptClipboardFile||$('receiptImage').files?.[0];if(!file)return toast('Dodaj zdjęcie paragonu.');const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});if(up.error)return toast(up.error.message);const {error}=await sb.from('receipts').insert({employee_id:currentUser.id,amount,image_path:path});if(error)return toast(error.message);$('receiptAmount').value='';clearReceiptFile();toast('Paragon dodany.');await Promise.allSettled([loadOwnReceipts(),loadDashboard()])}
+async function addReceipt(){
+  const amount=Number($('receiptAmount').value);
+  if(!amount||amount<=0)return toast('Podaj poprawną kwotę.');
+
+  const file=receiptClipboardFile||$('receiptImage').files?.[0];
+  let image_path=null;
+
+  // Zdjęcie jest opcjonalne.
+  if(file){
+    const ext=(file.name?.split('.').pop()||'jpg').toLowerCase();
+    const path=`${currentUser.id}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const up=await sb.storage.from('receipts').upload(path,file,{contentType:file.type,upsert:false});
+    if(up.error)return toast('Nie udało się wysłać zdjęcia: '+up.error.message);
+    image_path=path;
+  }
+
+  const {error}=await sb.from('receipts').insert({
+    employee_id:currentUser.id,
+    amount,
+    image_path
+  });
+
+  if(error){
+    if(image_path)await sb.storage.from('receipts').remove([image_path]);
+    return toast(error.message);
+  }
+
+  $('receiptAmount').value='';
+  clearReceiptFile();
+  toast(image_path?'Paragon ze zdjęciem dodany.':'Paragon dodany bez zdjęcia.');
+  await Promise.allSettled([loadOwnReceipts(),loadDashboard()]);
+}
 async function loadOwnReceipts(){
   if(!currentUser?.id)return;
 
@@ -868,14 +928,50 @@ async function addEmployee(){
   }
 }
 
+
+async function deleteEmployee(userId,name){
+  if(!managerAccess)return toast('Tylko management może usuwać pracowników.');
+  if(!userId || userId===currentUser.id)return toast('Nie możesz usunąć własnego konta z tego panelu.');
+
+  const first=confirm(`Usunąć pracownika: ${name}?\n\nTo jest trwałe usunięcie konta.`);
+  if(!first)return;
+
+  const second=confirm(`UWAGA: usunięcie konta może również usunąć powiązaną historię godzin, wyniki i paragony tego pracownika z powodu relacji w bazie.\n\nCzy na pewno kontynuować?`);
+  if(!second)return;
+
+  try{
+    const {data,error}=await sb.functions.invoke('create-employee',{
+      body:{action:'delete',user_id:userId}
+    });
+    if(error)throw error;
+    if(data?.error)throw new Error(data.error);
+
+    toast('Pracownik został usunięty.');
+    profilesCache={};
+    await loadEmployees();
+  }catch(e){
+    console.error('Delete employee:',e);
+    toast('Nie udało się usunąć pracownika: '+(e?.message||'nieznany błąd'));
+  }
+}
+
 async function loadEmployees(){
   if(!isManager())return;
   await preloadProfiles();
+
   const select=$('employeePositionFilter');
   const positions=[...new Set(Object.values(profilesCache).map(p=>(p.position||'Pracownik').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pl'));
-  if(select && select.options.length<=1){
-    positions.forEach(pos=>{const o=document.createElement('option');o.value=pos;o.textContent=pos;select.appendChild(o)});
+  if(select){
+    const current=select.value;
+    select.innerHTML='<option value="">Wszystkie stanowiska</option>';
+    positions.forEach(pos=>{
+      const o=document.createElement('option');
+      o.value=pos;o.textContent=pos;
+      select.appendChild(o);
+    });
+    if([...select.options].some(o=>o.value===current))select.value=current;
   }
+
   const wanted=select?.value||'';
   const rows=Object.values(profilesCache)
     .filter(p=>!wanted || (p.position||'Pracownik')===wanted)
@@ -883,21 +979,46 @@ async function loadEmployees(){
       const pa=(a.position||'Pracownik'), pb=(b.position||'Pracownik');
       return pa.localeCompare(pb,'pl') || (a.full_name||'').localeCompare(b.full_name||'','pl');
     });
-  $('employeesTable').innerHTML=rows.map(p=>`<tr><td>${esc(p.position||'Pracownik')}</td><td>${esc(p.full_name||'—')}</td><td>${p.role==='manager'?'<span class="badge warn">management</span>':'pracownik'}</td><td><span class="badge ${p.active?'on':'off'}">${p.active?'Aktywny':'Nieaktywny'}</span></td></tr>`).join('')||'<tr><td colspan="4">Brak pracowników.</td></tr>';
+
+  $('employeesTable').innerHTML=rows.map(p=>`<tr>
+    <td>${esc(p.position||'Pracownik')}</td>
+    <td>${esc(p.full_name||'—')}</td>
+    <td>${p.role==='manager'?'<span class="badge warn">management</span>':'pracownik'}</td>
+    <td><span class="badge ${p.active?'on':'off'}">${p.active?'Aktywny':'Nieaktywny'}</span></td>
+    <td>${p.id===currentUser.id
+      ?'<span class="muted">Twoje konto</span>'
+      :`<button type="button" class="btn danger smallbtn employee-delete" data-id="${p.id}" data-name="${esc(p.full_name||'pracownika')}">Usuń</button>`}
+    </td>
+  </tr>`).join('')||'<tr><td colspan="5">Brak pracowników.</td></tr>';
+
+  $('employeesTable').querySelectorAll('.employee-delete').forEach(btn=>btn.onclick=()=>deleteEmployee(btn.dataset.id,btn.dataset.name));
 }
 
 async function loadApplications(){
   if(!isManager())return;
+  $('applicationsTable').innerHTML='<tr><td colspan="5" class="muted">Wczytywanie zgłoszeń…</td></tr>';
+
   const {data,error}=await sb.from('job_applications').select('*').order('created_at',{ascending:false});
-  if(error)return toast(error.message);
-  applicationsCache={};(data||[]).forEach(a=>applicationsCache[a.id]=a);
+  if(error){
+    console.error('Recruitment load:',error);
+    $('applicationsTable').innerHTML=`<tr><td colspan="5">Błąd odczytu rekrutacji: ${esc(error.message)}</td></tr>`;
+    return;
+  }
+
+  applicationsCache={};
+  (data||[]).forEach(a=>applicationsCache[a.id]=a);
+
   $('applicationsTable').innerHTML=(data||[]).map(a=>`<tr>
     <td>${esc(a.first_name)} ${esc(a.last_name)}<br><span class="muted">${esc(a.discord_name||'')}</span></td>
     <td>${esc(a.position)}</td>
     <td><select class="statusselect app-status" data-id="${a.id}">${['Nowe','W trakcie','Zaproszono','Przyjęto','Odrzucono'].map(s=>`<option ${a.status===s?'selected':''}>${s}</option>`).join('')}</select></td>
     <td>${fmtDate(a.created_at)}</td>
-    <td><div class="actions-row"><button class="btn ghost smallbtn app-view" data-id="${a.id}">Pełny podgląd</button><button class="btn danger smallbtn app-delete" data-id="${a.id}">Usuń</button></div></td>
-  </tr>`).join('')||'<tr><td colspan="5">Brak zgłoszeń.</td></tr>';
+    <td><div class="actions-row">
+      <button type="button" class="btn ghost smallbtn app-view" data-id="${a.id}">Pełny podgląd</button>
+      <button type="button" class="btn danger smallbtn app-delete" data-id="${a.id}">Usuń</button>
+    </div></td>
+  </tr>`).join('')||'<tr><td colspan="5">Brak zgłoszeń rekrutacyjnych.</td></tr>';
+
   $('applicationsTable').querySelectorAll('.app-status').forEach(s=>s.onchange=async()=>{
     const {error}=await sb.from('job_applications').update({status:s.value}).eq('id',s.dataset.id);
     if(error)toast(error.message);else toast('Status zmieniony.');
@@ -909,7 +1030,94 @@ async function openApplication(id){const a=applicationsCache[id];if(!a)return;co
 async function deleteApplication(id){const a=applicationsCache[id];if(!a||!confirm(`Usunąć zgłoszenie ${a.first_name} ${a.last_name}?`))return;const {error}=await sb.from('job_applications').delete().eq('id',id);if(error)return toast(error.message);if(a.photo_path)await sb.storage.from('cv-applications').remove([a.photo_path]);toast('Zgłoszenie usunięte.');loadApplications()}
 
 const cats=['Dania główne','Desery','Przystawki','Napoje bezalkoholowe','Alkohole'];
-function renderMenu(data,target,manager=false){const h=$(target);h.innerHTML='';cats.forEach(cat=>{const items=(data||[]).filter(x=>x.category===cat&&(manager||x.active!==false)).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));if(!items.length)return;const sec=document.createElement('div');sec.className='menu-category';sec.innerHTML=`<div class="menu-category-head"><h3>${cat}</h3></div><div class="menu-grid">${items.map(i=>`<div class="menu-card"><div class="menu-copy"><div class="menu-name">${esc(i.name)}</div>${i.description?`<div class="menu-desc">${esc(i.description)}</div>`:''}</div><div><div class="menu-price">${fmtMoney(i.price)}</div>${manager?`<div class="actions-row" style="margin-top:8px;justify-content:flex-end"><button class="btn ghost smallbtn menu-toggle" data-id="${i.id}" data-active="${i.active!==false}">${i.active!==false?'Ukryj':'Pokaż'}</button><button class="btn danger smallbtn menu-delete" data-id="${i.id}">Usuń</button></div>`:''}</div></div>`).join('')}</div>`;h.appendChild(sec)});if(manager){h.querySelectorAll('.menu-toggle').forEach(b=>b.onclick=async()=>{const {error}=await sb.from('menu_items').update({active:b.dataset.active!=='true'}).eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()])});h.querySelectorAll('.menu-delete').forEach(b=>b.onclick=async()=>{if(!confirm('Usunąć pozycję menu?'))return;const {error}=await sb.from('menu_items').delete().eq('id',b.dataset.id);if(error)toast(error.message);else Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()])})}}
+let managerMenuCache={};
+
+function renderMenu(data,target,manager=false){
+  const h=$(target);
+  h.innerHTML='';
+
+  if(manager){
+    managerMenuCache={};
+    (data||[]).forEach(i=>managerMenuCache[i.id]=i);
+  }
+
+  cats.forEach(cat=>{
+    const items=(data||[])
+      .filter(x=>x.category===cat&&(manager||x.active!==false))
+      .sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
+
+    if(!items.length)return;
+
+    const sec=document.createElement('div');
+    sec.className='menu-category';
+    sec.innerHTML=`<div class="menu-category-head"><h3>${cat}</h3></div>
+      <div class="menu-grid">
+        ${items.map(i=>`<div class="menu-card">
+          <div class="menu-copy">
+            <div class="menu-name">${esc(i.name)}</div>
+            ${i.description?`<div class="menu-desc">${esc(i.description)}</div>`:''}
+          </div>
+          <div>
+            <div class="menu-price">${fmtMoney(i.price)}</div>
+            ${manager?`<div class="actions-row menu-admin-actions">
+              <button type="button" class="btn gold smallbtn menu-edit" data-id="${i.id}">Edytuj</button>
+              <button type="button" class="btn ghost smallbtn menu-toggle" data-id="${i.id}" data-active="${i.active!==false}">${i.active!==false?'Ukryj':'Pokaż'}</button>
+              <button type="button" class="btn danger smallbtn menu-delete" data-id="${i.id}">Usuń</button>
+            </div>`:''}
+          </div>
+        </div>`).join('')}
+      </div>`;
+    h.appendChild(sec);
+  });
+
+  if(manager){
+    h.querySelectorAll('.menu-edit').forEach(b=>b.onclick=()=>openMenuEdit(b.dataset.id));
+    h.querySelectorAll('.menu-toggle').forEach(b=>b.onclick=async()=>{
+      const {error}=await sb.from('menu_items').update({active:b.dataset.active!=='true'}).eq('id',b.dataset.id);
+      if(error)toast(error.message);
+      else await Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()]);
+    });
+    h.querySelectorAll('.menu-delete').forEach(b=>b.onclick=async()=>{
+      if(!confirm('Usunąć pozycję menu?'))return;
+      const {error}=await sb.from('menu_items').delete().eq('id',b.dataset.id);
+      if(error)toast(error.message);
+      else await Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()]);
+    });
+  }
+}
+
+function openMenuEdit(id){
+  const item=managerMenuCache[id];
+  if(!item)return;
+  $('editMenuId').value=item.id;
+  $('editMenuName').value=item.name||'';
+  $('editMenuPrice').value=item.price??'';
+  $('editMenuDescription').value=item.description||'';
+  $('menuEditModal').classList.add('show');
+}
+
+async function saveMenuEdit(){
+  if(!managerAccess)return toast('Brak uprawnień managementu.');
+  const id=$('editMenuId').value;
+  const name=$('editMenuName').value.trim();
+  const price=Number($('editMenuPrice').value);
+  const description=$('editMenuDescription').value.trim();
+
+  if(!id||!name||Number.isNaN(price)||price<0)return toast('Uzupełnij nazwę i poprawną cenę.');
+
+  const {error}=await sb.from('menu_items').update({
+    name,
+    price,
+    description
+  }).eq('id',id);
+
+  if(error)return toast(error.message);
+
+  $('menuEditModal').classList.remove('show');
+  toast('Pozycja menu zaktualizowana.');
+  await Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()]);
+}
+
 async function loadPublicMenu(){
   const {data,error}=await sb.from('menu_items').select('*').eq('active',true).order('sort_order',{ascending:true});
   if(error){$('clientMenuCategories').innerHTML='<div class="notice">Menu chwilowo niedostępne.</div>';return}
@@ -930,14 +1138,31 @@ async function addMenuItem(){const name=$('menuName').value.trim(),price=Number(
 
 async function loadBookings(){
   if(!isManager())return;
+  $('bookingsTable').innerHTML='<tr><td colspan="7" class="muted">Wczytywanie rezerwacji…</td></tr>';
+
   const {data,error}=await sb.from('bookings').select('*').order('booking_date',{ascending:true}).order('created_at',{ascending:false});
-  if(error)return toast(error.message);
-  window._bookingsCache={};(data||[]).forEach(b=>window._bookingsCache[b.id]=b);
+  if(error){
+    console.error('Bookings load:',error);
+    $('bookingsTable').innerHTML=`<tr><td colspan="7">Błąd odczytu rezerwacji: ${esc(error.message)}</td></tr>`;
+    return;
+  }
+
+  window._bookingsCache={};
+  (data||[]).forEach(b=>window._bookingsCache[b.id]=b);
+
   $('bookingsTable').innerHTML=(data||[]).map(b=>`<tr>
-    <td>${esc(b.customer_name)}</td><td>${esc(b.contact)}</td><td>${fmtDay(b.booking_date)}</td><td>${b.guests}</td><td>${esc(b.space)}</td>
+    <td>${esc(b.customer_name)}</td>
+    <td>${esc(b.contact)}</td>
+    <td>${fmtDay(b.booking_date)}</td>
+    <td>${b.guests}</td>
+    <td>${esc(b.space)}</td>
     <td><select class="statusselect booking-status" data-id="${b.id}">${['Nowa','Potwierdzona','Odrzucona','Zrealizowana'].map(s=>`<option ${b.status===s?'selected':''}>${s}</option>`).join('')}</select></td>
-    <td><div class="actions-row"><button class="btn ghost smallbtn booking-view" data-id="${b.id}">Podgląd</button><button class="btn danger smallbtn booking-delete" data-id="${b.id}">Usuń</button></div></td>
-  </tr>`).join('')||'<tr><td colspan="7">Brak zgłoszeń.</td></tr>';
+    <td><div class="actions-row">
+      <button type="button" class="btn ghost smallbtn booking-view" data-id="${b.id}">Podgląd</button>
+      <button type="button" class="btn danger smallbtn booking-delete" data-id="${b.id}">Usuń</button>
+    </div></td>
+  </tr>`).join('')||'<tr><td colspan="7">Brak rezerwacji.</td></tr>';
+
   $('bookingsTable').querySelectorAll('.booking-status').forEach(s=>s.onchange=async()=>{
     const {error}=await sb.from('bookings').update({status:s.value}).eq('id',s.dataset.id);
     if(error)toast(error.message);else toast('Status zmieniony.');
@@ -946,7 +1171,7 @@ async function loadBookings(){
   $('bookingsTable').querySelectorAll('.booking-delete').forEach(b=>b.onclick=async()=>{
     if(!confirm('Usunąć rezerwację?'))return;
     const {error}=await sb.from('bookings').delete().eq('id',b.dataset.id);
-    if(error)toast(error.message);else{toast('Rezerwacja usunięta.');loadBookings()}
+    if(error)toast(error.message);else{toast('Rezerwacja usunięta.');loadBookings();}
   });
 }
 function openBooking(id){
@@ -1004,8 +1229,8 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
   }else showLogin();
 });$('footerLoginLink')?.addEventListener('click',showLogin);$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
-$('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);
-$('addEmployeeBtn')?.addEventListener('click',addEmployee);$('refreshReceiptsBtn')?.addEventListener('click',()=>loadOwnReceipts());$('refreshManagerReceiptsBtn')?.addEventListener('click',()=>loadManagerReceipts());$('managerReceiptEmployeeFilter')?.addEventListener('change',()=>loadManagerReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;$('addMenuBtn')?.addEventListener('click',addMenuItem);$('saveMenuEditBtn')?.addEventListener('click',saveMenuEdit);
+$('addEmployeeBtn')?.addEventListener('click',addEmployee);$('refreshRecruitmentBtn')?.addEventListener('click',loadApplications);$('refreshBookingsBtn')?.addEventListener('click',loadBookings);$('refreshReceiptsBtn')?.addEventListener('click',()=>loadOwnReceipts());$('refreshManagerReceiptsBtn')?.addEventListener('click',()=>loadManagerReceipts());$('managerReceiptEmployeeFilter')?.addEventListener('change',()=>loadManagerReceipts());$('reloadTimeBtn')?.addEventListener('click',loadManagerSessions);$('timeEmployeeFilter')?.addEventListener('change',loadManagerSessions);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
 
 sb.auth.onAuthStateChange((event,session)=>{
   if(session?.user)currentUser=session.user;
