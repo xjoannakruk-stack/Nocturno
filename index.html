@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO/title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -368,6 +368,82 @@ tbody tr:hover{background:#0b1810}
   .premium-hero p{font-size:14px}
 }
 
+
+/* ============================================================
+   NOCTURNO V22 — POPRAWKI SYNCHRONIZACJI / UI
+   ============================================================ */
+.employee-profile-hero{grid-template-columns:150px 1fr auto!important}
+.profile-photo-wrap{width:150px;height:150px}
+.profile-photo{
+  width:150px!important;height:150px!important;border-radius:24px!important;
+  box-shadow:0 14px 45px rgba(0,0,0,.45),0 0 0 1px rgba(216,178,96,.22)
+}
+.profile-photo-fallback{font-size:48px!important}
+.employee-role-select{
+  min-width:145px!important;font-weight:900!important;
+  border-width:1px!important;transition:.15s ease
+}
+.employee-role-select.role-employee{
+  color:#8ff0b3!important;background:#0a2617!important;border-color:#24633d!important
+}
+.employee-role-select.role-manager{
+  color:#f2cd72!important;background:#2a2109!important;border-color:#7f6420!important;
+  box-shadow:inset 0 0 18px rgba(216,178,96,.07)
+}
+
+/* Blacklist — employee view: photo first, no editing controls */
+.blacklist-grid{grid-template-columns:repeat(4,minmax(180px,1fr))!important;gap:16px!important}
+.black-card{
+  display:block!important;padding:0!important;overflow:hidden;min-height:310px;
+  background:linear-gradient(180deg,#100808,#060705)!important;border-color:#402426!important
+}
+.black-card-photo{
+  width:100%;height:235px;object-fit:cover;display:block;background:#17100e;
+  border-bottom:1px solid #4f2b2d
+}
+.black-card-photo-fallback{
+  display:grid;place-items:center;font:66px Georgia;color:#9e4b4f;
+  background:radial-gradient(circle at 50% 35%,#2a1718,#0b0808)
+}
+.black-card-copy{padding:14px}
+.black-card-copy h4{font:20px Georgia;color:#f1eadc;margin:0 0 6px}
+.black-card-copy .black-reason{font-size:11px;color:#ef9a9f;text-transform:uppercase;letter-spacing:.8px}
+.black-card-copy .black-since{font-size:10px;color:#879088;margin-top:7px}
+.blacklist-admin-layout{display:grid;grid-template-columns:390px 1fr;gap:18px;align-items:start}
+.blacklist-admin-form{position:sticky;top:82px}
+.blacklist-admin-grid{display:grid;grid-template-columns:repeat(3,minmax(170px,1fr));gap:13px}
+.blacklist-admin-grid .black-card{min-height:260px}
+.blacklist-admin-grid .black-card-photo{height:180px}
+
+/* Inline menu editor — more reliable than modal */
+.menu-inline-editor{
+  border:1px solid #6a5525!important;
+  background:linear-gradient(145deg,#161208,#080b08)!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.35)
+}
+.menu-inline-editor.hidden{display:none!important}
+.menu-inline-preview{
+  width:160px;height:105px;object-fit:cover;border-radius:11px;border:1px solid #3c4c40;
+  background:#081008
+}
+.menu-editor-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.menu-editor-title{font:24px Georgia;color:#edc66c}
+.menu-edit-selected{outline:1px solid rgba(216,178,96,.5);box-shadow:0 0 0 3px rgba(216,178,96,.05)}
+.sync-note{font-size:10px;color:#7d8d83;margin-top:6px}
+@media(max-width:1000px){
+  .blacklist-grid{grid-template-columns:repeat(3,1fr)!important}
+  .blacklist-admin-layout{grid-template-columns:1fr}.blacklist-admin-form{position:static}
+}
+@media(max-width:760px){
+  .employee-profile-hero{grid-template-columns:105px 1fr!important}
+  .profile-photo-wrap{width:105px;height:105px}
+  .profile-photo{width:105px!important;height:105px!important;border-radius:20px!important}
+  .blacklist-grid,.blacklist-admin-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:480px){
+  .blacklist-grid,.blacklist-admin-grid{grid-template-columns:1fr!important}
+}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -375,7 +451,7 @@ tbody tr:hover{background:#0b1810}
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V21</div>
+    <div class="sub">Staff Portal V22</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -421,6 +497,7 @@ tbody tr:hover{background:#0b1810}
     <button class="nav" data-page="management-receipts"><span>▣</span>Paragony Management</button>
     <button class="nav" data-page="ranking"><span>♛</span>Ranking</button>
     <button class="nav" data-page="employees"><span>♟</span>Pracownicy</button>
+    <button class="nav" data-page="blacklist-admin"><span>!</span>Czarna lista</button>
     <button class="nav" data-page="recruitment"><span>✦</span>Rekrutacja</button>
     <button class="nav" data-page="bookings"><span>▤</span>Rezerwacje</button>
     <button class="nav" data-page="menu-admin"><span>⚙</span>Zarządzanie Menu</button>
@@ -504,26 +581,9 @@ tbody tr:hover{background:#0b1810}
 </section>
 
 <section id="page-blacklist" class="page">
-  <div class="title"><h1>Czarna lista klientów</h1><p>Lista dostępna dla wszystkich pracowników. Pełny opis pojawia się po kliknięciu osoby.</p></div>
+  <div class="title"><h1>Czarna lista klientów</h1><p>Lista ostrzegawcza dla pracowników. Kliknij osobę, aby zobaczyć pełny powód i opis.</p></div>
   <div class="card menu-searchbar"><span>⌕</span><input id="blacklistSearch" placeholder="Szukaj po imieniu, nazwisku lub telefonie…"></div>
   <div id="blacklistGrid" class="blacklist-grid section-gap"></div>
-  <div class="manager-only hidden section-gap">
-    <div class="card">
-      <div class="label">Dodaj do czarnej listy</div>
-      <div class="grid g3 section-gap">
-        <div class="field"><label>Imię</label><input id="blackFirstName"></div>
-        <div class="field"><label>Nazwisko</label><input id="blackLastName"></div>
-        <div class="field"><label>Telefon</label><input id="blackPhone"></div>
-      </div>
-      <div class="field"><label>Powód</label><input id="blackReason"></div>
-      <div class="field"><label>Pełny opis</label><textarea id="blackDescription" rows="4"></textarea></div>
-      <div class="grid g2">
-        <div class="field"><label>Od kiedy</label><input id="blackSince" type="date"></div>
-        <div class="field"><label>Zdjęcie</label><input id="blackPhoto" type="file" accept="image/*"></div>
-      </div>
-      <button class="btn danger" id="addBlacklistBtn">Dodaj osobę</button>
-    </div>
-  </div>
 </section>
 
 <section id="page-phonebook" class="page">
@@ -718,7 +778,30 @@ tbody tr:hover{background:#0b1810}
   <div class="card tablewrap"><table><thead><tr><th>Pracownik</th><th>Stanowisko</th><th>Rola</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="employeesTable"></tbody></table></div>
 </section>
 
-      <section id="page-recruitment" class="page manager-only-page">
+      <section id="page-blacklist-admin" class="page manager-only-page">
+  <div class="title"><h1>Czarna lista — Management</h1><p>Dodawanie, podgląd i usuwanie osób z czarnej listy. Pracownicy mają wyłącznie podgląd.</p></div>
+  <div class="blacklist-admin-layout">
+    <div class="card blacklist-admin-form">
+      <div class="label">Dodaj osobę</div>
+      <div class="grid g2 section-gap">
+        <div class="field"><label>Imię</label><input id="blackFirstName"></div>
+        <div class="field"><label>Nazwisko</label><input id="blackLastName"></div>
+      </div>
+      <div class="field"><label>Telefon</label><input id="blackPhone"></div>
+      <div class="field"><label>Powód</label><input id="blackReason" placeholder="Krótki powód widoczny na karcie"></div>
+      <div class="field"><label>Pełny opis</label><textarea id="blackDescription" rows="5"></textarea></div>
+      <div class="field"><label>Od kiedy</label><input id="blackSince" type="date"></div>
+      <div class="field"><label>Zdjęcie osoby</label><input id="blackPhoto" type="file" accept="image/*"></div>
+      <button class="btn danger full" id="addBlacklistBtn">Dodaj do czarnej listy</button>
+    </div>
+    <div>
+      <div class="card menu-searchbar"><span>⌕</span><input id="blacklistAdminSearch" placeholder="Szukaj na czarnej liście…"></div>
+      <div id="blacklistAdminGrid" class="blacklist-admin-grid section-gap"></div>
+    </div>
+  </div>
+</section>
+
+<section id="page-recruitment" class="page manager-only-page">
   <div class="title title-with-action"><div><h1>Rekrutacja</h1><p>CV, zdjęcia własne, notatki managementu i statusy.</p></div><button class="btn ghost compactbtn" id="refreshRecruitmentBtn">Odśwież</button></div>
   <div class="status-tabs" id="recruitmentTabs">
     <button data-status="">Wszystkie</button><button data-status="Nowe">Nowe</button><button data-status="W trakcie">W trakcie</button><button data-status="Zaproszono">Zaproszono</button><button data-status="Przyjęto">Przyjęto</button><button data-status="Odrzucono">Odrzucono</button>
@@ -757,6 +840,31 @@ tbody tr:hover{background:#0b1810}
 </div>
 <button class="btn gold" id="addMenuBtn">Dodaj pozycję</button>
         </div>
+        
+        <div id="menuInlineEditor" class="card menu-inline-editor section-gap hidden">
+          <div class="menu-editor-head">
+            <div><div class="label">EDYCJA POZYCJI</div><div class="menu-editor-title" id="menuInlineTitle">—</div></div>
+            <button type="button" class="btn ghost compactbtn" id="menuInlineCancelBtn">Anuluj</button>
+          </div>
+          <div class="grid g3 section-gap">
+            <div class="field"><label>Nazwa</label><input id="menuInlineName"></div>
+            <div class="field"><label>Cena USD</label><input id="menuInlinePrice" type="number" step="1" min="0"></div>
+            <div class="field"><label>Kategoria</label><select id="menuInlineCategory"><option>Dania główne</option><option>Desery</option><option>Przystawki</option><option>Napoje bezalkoholowe</option><option>Alkohole</option></select></div>
+          </div>
+          <div class="grid g2">
+            <div class="field"><label>Krótki opis</label><textarea id="menuInlineDescription" rows="4" maxlength="180"></textarea></div>
+            <div>
+              <div class="field"><label>Promowanie</label><select id="menuInlinePromoted"><option value="none">Brak</option><option value="daily">Oferta dnia</option><option value="weekly">Oferta tygodnia</option><option value="recommended">Polecane przez Nocturno</option></select></div>
+              <div class="field"><label>Zmień / dodaj zdjęcie potrawy</label><input id="menuInlineImage" type="file" accept="image/*"></div>
+              <img id="menuInlinePreview" class="menu-inline-preview hidden" alt="Aktualne zdjęcie">
+            </div>
+          </div>
+          <input id="menuInlineId" type="hidden">
+          <div class="actions-row section-gap">
+            <button type="button" class="btn gold" id="menuInlineSaveBtn">Zapisz zmiany</button>
+          </div>
+        </div>
+
         <div id="managerMenu" class="section-gap"></div>
       </section>
 
@@ -1759,7 +1867,7 @@ async function loadProfile(){
   $('userAvatar').textContent=(data.full_name||'N').trim()[0].toUpperCase();
   $('myProfileFallback').textContent=(data.full_name||'N').trim()[0].toUpperCase();
   $('kpiPosition').textContent=data.position||'Pracownik';
-  $('dashboardGreeting').textContent=`Dobry wieczór, ${(data.first_name||data.full_name||'Pracowniku').split(' ')[0]}.`;
+  $('dashboardGreeting').textContent=`Witaj, ${(data.first_name||data.full_name||'Pracowniku').split(' ')[0]}.`;
   $('profileBox').innerHTML=`<strong>${esc(data.full_name||'Pracownik')}</strong><div class="muted">${esc(data.position||'Pracownik')} · ${managerAccess?'management':'pracownik'}</div><div class="muted">${esc(data.phone||currentUser.email||'')}</div>`;
 
   document.querySelectorAll('.manager-only').forEach(el=>el.classList.toggle('hidden',!managerAccess));
@@ -2334,6 +2442,237 @@ async function submitCv(e){
 }
 
 
+
+/* ============================================================
+   NOCTURNO V22 — FINAL OVERRIDES
+   ============================================================ */
+let blacklistModalAdminMode=false;
+let dashboardSyncBusy=false;
+let menuInlineCurrent=null;
+
+/* Exact DB synchronization: query the relevant periods directly instead of
+   downloading a generic list and calculating from an arbitrary client limit. */
+async function loadDashboard(){
+  if(!currentUser?.id || dashboardSyncBusy)return;
+  dashboardSyncBusy=true;
+  try{
+    const now=new Date(),today=startToday(),tom=endToday(),[weekStart,weekEnd]=currentWeekBounds();
+    const periodStart=await currentPeriodStart();
+
+    let periodSessionsQ=sb.from('work_sessions').select('*').eq('employee_id',currentUser.id).order('started_at',{ascending:false});
+    if(periodStart)periodSessionsQ=periodSessionsQ.gte('started_at',new Date(periodStart).toISOString());
+
+    const [
+      {data:periodSessions,error:sErr},
+      {data:todayReceipts,error:trErr},
+      {data:weekReceipts,error:wrErr},
+      {data:lastReceipt,error:lrErr}
+    ]=await Promise.all([
+      periodSessionsQ,
+      sb.from('receipts').select('id,amount,created_at').eq('employee_id',currentUser.id).gte('created_at',today.toISOString()).lt('created_at',tom.toISOString()).order('created_at',{ascending:false}),
+      sb.from('receipts').select('id,amount,created_at').eq('employee_id',currentUser.id).gte('created_at',weekStart.toISOString()).lt('created_at',weekEnd.toISOString()).order('created_at',{ascending:false}),
+      sb.from('receipts').select('id,amount,created_at').eq('employee_id',currentUser.id).order('created_at',{ascending:false}).limit(1)
+    ]);
+
+    if(sErr)throw sErr;
+    if(trErr)throw trErr;
+    if(wrErr)throw wrErr;
+    if(lrErr)throw lrErr;
+
+    let totalPeriod=0,todaySec=0,weekSec=0,open=null;
+    (periodSessions||[]).forEach(s=>{
+      const st=new Date(s.started_at),en=new Date(s.ended_at||Date.now());
+      totalPeriod+=Math.max(0,(en-st)/1000);
+      const d1=new Date(Math.max(st,today)),d2=new Date(Math.min(en,tom));
+      if(d2>d1)todaySec+=(d2-d1)/1000;
+      const w1=new Date(Math.max(st,weekStart)),w2=new Date(Math.min(en,weekEnd));
+      if(w2>w1)weekSec+=(w2-w1)/1000;
+      if(!s.ended_at&&!open)open=s;
+    });
+
+    const todaySales=(todayReceipts||[]).reduce((a,r)=>a+Number(r.amount||0),0);
+    const weekSales=(weekReceipts||[]).reduce((a,r)=>a+Number(r.amount||0),0);
+
+    $('kpiTodayTime').textContent=fmtDuration(todaySec);
+    $('kpiWeekTime').textContent=fmtDuration(weekSec);
+    $('kpiMyTime').textContent=fmtDuration(totalPeriod);
+    $('kpiTodayReceiptCount').textContent=(todayReceipts||[]).length;
+    $('kpiTodaySales').textContent=fmtMoney(todaySales);
+    $('kpiWeekSales').textContent=fmtMoney(weekSales);
+    $('kpiLastReceipt').textContent=lastReceipt?.[0]?fmtMoney(lastReceipt[0].amount):'—';
+
+    $('dashboardShiftLine').innerHTML=open
+      ?`<span class="badge on">PRACA W TOKU</span> od ${fmtDate(open.started_at)}`
+      :'<span class="badge off">BRAK OTWARTEJ ZMIANY</span>';
+    $('startShiftBtn').disabled=!!open;
+    $('stopShiftBtn').disabled=!open;
+
+    $('mySessionsTable').innerHTML=(periodSessions||[]).slice(0,8).map(s=>`<tr>
+      <td>${fmtDate(s.started_at)}</td>
+      <td>${s.ended_at?fmtDate(s.ended_at):'<span class="badge on">W toku</span>'}</td>
+      <td>${fmtDuration((new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000)}</td>
+    </tr>`).join('')||'<tr><td colspan="3">Brak sesji</td></tr>';
+
+    clearInterval(liveShiftTimer);
+    const tick=()=>{$('liveShiftClock').textContent=open?new Date(Math.max(0,Date.now()-new Date(open.started_at))).toISOString().slice(11,19):'00:00:00';};
+    tick();if(open)liveShiftTimer=setInterval(tick,1000);
+  }catch(e){
+    console.error('Dashboard synchronization:',e);
+    toast('Nie udało się zsynchronizować statystyk z bazą: '+(e?.message||'błąd'));
+  }finally{
+    dashboardSyncBusy=false;
+  }
+}
+
+/* Targeted data synchronization — no full page refresh. */
+async function syncActivePanel(){
+  if($('staffApp')?.classList.contains('hidden'))return;
+  const id=document.querySelector('#staffApp .page.active')?.id||'';
+  if(id==='page-dashboard')await loadDashboard();
+  else if(id==='page-receipts')await loadOwnReceipts();
+  else if(id==='page-management')await loadManagementDashboard();
+  else if(id==='page-management-receipts')await loadManagerReceipts();
+}
+
+/* BLACKLIST */
+async function loadBlacklist(){
+  const {data,error}=await sb.from('customer_blacklist').select('*').eq('active',true).order('created_at',{ascending:false});
+  if(error)return toast(error.message);
+  blacklistCache={};(data||[]).forEach(x=>blacklistCache[x.id]=x);
+  renderBlacklistGallery(data||[],'blacklistGrid',false,$('blacklistSearch')?.value||'');
+  renderBlacklistGallery(data||[],'blacklistAdminGrid',true,$('blacklistAdminSearch')?.value||'');
+}
+async function blacklistCardHtml(x,admin){
+  let u=null;
+  if(x.photo_path)u=await signedUrl('blacklist-photos',x.photo_path);
+  return `<div class="black-card" data-id="${x.id}" data-admin="${admin?'1':'0'}">
+    ${u?`<img class="black-card-photo" src="${u}" alt="${esc(x.first_name)} ${esc(x.last_name)}">`:`<div class="black-card-photo black-card-photo-fallback">!</div>`}
+    <div class="black-card-copy">
+      <h4>${esc(x.first_name)} ${esc(x.last_name)}</h4>
+      <div class="black-reason">${esc(x.reason)}</div>
+      <div class="black-since">Na liście od ${fmtDay(x.blacklisted_since)}</div>
+    </div>
+  </div>`;
+}
+async function renderBlacklistGallery(items,target,admin,query=''){
+  const h=$(target);if(!h)return;
+  const q=String(query||'').trim().toLowerCase();
+  const rows=(items||[]).filter(x=>`${x.first_name} ${x.last_name} ${x.phone||''} ${x.reason||''}`.toLowerCase().includes(q));
+  const cards=[];for(const x of rows)cards.push(await blacklistCardHtml(x,admin));
+  h.innerHTML=cards.join('')||'<div class="notice">Brak osób na czarnej liście.</div>';
+  h.querySelectorAll('.black-card').forEach(c=>c.onclick=()=>openBlacklist(c.dataset.id,c.dataset.admin==='1'));
+}
+async function openBlacklist(id,adminMode=false){
+  const x=blacklistCache[id];if(!x)return;
+  blacklistModalAdminMode=adminMode===true;
+  const u=x.photo_path?await signedUrl('blacklist-photos',x.photo_path):null;
+  $('blacklistDetails').innerHTML=`${u?`<img src="${u}" class="modalimg" style="max-height:440px;object-fit:contain">`:''}
+    <div class="card section-gap"><div class="label">OSOBA</div><h2 style="font-family:Georgia;color:var(--gold)">${esc(x.first_name)} ${esc(x.last_name)}</h2><div>${esc(x.phone||'')}</div></div>
+    <div class="card section-gap"><div class="label">POWÓD</div><strong>${esc(x.reason)}</strong><div class="details-text section-gap">${esc(x.description||'—')}</div><div class="muted section-gap">Na liście od: ${fmtDay(x.blacklisted_since)}</div></div>
+    ${managerAccess&&blacklistModalAdminMode?`<button class="btn danger section-gap" id="blacklistRemoveBtn">Usuń z czarnej listy</button>`:''}`;
+  $('blacklistModal').classList.add('show');
+  $('blacklistRemoveBtn')?.addEventListener('click',async()=>{
+    if(!confirm('Usunąć tę osobę z czarnej listy?'))return;
+    const {error}=await sb.from('customer_blacklist').update({active:false}).eq('id',id);
+    if(error)toast(error.message);else{$('blacklistModal').classList.remove('show');loadBlacklist();toast('Osoba usunięta z listy.');}
+  });
+}
+
+/* EMPLOYEE ROLES — readable colors */
+async function loadEmployees(){
+  if(!managerAccess)return;
+  const {data,error}=await sb.from('profiles').select('*');if(error)return toast(error.message);
+  profilesCache={};(data||[]).forEach(p=>profilesCache[p.id]=p);
+  const filter=$('employeePositionFilter'),positions=[...new Set((data||[]).map(p=>p.position||'Pracownik'))].sort();
+  const current=filter.value;
+  filter.innerHTML='<option value="">Wszystkie stanowiska</option>'+positions.map(p=>`<option>${esc(p)}</option>`).join('');
+  filter.value=positions.includes(current)?current:'';
+
+  const rows=(data||[]).filter(p=>!filter.value||p.position===filter.value).sort((a,b)=>(a.position||'').localeCompare(b.position||'','pl')||(a.full_name||'').localeCompare(b.full_name||'','pl'));
+  $('employeesTable').innerHTML=rows.map(p=>`<tr>
+    <td>${esc(p.full_name||'—')}</td>
+    <td><select class="employee-position-select" data-id="${p.id}">${['Kelner','Kierownik','Kucharz','Manager','Początkujący kelner','Szef','Szef kuchni','Zastępca szefa',p.position||'Pracownik'].filter((x,i,a)=>a.indexOf(x)===i).map(x=>`<option ${x===p.position?'selected':''}>${esc(x)}</option>`).join('')}</select></td>
+    <td><select class="employee-role-select ${p.role==='manager'?'role-manager':'role-employee'}" data-id="${p.id}"><option value="employee" ${p.role==='employee'?'selected':''}>PRACOWNIK</option><option value="manager" ${p.role==='manager'?'selected':''}>MANAGEMENT</option></select></td>
+    <td><button class="btn ${p.active?'primary':'ghost'} smallbtn employee-active" data-id="${p.id}" data-active="${p.active}">${p.active?'Aktywny':'Nieaktywny'}</button></td>
+    <td><div class="actions-row"><button class="btn gold smallbtn employee-profile" data-id="${p.id}">Profil</button><button class="btn primary smallbtn employee-save" data-id="${p.id}">Zapisz</button>${p.id!==currentUser.id?`<button class="btn danger smallbtn employee-delete" data-id="${p.id}" data-name="${esc(p.full_name||'pracownika')}">Usuń</button>`:''}</div></td>
+  </tr>`).join('');
+
+  $('employeesTable').querySelectorAll('.employee-role-select').forEach(s=>s.onchange=()=>{s.classList.toggle('role-manager',s.value==='manager');s.classList.toggle('role-employee',s.value!=='manager');});
+  $('employeesTable').querySelectorAll('.employee-save').forEach(b=>b.onclick=()=>saveEmployeeRow(b.dataset.id));
+  $('employeesTable').querySelectorAll('.employee-active').forEach(b=>b.onclick=async()=>{const val=b.dataset.active!=='true';const {error}=await sb.from('profiles').update({active:val}).eq('id',b.dataset.id);if(error)toast(error.message);else loadEmployees();});
+  $('employeesTable').querySelectorAll('.employee-profile').forEach(b=>b.onclick=()=>openEmployeeProfile(b.dataset.id));
+  $('employeesTable').querySelectorAll('.employee-delete').forEach(b=>b.onclick=()=>deleteEmployee(b.dataset.id,b.dataset.name));
+}
+
+/* MENU — persistent inline editor, including image upload */
+async function openMenuEdit(id){
+  const i=managerMenuCache[id];if(!i)return;
+  menuInlineCurrent=i;
+  $('menuInlineId').value=i.id;
+  $('menuInlineTitle').textContent=i.name||'Pozycja menu';
+  $('menuInlineName').value=i.name||'';
+  $('menuInlinePrice').value=i.price??'';
+  $('menuInlineDescription').value=i.description||'';
+  $('menuInlineCategory').value=i.category||cats[0];
+  $('menuInlinePromoted').value=i.promoted||'none';
+  $('menuInlineImage').value='';
+  $('menuInlineEditor').classList.remove('hidden');
+
+  document.querySelectorAll('#managerMenu .menu-card').forEach(x=>x.classList.remove('menu-edit-selected'));
+  document.querySelector(`#managerMenu .menu-edit[data-id="${id}"]`)?.closest('.menu-card')?.classList.add('menu-edit-selected');
+
+  if(i.image_path){
+    const u=await signedUrl('menu-images',i.image_path);
+    if(u){$('menuInlinePreview').src=u;$('menuInlinePreview').classList.remove('hidden');}
+    else $('menuInlinePreview').classList.add('hidden');
+  }else $('menuInlinePreview').classList.add('hidden');
+
+  $('menuInlineEditor').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function saveMenuInlineEdit(){
+  if(!managerAccess||!menuInlineCurrent)return;
+  const id=$('menuInlineId').value,name=$('menuInlineName').value.trim(),price=Number($('menuInlinePrice').value);
+  if(!name||Number.isNaN(price)||price<0)return toast('Podaj prawidłową nazwę i cenę.');
+
+  const btn=$('menuInlineSaveBtn');btn.disabled=true;btn.textContent='Zapisywanie…';
+  let image_path=menuInlineCurrent.image_path||null,newImage=null;
+  try{
+    const file=$('menuInlineImage').files?.[0];
+    if(file){newImage=await uploadMenuImage(file);image_path=newImage;}
+
+    const {data,error}=await sb.from('menu_items').update({
+      name,price,
+      description:$('menuInlineDescription').value.trim(),
+      category:$('menuInlineCategory').value,
+      promoted:$('menuInlinePromoted').value,
+      image_path
+    }).eq('id',id).select('*').single();
+
+    if(error)throw error;
+    if(newImage&&menuInlineCurrent.image_path)await sb.storage.from('menu-images').remove([menuInlineCurrent.image_path]);
+
+    toast('Pozycja menu została zaktualizowana.');
+    menuInlineCurrent=data;
+    $('menuInlineTitle').textContent=data.name;
+    await Promise.all([loadManagerMenu(),loadStaffMenu(),loadPublicMenu()]);
+    await openMenuEdit(data.id);
+  }catch(e){
+    if(newImage&&image_path===newImage)await sb.storage.from('menu-images').remove([newImage]);
+    console.error('Menu edit:',e);
+    toast('Nie udało się zapisać pozycji: '+(e?.message||'błąd'));
+  }finally{
+    btn.disabled=false;btn.textContent='Zapisz zmiany';
+  }
+}
+function cancelMenuInlineEdit(){
+  menuInlineCurrent=null;$('menuInlineEditor').classList.add('hidden');
+  document.querySelectorAll('#managerMenu .menu-card').forEach(x=>x.classList.remove('menu-edit-selected'));
+}
+
+/* Refresh statistics when user returns to the tab, without reloading the page. */
+window.addEventListener('focus',()=>syncActivePanel());
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')syncActivePanel();});
+
 async function loadManagerPages(){
   if(!managerAccess)return;
   populateRankingWeeks();populateReportWeeks();ensureDailySnapshot();
@@ -2357,6 +2696,7 @@ document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{
   else if(b.dataset.page==='management-receipts')await loadManagerReceipts();
   else if(b.dataset.page==='ranking'){populateRankingWeeks();await loadRankings(currentRankingBounds);}
   else if(b.dataset.page==='employees')await loadEmployees();
+  else if(b.dataset.page==='blacklist-admin')await loadBlacklist();
   else if(b.dataset.page==='recruitment')await loadApplications();
   else if(b.dataset.page==='bookings')await loadBookings();
   else if(b.dataset.page==='menu-admin')await loadManagerMenu();
@@ -2376,7 +2716,7 @@ $('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;
 $('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;
 $('myProfilePhotoInput')?.addEventListener('change',e=>e.target.files?.[0]&&uploadMyProfilePhoto(e.target.files[0]));
 $('saveAvailabilityBtn')?.addEventListener('click',saveAvailability);
-$('blacklistSearch')?.addEventListener('input',()=>renderBlacklist(Object.values(blacklistCache)));
+$('blacklistSearch')?.addEventListener('input',()=>renderBlacklistGallery(Object.values(blacklistCache),'blacklistGrid',false,$('blacklistSearch').value));$('blacklistAdminSearch')?.addEventListener('input',()=>renderBlacklistGallery(Object.values(blacklistCache),'blacklistAdminGrid',true,$('blacklistAdminSearch').value));
 $('addBlacklistBtn')?.addEventListener('click',addBlacklist);
 $('phonebookAddBtn')?.addEventListener('click',addPhonebook);
 $('refreshManagementBtn')?.addEventListener('click',loadManagementDashboard);
@@ -2389,7 +2729,7 @@ $('refreshManagerReceiptsBtn')?.addEventListener('click',loadManagerReceipts);$(
 $('receiptQuickRange')?.addEventListener('change',loadManagerReceipts);$('receiptSort')?.addEventListener('change',loadManagerReceipts);
 $('addEmployeeBtn')?.addEventListener('click',addEmployee);$('employeePositionFilter')?.addEventListener('change',loadEmployees);
 $('refreshRecruitmentBtn')?.addEventListener('click',loadApplications);$('refreshBookingsBtn')?.addEventListener('click',loadBookings);
-$('addMenuBtn')?.addEventListener('click',addMenuItem);$('saveMenuEditBtn')?.addEventListener('click',saveMenuEdit);$('staffMenuSearch')?.addEventListener('input',loadStaffMenu);$('clientMenuSearch')?.addEventListener('input',loadPublicMenu);
+$('addMenuBtn')?.addEventListener('click',addMenuItem);$('saveMenuEditBtn')?.addEventListener('click',saveMenuEdit);$('menuInlineSaveBtn')?.addEventListener('click',saveMenuInlineEdit);$('menuInlineCancelBtn')?.addEventListener('click',cancelMenuInlineEdit);$('staffMenuSearch')?.addEventListener('input',loadStaffMenu);$('clientMenuSearch')?.addEventListener('input',loadPublicMenu);
 $('reportTodayBtn')?.addEventListener('click',()=>loadReport('today'));$('reportWeekBtn')?.addEventListener('click',()=>loadReport('week'));$('reportWeekSelect')?.addEventListener('change',()=>loadReport('week'));$('downloadReportCsvBtn')?.addEventListener('click',downloadReportCsv);$('createSnapshotFromReportsBtn')?.addEventListener('click',()=>createSnapshot('report'));
 $('refreshAuditBtn')?.addEventListener('click',loadAudit);$('createSnapshotBtn')?.addEventListener('click',()=>createSnapshot('manual'));$('downloadLatestSnapshotBtn')?.addEventListener('click',downloadLatestSnapshot);
 $('notificationTopBtn')?.addEventListener('click',()=>{$('notificationPanel').classList.toggle('hidden')});$('notificationFab')?.addEventListener('click',()=>{$('notificationPanel').classList.toggle('hidden')});$('closeNotificationsBtn')?.addEventListener('click',()=>$('notificationPanel').classList.add('hidden'));
