@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOCTURNO — Premium V24</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
 :root{--bg:#030705;--panel:#07110a;--panel2:#0b1710;--green:#2f9b62;--green2:#176b45;--gold:#c8a85a;--gold2:#9e813e;--text:#f4f7f4;--muted:#87958d;--red:#c95c5c;--line:#173424}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 18% 8%,#0d3d27 0,transparent 32%),radial-gradient(circle at 90% 88%,#153523 0,transparent 24%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;scroll-behavior:smooth}button,input,select{font:inherit}.hidden{display:none!important}#app.app-locked{display:none!important}#app.app-authenticated{display:block!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(430px,100%);background:#07110af2;border:1px solid #245238;border-radius:24px;padding:35px;box-shadow:0 30px 90px #0009}.logo{text-align:center;font:52px Georgia;color:var(--green);letter-spacing:8px}.sub{text-align:center;color:var(--muted);font-size:11px;letter-spacing:4px;text-transform:uppercase;margin:8px 0 30px}.field{margin:15px 0}.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #26372b;background:#060a07;color:#fff;border-radius:11px;outline:0}.btn{border:0;border-radius:11px;padding:13px 17px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(135deg,#35ad70,#176b45);color:#fff}.gold{box-shadow:0 6px 22px #0b2b1a66;background:linear-gradient(135deg,#d6b86a,#9f813f);color:#171207}.danger{background:#35191a;color:#ffadad;border:1px solid #633032}.full{width:100%}.error{color:#ff9e9e;font-size:13px;margin-top:12px}
@@ -619,6 +619,183 @@ tbody tr:hover{background:#0b1810}
   .booking-visual-frame,.recruitment-visual-frame{min-height:280px}
 }
 
+
+/* ============================================================
+   NOCTURNO V24 — SCALE / PORTRAIT MEDIA / COMPACT NAV
+   ============================================================ */
+
+/* sidebar: smaller icons/buttons = less scrolling */
+.side{padding:10px 8px!important}
+.side-section{padding-bottom:8px!important;margin-bottom:8px!important}
+.side-caption{font-size:7px!important;margin:8px 7px 5px!important}
+.nav{
+  min-height:31px!important;
+  padding:6px 8px!important;
+  margin-bottom:2px!important;
+  gap:6px!important;
+  font-size:10.5px!important;
+  line-height:1.1!important
+}
+.nav span{
+  width:13px!important;
+  min-width:13px!important;
+  font-size:10px!important;
+  line-height:1!important
+}
+.brand{padding-bottom:10px!important;margin-bottom:7px!important}
+.brand strong{font-size:19px!important}
+.layout{grid-template-columns:190px 1fr!important}
+
+/* bigger working canvas / dashboard */
+.content{
+  max-width:1750px!important;
+  width:100%!important;
+  padding:26px 32px 56px!important
+}
+#page-dashboard .employee-hero{padding:28px 30px!important}
+#page-dashboard .employee-profile-hero{grid-template-columns:170px 1fr auto!important;gap:28px!important}
+#page-dashboard .profile-photo-wrap{width:170px!important;height:170px!important}
+#page-dashboard .profile-photo{width:170px!important;height:170px!important}
+#page-dashboard .stat-card{min-height:126px!important;padding:22px!important}
+#page-dashboard .stat-card .value{font-size:30px!important}
+#page-dashboard .grid.g4{gap:18px!important}
+#page-dashboard .grid.g2{gap:18px!important}
+.password-card{padding:22px 24px!important}
+
+/* employee menu: wider overall, smaller pictures/cards */
+#page-menu{width:100%!important}
+#page-menu #staffMenu{width:100%!important}
+#page-menu .menu-category{margin-bottom:18px!important}
+#page-menu .menu-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:12px!important
+}
+#page-menu .menu-card{min-height:0!important}
+#page-menu .menu-photo{
+  aspect-ratio:2/1!important;
+  height:108px!important;
+  object-fit:cover!important
+}
+#page-menu .menu-card-body{padding:10px 12px!important}
+#page-menu .menu-name{font-size:15px!important}
+#page-menu .menu-desc{font-size:10.5px!important;min-height:28px!important}
+#page-menu .menu-price{font-size:15px!important}
+
+/* availability: larger and easier to use */
+#page-availability .card{padding:26px!important}
+#page-availability .title h1{font-size:38px!important}
+#page-availability .title p{font-size:13px!important}
+#page-availability .availability-grid{
+  grid-template-columns:repeat(4,minmax(210px,1fr))!important;
+  gap:15px!important
+}
+#page-availability .availability-day{
+  min-height:190px!important;
+  padding:18px!important;
+  border-radius:15px!important
+}
+#page-availability .availability-day strong{font-size:16px!important;margin-bottom:12px!important}
+#page-availability .availability-day input{
+  padding:10px!important;
+  font-size:13px!important;
+  margin-top:8px!important
+}
+#page-availability .availability-day label{font-size:13px!important}
+
+/* blacklist: larger photos + visible description */
+#page-blacklist .title h1,#page-blacklist-admin .title h1{font-size:38px!important}
+#page-blacklist .blacklist-grid{
+  grid-template-columns:repeat(3,minmax(260px,1fr))!important;
+  gap:20px!important
+}
+#page-blacklist .black-card{
+  min-height:440px!important;
+  border-radius:18px!important
+}
+#page-blacklist .black-card-photo{height:320px!important}
+#page-blacklist .black-card-copy{padding:17px 18px!important}
+#page-blacklist .black-card-copy h4{font-size:24px!important;margin-bottom:8px!important}
+#page-blacklist .black-reason{font-size:12px!important}
+#page-blacklist .black-card-description{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  margin-top:9px;
+  color:#aab3ad;
+  line-height:1.45;
+  font-size:12px
+}
+#page-blacklist .black-since{font-size:11px!important;margin-top:10px!important}
+#page-blacklist-admin .blacklist-admin-grid{
+  grid-template-columns:repeat(2,minmax(280px,1fr))!important;
+  gap:18px!important
+}
+#page-blacklist-admin .black-card{min-height:390px!important}
+#page-blacklist-admin .black-card-photo{height:275px!important}
+#page-blacklist-admin .black-card-copy h4{font-size:21px!important}
+#page-blacklist-admin .black-card-description{font-size:11.5px;color:#aab3ad;margin-top:8px;line-height:1.4}
+
+/* public booking / recruitment portraits exactly 2:3 visual ratio (1024x1536) */
+#booking .public-split{
+  grid-template-columns:minmax(0,1.12fr) minmax(360px,.62fr)!important;
+  align-items:start!important
+}
+#booking .booking-visual-frame{
+  width:min(100%,520px)!important;
+  aspect-ratio:2/3!important;
+  min-height:0!important;
+  height:auto!important;
+  justify-self:center!important;
+  position:sticky!important;
+  top:90px!important
+}
+#recruitment .recruit-grid{
+  grid-template-columns:minmax(360px,.62fr) minmax(0,1.12fr)!important;
+  align-items:start!important
+}
+#recruitment .recruitment-visual-frame{
+  width:min(100%,520px)!important;
+  aspect-ratio:2/3!important;
+  min-height:0!important;
+  height:auto!important;
+  justify-self:center!important;
+  position:sticky!important;
+  top:90px!important
+}
+#booking .public-section-image,#recruitment .public-section-image{object-fit:cover!important}
+
+/* manager time action row */
+.session-actions{display:flex;gap:6px;flex-wrap:wrap;min-width:220px}
+.session-status-open{background:#103e26;color:#79efaa}
+.session-status-closed{background:#252a27;color:#abb4ae}
+.btn.stop-session{background:#7a5a13!important;border-color:#a47b20!important;color:#ffe7a1!important}
+.btn.delete-session{background:#601d20!important;border-color:#8d3034!important;color:#ffc2c2!important}
+
+/* responsive */
+@media(max-width:1350px){
+  #page-menu .menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  #page-availability .availability-grid{grid-template-columns:repeat(3,minmax(210px,1fr))!important}
+  #page-blacklist .blacklist-grid{grid-template-columns:repeat(2,minmax(260px,1fr))!important}
+}
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr!important}
+  #page-dashboard .employee-profile-hero{grid-template-columns:130px 1fr!important}
+  #page-dashboard .profile-photo-wrap,#page-dashboard .profile-photo{width:130px!important;height:130px!important}
+  #page-menu .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #page-availability .availability-grid{grid-template-columns:repeat(2,minmax(220px,1fr))!important}
+  #booking .public-split,#recruitment .recruit-grid{grid-template-columns:1fr!important}
+  #booking .booking-visual-frame,#recruitment .recruitment-visual-frame{
+    position:relative!important;top:auto!important;width:min(100%,460px)!important
+  }
+}
+@media(max-width:600px){
+  .content{padding:15px!important}
+  #page-dashboard .employee-profile-hero{grid-template-columns:95px 1fr!important}
+  #page-dashboard .profile-photo-wrap,#page-dashboard .profile-photo{width:95px!important;height:95px!important}
+  #page-menu .menu-grid,#page-availability .availability-grid,#page-blacklist .blacklist-grid,#page-blacklist-admin .blacklist-admin-grid{grid-template-columns:1fr!important}
+}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -626,7 +803,7 @@ tbody tr:hover{background:#0b1810}
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V23</div>
+    <div class="sub">Staff Portal V24</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -731,6 +908,22 @@ tbody tr:hover{background:#0b1810}
       <div class="tablewrap section-gap"><table><thead><tr><th>Start</th><th>Koniec</th><th>Czas</th></tr></thead><tbody id="mySessionsTable"></tbody></table></div>
     </div>
   </div>
+
+  <div class="card section-gap password-card">
+    <div class="toolbar" style="margin-bottom:8px">
+      <div>
+        <div class="label">BEZPIECZEŃSTWO KONTA</div>
+        <h3 style="margin:5px 0 0">Zmień swoje hasło</h3>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Nowe hasło</label><input id="myNewPassword" type="password" autocomplete="new-password" placeholder="Minimum 8 znaków"></div>
+      <div class="field"><label>Powtórz hasło</label><input id="myNewPasswordConfirm" type="password" autocomplete="new-password" placeholder="Powtórz nowe hasło"></div>
+      <div class="field"><label>&nbsp;</label><button type="button" class="btn gold full" id="changeMyPasswordBtn">Zmień hasło</button></div>
+    </div>
+    <div class="sync-note">Hasło zmienia się bezpośrednio na Twoim koncie Supabase Auth.</div>
+  </div>
+
 </section>
 
       <section id="page-receipts" class="page">
@@ -928,7 +1121,7 @@ tbody tr:hover{background:#0b1810}
     <div class="actions-row section-gap"><button class="btn gold compactbtn" id="exportTimeCsvBtn">Eksport CSV</button><button class="btn ghost compactbtn" id="weeklyTimeReportBtn">Raport tygodniowy</button></div>
   </div>
   <div class="card tablewrap section-gap">
-    <table><thead><tr><th>Pracownik</th><th>Start</th><th>Koniec</th><th>Czas</th><th>Akcja</th></tr></thead><tbody id="managerSessionsTable"></tbody></table>
+    <table><thead><tr><th>Pracownik</th><th>Start</th><th>Koniec</th><th>Czas</th><th>Status</th><th>Akcje</th></tr></thead><tbody id="managerSessionsTable"></tbody></table>
   </div>
   <div class="card section-gap"><div class="label">Oś czasu zmian</div><div id="shiftTimeline" class="timeline section-gap"></div></div>
 </section>
@@ -2393,6 +2586,90 @@ async function exportTimeCsv(weekly=false){
   const {data,error}=await q;if(error)return toast(error.message);const rows=[['Pracownik','Stanowisko','Start','Koniec','Sekundy','Czas']];(data||[]).forEach(s=>{const sec=(new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000;rows.push([profilesCache[s.employee_id]?.full_name||s.employee_id,profilesCache[s.employee_id]?.position||'',fmtDate(s.started_at),s.ended_at?fmtDate(s.ended_at):'W toku',Math.floor(sec),fmtDuration(sec)])});downloadText(`nocturno_czas_${new Date().toISOString().slice(0,10)}.csv`,rows.map(r=>r.map(csvEscape).join(';')).join('\n'),'text/csv;charset=utf-8');$('timeFrom').value=prevFrom;$('timeTo').value=prevTo;
 }
 
+
+/* V24 — MANAGER: STOP / DELETE WORK SESSION */
+async function loadManagerSessions(){
+  if(!managerAccess)return;
+  await preloadProfiles();
+
+  const filter=$('timeEmployeeFilter');
+  if(filter&&filter.options.length<=1){
+    Object.values(profilesCache)
+      .sort((a,b)=>(a.full_name||'').localeCompare(b.full_name||'','pl'))
+      .forEach(p=>filter.add(new Option(p.full_name||p.id,p.id)));
+  }
+
+  let q=sb.from('work_sessions').select('*').order('started_at',{ascending:false}).limit(1500);
+  if(filter?.value)q=q.eq('employee_id',filter.value);
+
+  const from=$('timeFrom')?.value,to=$('timeTo')?.value;
+  if(from)q=q.gte('started_at',new Date(from+'T00:00:00').toISOString());
+  if(to){
+    const d=new Date(to+'T00:00:00');d.setDate(d.getDate()+1);
+    q=q.lt('started_at',d.toISOString());
+  }
+
+  const {data,error}=await q;
+  if(error)return toast(error.message);
+
+  let sum=0;
+  (data||[]).forEach(s=>sum+=(new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000);
+  $('timeTotal').textContent=fmtDuration(sum);
+  $('timeSessionsCount').textContent=(data||[]).length;
+  $('timeAverage').textContent=fmtDuration((data||[]).length?sum/data.length:0);
+
+  $('managerSessionsTable').innerHTML=(data||[]).map(s=>{
+    const isOpen=!s.ended_at;
+    return `<tr>
+      <td><strong>${esc(profilesCache[s.employee_id]?.full_name||s.employee_id)}</strong><div class="muted">${esc(profilesCache[s.employee_id]?.position||'')}</div></td>
+      <td><input class="manager-datetime session-start" data-id="${s.id}" type="datetime-local" value="${toLocalInputValue(s.started_at)}"></td>
+      <td><input class="manager-datetime session-end" data-id="${s.id}" type="datetime-local" value="${toLocalInputValue(s.ended_at)}"></td>
+      <td>${fmtDuration((new Date(s.ended_at||Date.now())-new Date(s.started_at))/1000)}</td>
+      <td><span class="badge ${isOpen?'session-status-open':'session-status-closed'}">${isOpen?'W TOKU':'ZAKOŃCZONA'}</span></td>
+      <td><div class="session-actions">
+        <button type="button" class="btn primary smallbtn session-save" data-id="${s.id}">Zapisz</button>
+        ${isOpen?`<button type="button" class="btn smallbtn stop-session session-stop" data-id="${s.id}" data-name="${esc(profilesCache[s.employee_id]?.full_name||'pracownika')}">Stop teraz</button>`:''}
+        <button type="button" class="btn smallbtn delete-session session-delete" data-id="${s.id}" data-name="${esc(profilesCache[s.employee_id]?.full_name||'pracownika')}">Usuń wpis</button>
+      </div></td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="6">Brak sesji.</td></tr>';
+
+  $('managerSessionsTable').querySelectorAll('.session-save').forEach(btn=>btn.onclick=async()=>{
+    const id=btn.dataset.id;
+    const st=document.querySelector(`.session-start[data-id="${id}"]`)?.value;
+    const en=document.querySelector(`.session-end[data-id="${id}"]`)?.value;
+    if(!st)return toast('Brak daty rozpoczęcia.');
+    const started_at=localInputToIso(st),ended_at=en?localInputToIso(en):null;
+    if(ended_at&&new Date(ended_at)<new Date(started_at))return toast('Koniec nie może być przed początkiem.');
+    const {error}=await sb.from('work_sessions').update({started_at,ended_at}).eq('id',id);
+    if(error)toast(error.message);else{toast('Godziny zapisane.');await Promise.allSettled([loadManagerSessions(),loadManagementDashboard()]);}
+  });
+
+  $('managerSessionsTable').querySelectorAll('.session-stop').forEach(btn=>btn.onclick=async()=>{
+    if(!confirm(`Zakończyć teraz zmianę: ${btn.dataset.name}?`))return;
+    btn.disabled=true;
+    const {error}=await sb.from('work_sessions').update({ended_at:new Date().toISOString()}).eq('id',btn.dataset.id).is('ended_at',null);
+    if(error)toast(error.message);
+    else{
+      toast('Zmiana pracownika została zakończona.');
+      await Promise.allSettled([loadManagerSessions(),loadManagementDashboard()]);
+    }
+  });
+
+  $('managerSessionsTable').querySelectorAll('.session-delete').forEach(btn=>btn.onclick=async()=>{
+    if(!confirm(`Usunąć wpis czasu pracy: ${btn.dataset.name}?\n\nTej operacji nie będzie w tabeli godzin.`))return;
+    if(!confirm('Potwierdź ponownie usunięcie wpisu czasu pracy.'))return;
+    btn.disabled=true;
+    const {data,error}=await sb.from('work_sessions').delete().eq('id',btn.dataset.id).select('id');
+    if(error)return toast('Nie udało się usunąć: '+error.message);
+    if(!data?.length)return toast('Wpis nie został usunięty — sprawdź uprawnienia RLS.');
+    toast('Wpis czasu pracy został usunięty.');
+    await Promise.allSettled([loadManagerSessions(),loadManagementDashboard()]);
+  });
+
+  renderShiftTimeline(data||[]);
+}
+
 /* RECEIPTS MANAGEMENT */
 async function loadManagerReceipts(){
   if(!managerAccess)return;
@@ -2811,6 +3088,7 @@ async function blacklistCardHtml(x,admin){
     <div class="black-card-copy">
       <h4>${esc(x.first_name)} ${esc(x.last_name)}</h4>
       <div class="black-reason">${esc(x.reason)}</div>
+      ${x.description?`<div class="black-card-description">${esc(x.description)}</div>`:''}
       <div class="black-since">Na liście od ${fmtDay(x.blacklisted_since)}</div>
     </div>
   </div>`;
@@ -3057,6 +3335,31 @@ async function removeSiteMedia(key){
   toast('Zdjęcie usunięte.');
 }
 
+
+/* V24 — SELF SERVICE PASSWORD */
+async function changeMyPassword(){
+  const p=$('myNewPassword')?.value||'';
+  const c=$('myNewPasswordConfirm')?.value||'';
+
+  if(p.length<8)return toast('Nowe hasło musi mieć minimum 8 znaków.');
+  if(p!==c)return toast('Hasła nie są identyczne.');
+
+  const btn=$('changeMyPasswordBtn');
+  if(btn){btn.disabled=true;btn.textContent='Zmienianie…';}
+  try{
+    const {error}=await sb.auth.updateUser({password:p});
+    if(error)throw error;
+    $('myNewPassword').value='';
+    $('myNewPasswordConfirm').value='';
+    toast('Hasło zostało zmienione.');
+  }catch(e){
+    console.error('Password change:',e);
+    toast('Nie udało się zmienić hasła: '+(e?.message||'błąd'));
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Zmień hasło';}
+  }
+}
+
 async function loadManagerPages(){
   if(!managerAccess)return;
   populateRankingWeeks();populateReportWeeks();ensureDailySnapshot();
@@ -3104,7 +3407,7 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
 });$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
 $('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};
-$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;
+$('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;$('changeMyPasswordBtn')?.addEventListener('click',changeMyPassword);
 $('pasteReceiptBtn').onclick=pasteReceiptFromClipboard;$('addReceiptBtn').onclick=addReceipt;$('clearReceiptImageBtn').onclick=clearReceiptFile;
 $('myProfilePhotoInput')?.addEventListener('change',e=>e.target.files?.[0]&&uploadMyProfilePhoto(e.target.files[0]));
 $('saveAvailabilityBtn')?.addEventListener('click',saveAvailability);
