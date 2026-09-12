@@ -444,6 +444,181 @@ tbody tr:hover{background:#0b1810}
   .blacklist-grid,.blacklist-admin-grid{grid-template-columns:1fr!important}
 }
 
+
+/* ============================================================
+   NOCTURNO V23 — PUBLIC SITE COMPACT + MANAGER MEDIA
+   ============================================================ */
+
+/* tighter vertical rhythm */
+.public-wrap{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:18px 3vw 46px!important
+}
+.public-section{
+  margin-top:0!important;
+  padding-top:36px!important;
+  scroll-margin-top:76px!important
+}
+.public-section + .public-section{padding-top:42px!important}
+.public-section .section-head{margin-bottom:14px!important}
+.public-section h2{margin-bottom:2px!important}
+
+/* compact hero: text left, image right */
+.public-hero-v23{
+  min-height:500px!important;
+  height:auto!important;
+  padding:34px 4vw 38px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr)!important;
+  gap:42px!important;
+  align-items:center!important;
+  max-width:none!important;
+  background:
+    radial-gradient(circle at 13% 18%,rgba(20,94,57,.24),transparent 34%),
+    linear-gradient(135deg,#06110a,#020503 72%)!important
+}
+.public-hero-v23:after{height:22%!important}
+.public-hero-v23 .hero-copy-v23{
+  max-width:720px!important;
+  margin:0!important;
+  padding:14px 0 14px 2vw!important;
+  border-left:0!important;
+  background:none!important;
+  backdrop-filter:none!important
+}
+.public-hero-v23 h1{
+  margin:10px 0 13px!important;
+  font-size:clamp(48px,5.5vw,82px)!important;
+  line-height:.94!important
+}
+.public-hero-v23 p{margin:0!important;line-height:1.58!important;font-size:16px!important}
+.public-hero-v23 .hero-actions{margin-top:20px!important}
+
+/* public manager-controlled visuals */
+.public-visual-frame{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(216,178,96,.32);
+  background:
+    radial-gradient(circle at 50% 35%,rgba(20,91,57,.38),transparent 42%),
+    linear-gradient(145deg,#101c14,#050806);
+  box-shadow:0 28px 70px rgba(0,0,0,.4)
+}
+.hero-visual-frame{height:410px}
+.booking-visual-frame{min-height:100%;height:auto}
+.recruitment-visual-frame{min-height:560px}
+.public-section-image{
+  display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0
+}
+.public-image-fallback{
+  position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:10px;
+  color:#b69b5e;text-align:center;letter-spacing:3px;font-size:11px
+}
+.fallback-monogram{
+  font:84px/1 Georgia;color:rgba(216,178,96,.62);
+  text-shadow:0 12px 40px rgba(0,0,0,.5)
+}
+
+/* menu fills the page */
+#menu{width:100%!important}
+#menu .client-menu-shell{
+  grid-template-columns:180px minmax(0,1fr)!important;
+  gap:16px!important;width:100%!important
+}
+#menu .client-menu-main{min-width:0;width:100%}
+#menu .client-menu-main .menu-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:13px!important
+}
+#menu .menu-category{margin-bottom:22px!important}
+#menu .menu-card{min-width:0!important}
+
+/* booking form left, image right */
+.public-split{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(380px,.82fr);
+  gap:20px;
+  align-items:stretch
+}
+#booking .premium-form{
+  max-width:none!important;
+  margin:0!important;
+  height:100%
+}
+.booking-form-left{order:1}
+.booking-visual-frame{order:2}
+
+/* recruitment */
+#recruitment .recruit-grid{
+  grid-template-columns:minmax(380px,.86fr) minmax(0,1.14fr)!important;
+  gap:20px!important
+}
+
+/* management media page */
+.site-media-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px
+}
+.site-media-card h3{
+  font:22px Georgia;color:#f0eadf;margin:8px 0 14px
+}
+.site-media-preview{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid #294331;
+  background:#050a07
+}
+.site-media-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.site-preview-empty{
+  position:absolute;inset:0;display:grid;place-items:center;
+  color:#68766e;font-size:11px;text-transform:uppercase;letter-spacing:1px
+}
+
+/* clearly separated home button in staff sidebar */
+.public-home-nav{color:#e2c675!important;border-color:#3c3420!important}
+.public-home-nav:hover{background:#2b230c!important;border-color:#705b1e!important}
+
+/* responsive */
+@media(max-width:1350px){
+  #menu .client-menu-main .menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:1050px){
+  .public-hero-v23{grid-template-columns:1fr 1fr!important;gap:24px!important}
+  .hero-visual-frame{height:350px}
+  .public-split{grid-template-columns:1fr 1fr}
+  .site-media-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:850px){
+  .public-hero-v23{grid-template-columns:1fr!important;min-height:auto!important;padding:28px 20px!important}
+  .public-hero-v23 .hero-copy-v23{padding:8px 0!important;text-align:left!important}
+  .public-hero-v23 p{margin:0!important}
+  .public-hero-v23 .hero-actions{justify-content:flex-start!important}
+  .hero-visual-frame{height:330px}
+  #menu .client-menu-shell{grid-template-columns:1fr!important}
+  #menu .client-menu-main .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .public-split{grid-template-columns:1fr}
+  .booking-form-left{order:1}.booking-visual-frame{order:2;min-height:360px}
+  #recruitment .recruit-grid{grid-template-columns:1fr!important}
+  .recruitment-visual-frame{min-height:360px}
+  .site-media-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .public-wrap{padding:10px 12px 36px!important}
+  .public-section{padding-top:26px!important}
+  .public-section + .public-section{padding-top:30px!important}
+  .public-hero-v23 h1{font-size:44px!important}
+  .hero-visual-frame{height:260px}
+  #menu .client-menu-main .menu-grid{grid-template-columns:1fr!important}
+  .booking-visual-frame,.recruitment-visual-frame{min-height:280px}
+}
+
 </style>
 </head><body>
 <!-- Ekran logowania pracownika -->
@@ -451,7 +626,7 @@ tbody tr:hover{background:#0b1810}
   <div class="loginbox">
     <img src="assets/nocturno-logo.png" alt="Logo" class="login-brand-img">
     <div class="logo">NOCTURNO</div>
-    <div class="sub">Staff Portal V22</div>
+    <div class="sub">Staff Portal V23</div>
     <form id="loginForm">
       <div class="field">
         <label>E-mail</label>
@@ -482,7 +657,8 @@ tbody tr:hover{background:#0b1810}
     <aside class="side">
   <div class="side-section">
     <div class="side-caption">PANEL PRACOWNIKA</div>
-    <button class="nav active" data-page="dashboard"><span>⌂</span>Pulpit</button>
+    <button class="nav public-home-nav" data-page="public-home"><span>⌂</span>Strona główna</button>
+    <button class="nav active" data-page="dashboard"><span>▣</span>Pulpit</button>
     <button class="nav" data-page="receipts"><span>▣</span>Paragony</button>
     <button class="nav" data-page="menu"><span>◈</span>Menu</button>
     <button class="nav" data-page="availability"><span>◷</span>Dostępność</button>
@@ -493,6 +669,7 @@ tbody tr:hover{background:#0b1810}
   <div class="side-section manager-only hidden">
     <div class="side-caption">MANAGEMENT</div>
     <button class="nav" data-page="management"><span>◆</span>Centrum dowodzenia</button>
+    <button class="nav" data-page="site-appearance"><span>◫</span>Wygląd strony</button>
     <button class="nav" data-page="time"><span>◷</span>Czas pracy</button>
     <button class="nav" data-page="management-receipts"><span>▣</span>Paragony Management</button>
     <button class="nav" data-page="ranking"><span>♛</span>Ranking</button>
@@ -596,6 +773,66 @@ tbody tr:hover{background:#0b1810}
   <div class="field"><label>Notatka</label><input id="phonebookNote"></div>
   <button class="btn gold" id="phonebookAddBtn">Dodaj kontakt</button>
   <div class="card section-gap tablewrap"><table><thead><tr><th>Nazwa</th><th>Telefon</th><th>Kategoria</th><th>Notatka</th><th>Akcja</th></tr></thead><tbody id="phonebookTable"></tbody></table></div>
+</section>
+
+
+<section id="page-site-appearance" class="page manager-only-page">
+  <div class="title">
+    <h1>Wygląd strony głównej</h1>
+    <p>Zdjęcia zapisują się w Supabase i automatycznie pojawiają się na publicznej stronie Nocturno.</p>
+  </div>
+
+  <div class="site-media-grid">
+    <div class="card site-media-card">
+      <div class="label">01 · GŁÓWNA</div>
+      <h3>Zdjęcie obok „Więcej niż restauracja”</h3>
+      <div class="site-media-preview">
+        <img id="siteHeroPreview" class="hidden" alt="Podgląd zdjęcia głównego">
+        <div id="siteHeroPreviewFallback" class="site-preview-empty">Brak zdjęcia</div>
+      </div>
+      <div class="field"><label>Wybierz zdjęcie</label><input id="siteHeroFile" type="file" accept="image/*"></div>
+      <div class="actions-row">
+        <button class="btn gold" id="saveSiteHeroBtn">Zapisz zdjęcie</button>
+        <button class="btn ghost" id="removeSiteHeroBtn">Usuń</button>
+      </div>
+    </div>
+
+    <div class="card site-media-card">
+      <div class="label">02 · VIP / REZERWACJE</div>
+      <h3>Grafika przy formularzu rezerwacji</h3>
+      <div class="site-media-preview">
+        <img id="siteBookingPreview" class="hidden" alt="Podgląd zdjęcia VIP">
+        <div id="siteBookingPreviewFallback" class="site-preview-empty">Brak zdjęcia</div>
+      </div>
+      <div class="field"><label>Wybierz zdjęcie</label><input id="siteBookingFile" type="file" accept="image/*"></div>
+      <div class="actions-row">
+        <button class="btn gold" id="saveSiteBookingBtn">Zapisz zdjęcie</button>
+        <button class="btn ghost" id="removeSiteBookingBtn">Usuń</button>
+      </div>
+    </div>
+
+    <div class="card site-media-card">
+      <div class="label">03 · REKRUTACJA</div>
+      <h3>Grafika „Dołącz do zespołu”</h3>
+      <div class="site-media-preview">
+        <img id="siteRecruitmentPreview" class="hidden" alt="Podgląd zdjęcia rekrutacji">
+        <div id="siteRecruitmentPreviewFallback" class="site-preview-empty">Brak zdjęcia</div>
+      </div>
+      <div class="field"><label>Wybierz zdjęcie</label><input id="siteRecruitmentFile" type="file" accept="image/*"></div>
+      <div class="actions-row">
+        <button class="btn gold" id="saveSiteRecruitmentBtn">Zapisz zdjęcie</button>
+        <button class="btn ghost" id="removeSiteRecruitmentBtn">Usuń</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card section-gap">
+    <div class="label">WSKAZÓWKA</div>
+    <p class="muted" style="line-height:1.65;margin-bottom:0">
+      Najlepiej wyglądają zdjęcia poziome 16:10 lub 4:3, minimum około 1200 px szerokości.
+      Zmiana nie wylogowuje użytkowników i nie ingeruje w dane pracowników, paragony ani rezerwacje.
+    </p>
+  </div>
 </section>
 
 <section id="page-management" class="page manager-only-page">
@@ -956,7 +1193,22 @@ tbody tr:hover{background:#0b1810}
 <a class="discord-btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener" aria-label="Discord Nocturno"><svg class="discord-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.54 4.42A17.5 17.5 0 0 0 15.15 3l-.54 1.1a15.9 15.9 0 0 0-5.22 0L8.85 3a17.5 17.5 0 0 0-4.39 1.42C1.66 8.6.9 12.68 1.27 16.7A17.8 17.8 0 0 0 6.66 19l1.31-1.76a10 10 0 0 1-2.16-1.03l.53-.41c4.15 1.92 8.86 1.92 13.01 0l.53.41a10 10 0 0 1-2.16 1.03L19.03 19a17.8 17.8 0 0 0 5.39-2.3c.44-4.67-.75-8.71-4.88-12.28ZM8.34 14.9c-1.2 0-2.19-1.08-2.19-2.4s.97-2.4 2.19-2.4 2.2 1.08 2.2 2.4-.99 2.4-2.2 2.4Zm7.32 0c-1.21 0-2.2-1.08-2.2-2.4s.98-2.4 2.2-2.4 2.19 1.08 2.19 2.4-.98 2.4-2.19 2.4Z"/></svg>Discord</a>
 <button id="staffLoginBtn">Panel pracownika</button>
 </nav></header>
-<div id="top" class="hero premium-hero"><div><div class="hero-kicker">Vinewood · Parrilla Premium · Vino · Pasión</div><h1>WIĘCEJ NIŻ<br><span>RESTAURACJA</span></h1><p>Smak. Muzyka. Ludzie. Nocturno. Zielone, eleganckie wnętrze na parterze — stworzone na wyjątkowe wieczory, VIP Room i duże wydarzenia.</p><div class="hero-actions"><a class="btn gold" href="#menu" style="text-decoration:none">ZOBACZ MENU</a><a class="btn primary" href="#vip" style="text-decoration:none">ZAREZERWUJ SALĘ</a><a class="discord-btn btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener">💬 DOŁĄCZ NA DISCORD</a></div></div><div class="hero-logo"><img src="assets/nocturno-logo.png" alt="Logo Nocturno"></div></div>
+<div id="top" class="hero premium-hero public-hero-v23">
+  <div class="hero-copy-v23">
+    <div class="hero-kicker">Vinewood · Parrilla Premium · Vino · Pasión</div>
+    <h1>WIĘCEJ NIŻ<br><span>RESTAURACJA</span></h1>
+    <p>Smak. Muzyka. Ludzie. Nocturno. Zielone, eleganckie wnętrze na parterze — stworzone na wyjątkowe wieczory, VIP Room i duże wydarzenia.</p>
+    <div class="hero-actions">
+      <a class="btn gold" href="#menu" style="text-decoration:none">ZOBACZ MENU</a>
+      <a class="btn primary" href="#booking" style="text-decoration:none">ZAREZERWUJ SALĘ</a>
+      <a class="discord-btn btn" href="https://discord.gg/vTuAKBmej" target="_blank" rel="noopener">💬 DISCORD</a>
+    </div>
+  </div>
+  <div class="public-visual-frame hero-visual-frame">
+    <img id="heroPublicImage" class="public-section-image hidden" alt="Wnętrze Nocturno">
+    <div id="heroPublicFallback" class="public-image-fallback"><div class="fallback-monogram">N</div><span>NOCTURNO</span></div>
+  </div>
+</div>
 <div class="public-wrap">
 <section id="menu" class="public-section">
   <div class="section-head">
@@ -973,7 +1225,8 @@ tbody tr:hover{background:#0b1810}
 <!-- Formularz rezerwacji -->
 <section id="booking" class="public-section">
 <div class="section-head"><div><h2>Rezerwacja wydarzenia / VIP</h2><p class="lead">Nocturno nie prowadzi rezerwacji pojedynczych stolików. Formularz dotyczy VIP Room, wesel, eventów i wynajmu restauracji.</p></div></div>
-<div class="public-form premium-form">
+<div class="public-split booking-split">
+<div class="public-form premium-form booking-form-left">
 <form id="restaurantBookingForm">
 <div class="form-grid">
 <div class="field"><label>Imię i nazwisko</label><input id="bkName" required></div>
@@ -992,12 +1245,20 @@ tbody tr:hover{background:#0b1810}
 </div>
 </form>
 </div>
+<div class="public-visual-frame booking-visual-frame">
+  <img id="bookingPublicImage" class="public-section-image hidden" alt="Sala VIP Nocturno">
+  <div id="bookingPublicFallback" class="public-image-fallback"><div class="fallback-monogram">VIP</div><span>SALA VIP · EVENTY · WESELA</span></div>
+</div>
+</div>
 </section>
 
 <section id="recruitment" class="public-section">
 <div class="section-head"><div><h2>Dołącz do zespołu</h2><p class="lead">Prześlij własne zdjęcie i opowiedz nam o sobie.</p></div></div>
 <div class="recruit-grid">
-<div class="recruit-visual"><div class="recruit-glass"><div class="hero-kicker">NOCTURNO CREW</div><h3>Twórz z nami wyjątkowe miejsce.</h3><p>Elastyczna dostępność, system awansów i praca w klimacie premium RP.</p></div></div>
+<div class="public-visual-frame recruitment-visual-frame">
+  <img id="recruitmentPublicImage" class="public-section-image hidden" alt="Dołącz do zespołu Nocturno">
+  <div id="recruitmentPublicFallback" class="public-image-fallback"><div class="fallback-monogram">N</div><span>NOCTURNO CREW</span></div>
+</div>
 <div class="public-form">
 <h3 style="font:27px Georgia;color:var(--gold);margin-top:0">Wyślij CV</h3>
 <form id="cvForm"><div class="form-grid">
@@ -2673,6 +2934,129 @@ function cancelMenuInlineEdit(){
 window.addEventListener('focus',()=>syncActivePanel());
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')syncActivePanel();});
 
+
+/* ============================================================
+   NOCTURNO V23 — PUBLIC SITE MEDIA
+   ============================================================ */
+const SITE_MEDIA_BUCKET='site-media';
+const SITE_MEDIA_KEYS={
+  hero:'hero_home',
+  booking:'booking_vip',
+  recruitment:'recruitment'
+};
+let siteMediaCache={};
+
+function publicMediaUrl(path){
+  if(!path)return null;
+  const {data}=sb.storage.from(SITE_MEDIA_BUCKET).getPublicUrl(path);
+  return data?.publicUrl||null;
+}
+function setPublicImage(imgId,fallbackId,path){
+  const img=$(imgId),fallback=$(fallbackId);
+  if(!img||!fallback)return;
+  const url=publicMediaUrl(path);
+  if(url){
+    img.src=url + (url.includes('?')?'&':'?') + 'v=' + Date.now();
+    img.classList.remove('hidden');
+    fallback.classList.add('hidden');
+  }else{
+    img.removeAttribute('src');
+    img.classList.add('hidden');
+    fallback.classList.remove('hidden');
+  }
+}
+function setManagerMediaPreview(imgId,fallbackId,path){
+  const img=$(imgId),fallback=$(fallbackId);
+  if(!img||!fallback)return;
+  const url=publicMediaUrl(path);
+  if(url){
+    img.src=url + (url.includes('?')?'&':'?') + 'v=' + Date.now();
+    img.classList.remove('hidden');
+    fallback.classList.add('hidden');
+  }else{
+    img.removeAttribute('src');
+    img.classList.add('hidden');
+    fallback.classList.remove('hidden');
+  }
+}
+async function loadPublicMedia(){
+  const {data,error}=await sb.from('site_media').select('section_key,image_path,updated_at');
+  if(error){
+    console.warn('site_media:',error.message);
+    return;
+  }
+  siteMediaCache={};
+  (data||[]).forEach(r=>siteMediaCache[r.section_key]=r);
+
+  setPublicImage('heroPublicImage','heroPublicFallback',siteMediaCache[SITE_MEDIA_KEYS.hero]?.image_path);
+  setPublicImage('bookingPublicImage','bookingPublicFallback',siteMediaCache[SITE_MEDIA_KEYS.booking]?.image_path);
+  setPublicImage('recruitmentPublicImage','recruitmentPublicFallback',siteMediaCache[SITE_MEDIA_KEYS.recruitment]?.image_path);
+
+  setManagerMediaPreview('siteHeroPreview','siteHeroPreviewFallback',siteMediaCache[SITE_MEDIA_KEYS.hero]?.image_path);
+  setManagerMediaPreview('siteBookingPreview','siteBookingPreviewFallback',siteMediaCache[SITE_MEDIA_KEYS.booking]?.image_path);
+  setManagerMediaPreview('siteRecruitmentPreview','siteRecruitmentPreviewFallback',siteMediaCache[SITE_MEDIA_KEYS.recruitment]?.image_path);
+}
+async function loadSiteAppearanceManager(){
+  if(!managerAccess)return;
+  await loadPublicMedia();
+}
+async function saveSiteMedia(key,fileInputId,buttonId){
+  if(!managerAccess)return toast('Tylko management może zmieniać zdjęcia strony.');
+  const file=$(fileInputId)?.files?.[0];
+  if(!file)return toast('Najpierw wybierz zdjęcie.');
+  if(!file.type?.startsWith('image/'))return toast('Wybierz plik graficzny.');
+
+  const btn=$(buttonId);
+  if(btn){btn.disabled=true;btn.textContent='Zapisywanie…';}
+
+  let newPath=null;
+  try{
+    const ext=(file.name?.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');
+    newPath=`${key}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext||'jpg'}`;
+
+    const up=await sb.storage.from(SITE_MEDIA_BUCKET).upload(newPath,file,{
+      contentType:file.type,
+      upsert:false,
+      cacheControl:'3600'
+    });
+    if(up.error)throw up.error;
+
+    const oldPath=siteMediaCache[key]?.image_path||null;
+    const {error}=await sb.from('site_media').upsert({
+      section_key:key,
+      image_path:newPath,
+      updated_by:currentUser.id,
+      updated_at:new Date().toISOString()
+    },{onConflict:'section_key'});
+    if(error)throw error;
+
+    if(oldPath && oldPath!==newPath){
+      await sb.storage.from(SITE_MEDIA_BUCKET).remove([oldPath]);
+    }
+    $(fileInputId).value='';
+    await loadPublicMedia();
+    toast('Zdjęcie strony zostało zapisane.');
+  }catch(e){
+    if(newPath)await sb.storage.from(SITE_MEDIA_BUCKET).remove([newPath]);
+    console.error('saveSiteMedia',e);
+    toast('Nie udało się zapisać zdjęcia: '+(e?.message||'błąd'));
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Zapisz zdjęcie';}
+  }
+}
+async function removeSiteMedia(key){
+  if(!managerAccess)return toast('Brak uprawnień.');
+  const oldPath=siteMediaCache[key]?.image_path||null;
+  if(!oldPath)return toast('W tej sekcji nie ma zapisanego zdjęcia.');
+  if(!confirm('Usunąć to zdjęcie ze strony?'))return;
+
+  const {error}=await sb.from('site_media').delete().eq('section_key',key);
+  if(error)return toast(error.message);
+  await sb.storage.from(SITE_MEDIA_BUCKET).remove([oldPath]);
+  await loadPublicMedia();
+  toast('Zdjęcie usunięte.');
+}
+
 async function loadManagerPages(){
   if(!managerAccess)return;
   populateRankingWeeks();populateReportWeeks();ensureDailySnapshot();
@@ -2684,6 +3068,7 @@ async function loadAll(){
 }
 document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{
   if(b.classList.contains('hidden'))return;
+  if(b.dataset.page==='public-home'){showPublic();await Promise.allSettled([loadPublicMenu(),loadPublicMedia()]);window.scrollTo({top:0,behavior:'smooth'});return;}
   switchPage(b.dataset.page);
   if(b.dataset.page==='dashboard')await loadDashboard();
   else if(b.dataset.page==='receipts')await loadOwnReceipts();
@@ -2692,6 +3077,7 @@ document.querySelectorAll('#staffApp .nav').forEach(b=>b.onclick=async()=>{
   else if(b.dataset.page==='blacklist')await loadBlacklist();
   else if(b.dataset.page==='phonebook')await loadPhonebook();
   else if(b.dataset.page==='management')await loadManagementDashboard();
+  else if(b.dataset.page==='site-appearance')await loadSiteAppearanceManager();
   else if(b.dataset.page==='time')await loadManagerSessions();
   else if(b.dataset.page==='management-receipts')await loadManagerReceipts();
   else if(b.dataset.page==='ranking'){populateRankingWeeks();await loadRankings(currentRankingBounds);}
@@ -2709,7 +3095,13 @@ $('staffLoginBtn')?.addEventListener('click',async()=>{
     currentUser=data.session.user;showApp();
     try{await loadAll()}catch(e){console.error(e);toast('Część danych panelu nie mogła się załadować.')}
   }else showLogin();
-});$('footerLoginLink')?.addEventListener('click',showLogin);$('backToPublicFromLogin')?.addEventListener('click',showPublic);
+});$('footerLoginLink')?.addEventListener('click',async()=>{
+  const {data}=await sb.auth.getSession();
+  if(data?.session?.user){
+    currentUser=data.session.user;showApp();
+    try{await loadAll()}catch(e){console.error(e);toast('Część danych panelu nie mogła się załadować.')}
+  }else showLogin();
+});$('backToPublicFromLogin')?.addEventListener('click',showPublic);
 $('loginForm')?.addEventListener('submit',async e=>{e.preventDefault();$('loginError').classList.add('hidden');const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error){$('loginError').textContent=error.message;$('loginError').classList.remove('hidden');return}currentUser=data.user;showApp();try{await loadAll()}catch(err){console.error(err);toast('Zalogowano, ale część danych nie mogła się załadować.')}});
 $('logoutBtn').onclick=async()=>{await sb.auth.signOut();currentUser=null;currentProfile=null;profileReady=false;managerAccess=false;profilesCache={};showPublic()};
 $('startShiftBtn').onclick=startShift;$('stopShiftBtn').onclick=stopShift;
@@ -2719,6 +3111,12 @@ $('saveAvailabilityBtn')?.addEventListener('click',saveAvailability);
 $('blacklistSearch')?.addEventListener('input',()=>renderBlacklistGallery(Object.values(blacklistCache),'blacklistGrid',false,$('blacklistSearch').value));$('blacklistAdminSearch')?.addEventListener('input',()=>renderBlacklistGallery(Object.values(blacklistCache),'blacklistAdminGrid',true,$('blacklistAdminSearch').value));
 $('addBlacklistBtn')?.addEventListener('click',addBlacklist);
 $('phonebookAddBtn')?.addEventListener('click',addPhonebook);
+$('saveSiteHeroBtn')?.addEventListener('click',()=>saveSiteMedia(SITE_MEDIA_KEYS.hero,'siteHeroFile','saveSiteHeroBtn'));
+$('saveSiteBookingBtn')?.addEventListener('click',()=>saveSiteMedia(SITE_MEDIA_KEYS.booking,'siteBookingFile','saveSiteBookingBtn'));
+$('saveSiteRecruitmentBtn')?.addEventListener('click',()=>saveSiteMedia(SITE_MEDIA_KEYS.recruitment,'siteRecruitmentFile','saveSiteRecruitmentBtn'));
+$('removeSiteHeroBtn')?.addEventListener('click',()=>removeSiteMedia(SITE_MEDIA_KEYS.hero));
+$('removeSiteBookingBtn')?.addEventListener('click',()=>removeSiteMedia(SITE_MEDIA_KEYS.booking));
+$('removeSiteRecruitmentBtn')?.addEventListener('click',()=>removeSiteMedia(SITE_MEDIA_KEYS.recruitment));
 $('refreshManagementBtn')?.addEventListener('click',loadManagementDashboard);
 $('saveSalesGoalBtn')?.addEventListener('click',saveSalesGoal);
 $('closeDayBtn')?.addEventListener('click',async()=>{await loadReport('today');await createSnapshot('close-day');toast('Raport dnia obliczony i snapshot utworzony.');});
@@ -2758,7 +3156,7 @@ sb.auth.onAuthStateChange((event,session)=>{
 
 const backToTopBtn=document.getElementById('backToTop');window.addEventListener('scroll',()=>{if(window.scrollY>300)backToTopBtn.classList.add('show');else backToTopBtn.classList.remove('show')});backToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 (async()=>{
-  await loadPublicMenu();
+  await Promise.allSettled([loadPublicMenu(),loadPublicMedia()]);
   const {data}=await sb.auth.getSession();
   currentUser=data?.session?.user||null;
 
